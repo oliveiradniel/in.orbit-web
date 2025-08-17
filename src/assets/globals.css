@@ -1,5 +1,5 @@
 @import 'tailwindcss';
 
-/* biome-ignore lint/suspicious/noUnknownAtRules: false */
+/* biome-ignore lint/suspicious/noUnknownAtRules: off */
 @theme {
 }
