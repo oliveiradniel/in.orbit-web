@@ -1,0 +1,23 @@
+/* biome-ignore lint/suspicious/noUnknownAtRules: off */
+@theme {
+  --animate-dialog-open: dialog-open 0.2s linear;
+  --animate-dialog-close: dialog-close 0.2s linear;
+
+  @keyframes dialog-open {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes dialog-close {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+}

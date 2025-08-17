@@ -14,6 +14,8 @@ import {
 
 import { weeklyFrequencyOptions } from './weeklyFrequencyOptions';
 
+import './styles.css';
+
 interface DialogProps {
   isOpen: boolean;
   onClose(): void;
@@ -25,20 +27,24 @@ export function NewGoalDialog({ isOpen, onClose }: DialogProps) {
   return (
     <Dialog.Root isOpen={isOpen} onClose={onClose}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm" />
+        <Dialog.Overlay />
 
-        <Dialog.Content className="w-[400px] border-l border-zinc-900 bg-zinc-950">
+        <Dialog.Content className="data-[state=open]:animate-dialog-open data-[state=closed]:animate-dialog-close w-[400px] border-l border-zinc-900 bg-zinc-950">
           <div className="flex h-full flex-col gap-6">
             <header className="flex flex-col gap-3">
               <div className="flex items-center justify-between">
                 <Dialog.Title>Cadastrar meta</Dialog.Title>
 
                 <button
+                  aria-label="Fechar"
                   type="button"
                   onClick={onClose}
                   className="cursor-pointer"
                 >
-                  <X className="size-5 text-zinc-600 transition-colors duration-300 ease-linear hover:text-zinc-700" />
+                  <X
+                    aria-hidden="true"
+                    className="size-5 text-zinc-600 transition-colors duration-300 ease-linear hover:text-zinc-700"
+                  />
                 </button>
               </div>
 
@@ -48,7 +54,7 @@ export function NewGoalDialog({ isOpen, onClose }: DialogProps) {
               </Dialog.Description>
             </header>
 
-            <form action="" className="flex flex-1 flex-col justify-between">
+            <form className="flex flex-1 flex-col justify-between">
               <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
                   <Label htmlFor={inputTitleId}>Qual a atividade?</Label>
@@ -59,8 +65,8 @@ export function NewGoalDialog({ isOpen, onClose }: DialogProps) {
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor={inputTitleId}>Quantas vezes na semana?</Label>
-                  <RadioGroup>
+                  <Label>Quantas vezes na semana?</Label>
+                  <RadioGroup aria-label="Deseja praticar a atividade quantas vezes na semana?">
                     {weeklyFrequencyOptions.map(({ value, label, icon }) => (
                       <RadioGroupItem key={value} value={value}>
                         <RadioGroupIndicator />
@@ -76,6 +82,7 @@ export function NewGoalDialog({ isOpen, onClose }: DialogProps) {
 
               <div className="flex items-center gap-3">
                 <Button
+                  aria-label="Fechar"
                   type="button"
                   onClick={onClose}
                   variant="secondary"

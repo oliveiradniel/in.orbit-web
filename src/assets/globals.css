@@ -1,5 +1,27 @@
 @import 'tailwindcss';
 
+@import '../components/NewGoalDialog/styles.css';
+
 /* biome-ignore lint/suspicious/noUnknownAtRules: off */
 @theme {
+  --animate-fade-in: fade-in 0.2s linear;
+  --animate-fade-out: fade-out 0.2s linear;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 100;
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 100;
+    }
+    to {
+      opacity: 0;
+    }
+  }
 }

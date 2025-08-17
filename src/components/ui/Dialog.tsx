@@ -23,10 +23,13 @@ function DialogPortal(props: RdxDialog.DialogPortalProps) {
   return <RdxDialog.Portal {...props} />;
 }
 
-function DialogOverlay(props: RdxDialog.DialogOverlayProps) {
+function DialogOverlay({ className, ...props }: RdxDialog.DialogOverlayProps) {
   return (
     <RdxDialog.Overlay
-      className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+      className={cn(
+        'data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out fixed inset-0 z-40 bg-black/40 backdrop-blur-sm',
+        className
+      )}
       {...props}
     />
   );
