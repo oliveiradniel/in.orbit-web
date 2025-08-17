@@ -1,31 +1,29 @@
-import * as RdxDialog from '@radix-ui/react-dialog';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+
 import { cn } from '@/utils/cn';
 
-interface RootProps {
-  children: React.ReactNode;
-  isOpen: boolean;
-  onClose(): void;
+function RdxDialog(props: DialogPrimitive.DialogProps) {
+  return <DialogPrimitive.Dialog {...props} />;
 }
 
-function Root({ children, isOpen, onClose, ...props }: RootProps) {
+function DialogTrigger(props: DialogPrimitive.DialogTriggerProps) {
+  return <DialogPrimitive.Trigger {...props} />;
+}
+
+function DialogClose(props: DialogPrimitive.DialogCloseProps) {
+  return <DialogPrimitive.Close {...props} />;
+}
+
+function DialogPortal(props: DialogPrimitive.DialogPortalProps) {
+  return <DialogPrimitive.Portal {...props} />;
+}
+
+function DialogOverlay({
+  className,
+  ...props
+}: DialogPrimitive.DialogOverlayProps) {
   return (
-    <RdxDialog.Root open={isOpen} onOpenChange={onClose} {...props}>
-      {children}
-    </RdxDialog.Root>
-  );
-}
-
-function DialogTrigger(props: RdxDialog.DialogTriggerProps) {
-  return <RdxDialog.Trigger {...props} />;
-}
-
-function DialogPortal(props: RdxDialog.DialogPortalProps) {
-  return <RdxDialog.Portal {...props} />;
-}
-
-function DialogOverlay({ className, ...props }: RdxDialog.DialogOverlayProps) {
-  return (
-    <RdxDialog.Overlay
+    <DialogPrimitive.Overlay
       className={cn(
         'data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out fixed inset-0 z-40 bg-black/40 backdrop-blur-sm',
         className
@@ -35,9 +33,12 @@ function DialogOverlay({ className, ...props }: RdxDialog.DialogOverlayProps) {
   );
 }
 
-function DialogContent({ className, ...props }: RdxDialog.DialogContentProps) {
+function DialogContent({
+  className,
+  ...props
+}: DialogPrimitive.DialogContentProps) {
   return (
-    <RdxDialog.Content
+    <DialogPrimitive.Content
       className={cn(
         'fixed top-0 right-0 bottom-0 z-50 border-zinc-900 bg-zinc-950 p-8',
         className
@@ -47,13 +48,13 @@ function DialogContent({ className, ...props }: RdxDialog.DialogContentProps) {
   );
 }
 
-function DialogTitle(props: RdxDialog.DialogTitleProps) {
-  return <RdxDialog.Title className="text-lg font-semibold" {...props} />;
+function DialogTitle(props: DialogPrimitive.DialogTitleProps) {
+  return <DialogPrimitive.Title className="text-lg font-semibold" {...props} />;
 }
 
-function DialogDescription(props: RdxDialog.DialogDescriptionProps) {
+function DialogDescription(props: DialogPrimitive.DialogDescriptionProps) {
   return (
-    <RdxDialog.Description
+    <DialogPrimitive.Description
       className="text-sm leading-relaxed text-zinc-400"
       {...props}
     />
@@ -61,8 +62,9 @@ function DialogDescription(props: RdxDialog.DialogDescriptionProps) {
 }
 
 export const Dialog = {
-  Root,
+  Root: RdxDialog,
   Trigger: DialogTrigger,
+  Close: DialogClose,
   Portal: DialogPortal,
   Overlay: DialogOverlay,
   Content: DialogContent,
