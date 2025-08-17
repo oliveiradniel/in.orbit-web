@@ -1,4 +1,5 @@
 import * as RdxDialog from '@radix-ui/react-dialog';
+import { cn } from '@/utils/cn';
 
 interface RootProps {
   children: React.ReactNode;
@@ -31,10 +32,13 @@ function DialogOverlay(props: RdxDialog.DialogOverlayProps) {
   );
 }
 
-function DialogContent(props: RdxDialog.DialogContentProps) {
+function DialogContent({ className, ...props }: RdxDialog.DialogContentProps) {
   return (
     <RdxDialog.Content
-      className="fixed top-0 right-0 bottom-0 z-50 border-zinc-900 bg-zinc-950 p-8"
+      className={cn(
+        'fixed top-0 right-0 bottom-0 z-50 border-zinc-900 bg-zinc-950 p-8',
+        className
+      )}
       {...props}
     />
   );
