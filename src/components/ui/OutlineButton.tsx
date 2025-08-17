@@ -7,7 +7,7 @@ export function OutlineButton(props: ComponentProps<'button'>) {
     <button
       {...props}
       className={cn(
-        'flex items-center gap-2 rounded-full border border-dashed border-zinc-800 px-3 py-2 text-sm leading-none text-zinc-300 ring-pink-500/10 outline-none hover:border-zinc-700 focus-visible:border-pink-500 focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50',
+        'flex cursor-pointer items-center gap-2 rounded-full border border-dashed border-zinc-800 px-3 py-2 text-sm leading-none text-zinc-300 ring-pink-500/10 transition-colors duration-300 ease-linear outline-none hover:border-zinc-700 focus-visible:border-pink-500 focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50',
         props.className
       )}
     />
