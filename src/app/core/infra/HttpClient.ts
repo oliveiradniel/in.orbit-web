@@ -2,12 +2,9 @@ import axios, { type AxiosInstance } from 'axios';
 
 import { env } from '@/config/env';
 
-import type {
-  HttpClientInterface,
-  HttpRequestConfig,
-} from '../interfaces/HttpClientInterface';
+import type { HttpRequestConfig, IHttpClient } from '../interfaces/IHttpClient';
 
-export class HttpClient implements HttpClientInterface {
+export class HttpClient implements IHttpClient {
   private readonly axiosInstance: AxiosInstance;
 
   constructor() {
@@ -27,7 +24,7 @@ export class HttpClient implements HttpClientInterface {
 
   async post<ResponseType, BodyType = unknown>(
     path: string,
-    body?: BodyType,
+    body: BodyType,
     config?: HttpRequestConfig
   ): Promise<ResponseType> {
     const response = await this.axiosInstance.post<ResponseType>(

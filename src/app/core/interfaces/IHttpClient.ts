@@ -6,14 +6,14 @@ export type HttpRequestConfig = {
 
 export type HttpRequestBody = Record<string, string | number>;
 
-export interface HttpClientInterface {
+export interface IHttpClient {
   get<ResponseType>(
     path: string,
     config?: HttpRequestConfig
   ): Promise<ResponseType>;
   post<ResponseType, BodyType = unknown>(
     path: string,
-    body?: BodyType,
+    body: BodyType,
     config?: HttpRequestConfig
   ): Promise<ResponseType>;
 }
