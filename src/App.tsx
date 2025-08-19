@@ -1,3 +1,4 @@
+// import { EmptyGoals } from './components/EmptyGoals';
 import { NewGoalDialog } from './components/NewGoalDialog';
 import { Summary } from './components/Summary';
 import { Dialog } from './components/ui/Dialog';
