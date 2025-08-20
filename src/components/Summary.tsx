@@ -33,9 +33,7 @@ export function Summary() {
 
   const goalsPerDay = weeklySummaryOfCompletedGoals?.goalsPerDay;
   const goalsPerDayArray = goalsPerDay
-    ? Object.entries(goalsPerDay)
-        .map(([date, goals]) => ({ date, goals }))
-        .sort((a, b) => dayjs(a.date).unix() - dayjs(b.date).unix())
+    ? Object.entries(goalsPerDay).map(([date, goals]) => ({ date, goals }))
     : [];
 
   return (
