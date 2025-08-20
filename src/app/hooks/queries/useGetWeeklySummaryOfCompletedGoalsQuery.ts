@@ -5,16 +5,16 @@ import { makeGoalService } from '@/app/factories/makeGoalService';
 export function useGetWeeklySummaryOfCompletedGoalsQuery() {
   const goalService = makeGoalService();
 
-  function getWeeklySummaryOfCompletedGoalsQuery() {
+  function getWeeklySummaryOfCompletedGoals() {
     return goalService.getWeeklySummaryOfCompletedGoals();
   }
 
   const { data } = useQuery({
     queryKey: ['weeklySummary'],
-    queryFn: getWeeklySummaryOfCompletedGoalsQuery,
+    queryFn: getWeeklySummaryOfCompletedGoals,
   });
 
   return {
-    weeklySummaryOfCompletedGoalsQuery: data ?? null,
+    weeklySummaryOfCompletedGoals: data ?? null,
   };
 }

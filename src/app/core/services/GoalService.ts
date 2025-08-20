@@ -1,7 +1,7 @@
-import type { Summary } from '@/@types/Summary';
+import type { GoalWithCompletionCount, Summary } from '@/@types/Summary';
 
 import type { IGoalService } from '../interfaces/IGoalService';
-import type { IHttpClient } from '../interfaces/IHttpClient';
+import type { HttpRequestConfig, IHttpClient } from '../interfaces/IHttpClient';
 
 export class GoalService implements IGoalService {
   private readonly httpClient: IHttpClient;
@@ -10,7 +10,15 @@ export class GoalService implements IGoalService {
     this.httpClient = httpClient;
   }
 
-  getWeeklySummaryOfCompletedGoals(): Promise<Summary> {
-    return this.httpClient.get<Summary>('/goals/summary');
+  getWeeklyGoalsWithCompletionCount(
+    config?: HttpRequestConfig
+  ): Promise<GoalWithCompletionCount[]> {
+    return this.httpClient.get<GoalWithCompletionCount[]>('/goals', config);
+  }
+
+  getWeeklySummaryOfCompletedGoals(
+    config?: HttpRequestConfig
+  ): Promise<Summary> {
+    return this.httpClient.get<Summary>('/goals/summary', config);
   }
 }

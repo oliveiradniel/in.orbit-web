@@ -1,16 +1,16 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
 
-import { CheckCircle2, Plus, PlusIcon } from 'lucide-react';
+import { CheckCircle2, Plus } from 'lucide-react';
 
 import { useId } from 'react';
 import { useGetWeeklySummaryOfCompletedGoalsQuery } from '@/app/hooks/queries/useGetWeeklySummaryOfCompletedGoalsQuery';
 
 import inOrbitIcon from '@/assets/images/in-orbit-icon.svg';
 
+import { GoalButtons } from './GoalButtons';
 import { Button } from './ui/Button';
 import { Dialog } from './ui/Dialog';
-import { OutlineButton } from './ui/OutlineButton';
 import { Progress, ProgressIndicator } from './ui/ProgressBar';
 import { Separator } from './ui/Separator';
 
@@ -19,18 +19,18 @@ dayjs.locale('pt-BR');
 export function Summary() {
   const containerSummaryId = useId();
 
-  const { weeklySummaryOfCompletedGoalsQuery } =
+  const { weeklySummaryOfCompletedGoals } =
     useGetWeeklySummaryOfCompletedGoalsQuery();
 
   const firstDayOfWeek = dayjs().startOf('week').format('D MMMM');
   const lastDayOfWeek = dayjs().endOf('week').format('D MMMM');
 
-  const totalGoals = weeklySummaryOfCompletedGoalsQuery?.total!;
-  const completedGoals = weeklySummaryOfCompletedGoalsQuery?.completed!;
+  const totalGoals = weeklySummaryOfCompletedGoals?.total!;
+  const completedGoals = weeklySummaryOfCompletedGoals?.completed!;
   const percentGoalsCompleted =
     totalGoals > 0 ? ((completedGoals / totalGoals) * 100).toFixed(0) : 0;
 
-  const goalsPerDay = weeklySummaryOfCompletedGoalsQuery?.goalsPerDay;
+  const goalsPerDay = weeklySummaryOfCompletedGoals?.goalsPerDay;
   const goalsPerDayArray = goalsPerDay
     ? Object.entries(goalsPerDay)
         .map(([date, goals]) => ({ date, goals }))
@@ -85,26 +85,7 @@ export function Summary() {
 
       <Separator />
 
-      <div className="flex flex-wrap gap-3">
-        <OutlineButton>
-          <PlusIcon aria-hidden="true" className="size-4 text-zinc-600" />{' '}
-          Meditar
-        </OutlineButton>
-
-        <OutlineButton>
-          <PlusIcon aria-hidden="true" className="size-4 text-zinc-600" /> Nadar
-        </OutlineButton>
-
-        <OutlineButton>
-          <PlusIcon aria-hidden="true" className="size-4 text-zinc-600" />{' '}
-          Praticar exercício
-        </OutlineButton>
-
-        <OutlineButton>
-          <PlusIcon aria-hidden="true" className="size-4 text-zinc-600" /> Me
-          alimentar bem
-        </OutlineButton>
-      </div>
+      <GoalButtons />
 
       <main
         aria-labelledby={containerSummaryId}

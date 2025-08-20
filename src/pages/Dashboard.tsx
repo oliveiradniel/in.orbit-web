@@ -6,12 +6,11 @@ import { Summary } from '@/components/Summary';
 import { Dialog } from '@/components/ui/Dialog';
 
 export function Dashboard() {
-  const { weeklySummaryOfCompletedGoalsQuery } =
+  const { weeklySummaryOfCompletedGoals } =
     useGetWeeklySummaryOfCompletedGoalsQuery();
 
   const hasGoals =
-    weeklySummaryOfCompletedGoalsQuery &&
-    weeklySummaryOfCompletedGoalsQuery?.total > 0;
+    weeklySummaryOfCompletedGoals && weeklySummaryOfCompletedGoals?.total > 0;
 
   return (
     <Dialog.Root>
