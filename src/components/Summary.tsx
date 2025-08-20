@@ -13,13 +13,14 @@ import { Button } from './ui/Button';
 import { Dialog } from './ui/Dialog';
 import { Progress, ProgressIndicator } from './ui/ProgressBar';
 import { Separator } from './ui/Separator';
+import { Spinner } from './ui/Spinner';
 
 dayjs.locale('pt-BR');
 
 export function Summary() {
   const containerSummaryId = useId();
 
-  const { weeklySummaryOfCompletedGoals } =
+  const { weeklySummaryOfCompletedGoals, isRefetchingWeeklySummary } =
     useGetWeeklySummaryOfCompletedGoalsQuery();
 
   const firstDayOfWeek = dayjs().startOf('week').format('D MMMM');
@@ -49,7 +50,7 @@ export function Summary() {
         </div>
 
         <Dialog.Trigger asChild>
-          <Button type="button" size="sm">
+          <Button type="button" size="sm" disabled={isRefetchingWeeklySummary}>
             <Plus className="size-4" />
             Cadastrar meta
           </Button>
@@ -91,8 +92,12 @@ export function Summary() {
         aria-labelledby={containerSummaryId}
         className="flex flex-col gap-6"
       >
-        <h1 id={containerSummaryId} className="text-2xl font-medium">
+        <h1
+          id={containerSummaryId}
+          className="flex items-center gap-4 text-2xl leading-none font-medium"
+        >
           Sua semana
+          {isRefetchingWeeklySummary && <Spinner className="h-4 w-4" />}
         </h1>
 
         {goalsPerDayArray?.map(({ date, goals }) => {

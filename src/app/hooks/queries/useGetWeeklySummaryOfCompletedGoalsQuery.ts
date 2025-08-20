@@ -12,7 +12,7 @@ export function useGetWeeklySummaryOfCompletedGoalsQuery() {
     return goalService.getWeeklySummaryOfCompletedGoals();
   }
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isFetching } = useQuery({
     queryKey: ['weeklySummary'],
     queryFn: getWeeklySummaryOfCompletedGoals,
   });
@@ -20,5 +20,6 @@ export function useGetWeeklySummaryOfCompletedGoalsQuery() {
   return {
     weeklySummaryOfCompletedGoals: data ?? null,
     isLoadingWeeklySummary: isLoading,
+    isRefetchingWeeklySummary: isFetching,
   };
 }
