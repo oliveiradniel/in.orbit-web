@@ -1,12 +1,13 @@
 import { useGetWeeklySummaryOfCompletedGoalsQuery } from '@/app/hooks/queries/useGetWeeklySummaryOfCompletedGoalsQuery';
 
 import { EmptyGoals } from '@/components/EmptyGoals';
+import { LoadingGoals } from '@/components/LoadingGoals';
 import { NewGoalDialog } from '@/components/NewGoalDialog';
 import { Summary } from '@/components/Summary';
 import { Dialog } from '@/components/ui/Dialog';
 
 export function Dashboard() {
-  const { weeklySummaryOfCompletedGoals } =
+  const { weeklySummaryOfCompletedGoals, isLoadingWeeklySummary } =
     useGetWeeklySummaryOfCompletedGoalsQuery();
 
   const hasGoals =
@@ -16,7 +17,9 @@ export function Dashboard() {
     <Dialog.Root>
       <NewGoalDialog />
 
-      {hasGoals ? <Summary /> : <EmptyGoals />}
+      {isLoadingWeeklySummary && <LoadingGoals />}
+
+      {!isLoadingWeeklySummary && (hasGoals ? <Summary /> : <EmptyGoals />)}
     </Dialog.Root>
   );
 }
