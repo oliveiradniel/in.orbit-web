@@ -14,8 +14,6 @@ import {
 
 import { weeklyFrequencyOptions } from './weeklyFrequencyOptions';
 
-import './styles.css';
-
 export function NewGoalDialog() {
   const inputTitleId = useId();
 

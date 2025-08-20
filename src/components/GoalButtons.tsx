@@ -1,7 +1,6 @@
 import { PlusIcon } from 'lucide-react';
 
 import { useGetWeeklyGoalsWithCompletionCountQuery } from '@/app/hooks/queries/useGetWeeklyGoalsWithCompletionCountQuery';
-
 import { OutlineButton } from './ui/OutlineButton';
 
 export function GoalButtons() {
