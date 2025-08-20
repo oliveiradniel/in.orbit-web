@@ -4,11 +4,11 @@ type GoalPerDay = Record<
     id: string;
     title: string;
     completedAt: Date;
-  }
+  }[]
 >;
 
 export interface Summary {
   completed: number;
   total: number;
-  goalsPerDay: GoalPerDay[];
+  goalsPerDay: GoalPerDay;
 }
