@@ -1,5 +1,7 @@
 import { X } from 'lucide-react';
 
+import { Controller } from 'react-hook-form';
+
 import { Button } from '@/components/ui/Button';
 import { Dialog } from '@/components/ui/Dialog';
 import { Input } from '@/components/ui/Input';
@@ -15,7 +17,8 @@ import { useNewGoalDialogController } from './useNewGoalDialogController';
 import { weeklyFrequencyOptions } from './weeklyFrequencyOptions';
 
 export function NewGoalDialog() {
-  const { inputTitleId } = useNewGoalDialogController();
+  const { inputTitleId, control, register, handleSubmit } =
+    useNewGoalDialogController();
 
   return (
     <Dialog.Portal>
@@ -47,11 +50,15 @@ export function NewGoalDialog() {
             </Dialog.Description>
           </header>
 
-          <form className="flex flex-1 flex-col justify-between">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-1 flex-col justify-between"
+          >
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <Label htmlFor={inputTitleId}>Qual a atividade?</Label>
                 <Input
+                  {...register('title')}
                   id={inputTitleId}
                   autoFocus
                   placeholder="Praticar exercícios, meditar, etc..."
@@ -59,17 +66,27 @@ export function NewGoalDialog() {
               </div>
               <div className="flex flex-col gap-2">
                 <Label>Quantas vezes na semana?</Label>
-                <RadioGroup aria-label="Deseja praticar a atividade quantas vezes na semana?">
-                  {weeklyFrequencyOptions.map(({ value, label, icon }) => (
-                    <RadioGroupItem key={value} value={value}>
-                      <RadioGroupIndicator />
-                      <span className="text-sm leading-none font-medium text-zinc-300">
-                        {label}
-                      </span>
-                      <span className="text-lg leading-none">{icon}</span>
-                    </RadioGroupItem>
-                  ))}
-                </RadioGroup>
+                <Controller
+                  control={control}
+                  name="desiredWeeklyFrequency"
+                  render={({ field: { value, onChange } }) => (
+                    <RadioGroup
+                      aria-label="Deseja praticar a atividade quantas vezes na semana?"
+                      value={String(value)}
+                      onValueChange={onChange}
+                    >
+                      {weeklyFrequencyOptions.map(({ value, label, icon }) => (
+                        <RadioGroupItem key={value} value={value}>
+                          <RadioGroupIndicator />
+                          <span className="text-sm leading-none font-medium text-zinc-300">
+                            {label}
+                          </span>
+                          <span className="text-lg leading-none">{icon}</span>
+                        </RadioGroupItem>
+                      ))}
+                    </RadioGroup>
+                  )}
+                />
               </div>
             </div>
 
