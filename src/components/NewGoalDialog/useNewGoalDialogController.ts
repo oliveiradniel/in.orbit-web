@@ -25,9 +25,11 @@ export function useNewGoalDialogController() {
   });
   const queryClient = useQueryClient();
 
-  const { createGoal } = useCreateGoalMutation();
+  const { createGoal, isCreationGoal } = useCreateGoalMutation();
 
   const handleSubmit = handleSubmitHookForm(async (data) => {
+    if (isCreationGoal) return;
+
     await createGoal(data);
 
     queryClient.invalidateQueries({ queryKey: ['weeklyGoals'] });
@@ -39,6 +41,7 @@ export function useNewGoalDialogController() {
     inputTitleId,
     control,
     formErrors: formState.errors,
+    isCreationGoal,
     register,
     handleSubmit,
   };

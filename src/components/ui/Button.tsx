@@ -1,6 +1,7 @@
 import { type ComponentProps, forwardRef } from 'react';
 
 import { tv, type VariantProps } from 'tailwind-variants';
+import { Spinner } from './Spinner';
 
 const button = tv({
   base: 'flex items-center justify-center gap-2 rounded-lg text-sm font-medium tracking-tight outline-none ring-offset-2 ring-offset-black focus-visible:ring-2 transition-colors ease-linear duration-300 cursor-pointer disabled:bg-zinc-900 disabled:cursor-not-allowed',
@@ -8,7 +9,7 @@ const button = tv({
   variants: {
     variant: {
       primary:
-        'bg-violet-500 text-violet-50 hover:bg-violet-600 ring-violet-500',
+        'bg-violet-500 text-violet-50 hover:bg-violet-600 ring-violet-500 data-[is-loading=true]:bg-violet-500 data-[is-loading=true]:cursor-default',
       secondary: 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 ring-zinc-900',
     },
 
@@ -24,16 +25,23 @@ const button = tv({
   },
 });
 
-type ButtonProps = ComponentProps<'button'> & VariantProps<typeof button>;
+type ButtonProps = ComponentProps<'button'> &
+  VariantProps<typeof button> & { isLoading?: boolean };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  (
+    { className, variant, size, children, isLoading = false, ...props },
+    ref
+  ) => {
     return (
       <button
+        data-is-loading={isLoading}
         {...props}
         ref={ref}
         className={button({ variant, size, className })}
-      />
+      >
+        {isLoading ? <Spinner className="h-5 w-5 border-white" /> : children}
+      </button>
     );
   }
 );

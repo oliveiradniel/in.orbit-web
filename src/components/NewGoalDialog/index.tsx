@@ -17,8 +17,14 @@ import { useNewGoalDialogController } from './useNewGoalDialogController';
 import { weeklyFrequencyOptions } from './weeklyFrequencyOptions';
 
 export function NewGoalDialog() {
-  const { inputTitleId, control, formErrors, register, handleSubmit } =
-    useNewGoalDialogController();
+  const {
+    inputTitleId,
+    control,
+    formErrors,
+    isCreationGoal,
+    register,
+    handleSubmit,
+  } = useNewGoalDialogController();
 
   return (
     <Dialog.Portal>
@@ -102,7 +108,11 @@ export function NewGoalDialog() {
                   Fechar
                 </Button>
               </Dialog.Close>
-              <Button type="submit" className="flex-1">
+              <Button
+                type="submit"
+                isLoading={isCreationGoal}
+                className="flex-1"
+              >
                 Salvar
               </Button>
             </div>

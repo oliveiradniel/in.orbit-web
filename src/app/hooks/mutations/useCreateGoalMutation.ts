@@ -7,7 +7,7 @@ import type { GoalFormData } from '@/app/schemas/CreateGoalSchema';
 export function useCreateGoalMutation() {
   const goalService = makeGoalService();
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: (createGoalDTO: GoalFormData) => {
       return goalService.create(createGoalDTO);
     },
@@ -15,5 +15,6 @@ export function useCreateGoalMutation() {
 
   return {
     createGoal: mutateAsync,
+    isCreationGoal: isPending,
   };
 }
