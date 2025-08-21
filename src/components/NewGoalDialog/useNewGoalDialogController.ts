@@ -3,10 +3,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useId } from 'react';
 
 import { type Resolver, useForm } from 'react-hook-form';
-import type z from 'zod';
-import { CreateGoalSchema } from '@/app/schemas/CreateGoalSchema';
 
-type FormData = z.infer<typeof CreateGoalSchema>;
+import {
+  CreateGoalSchema,
+  type GoalFormData,
+} from '@/app/schemas/CreateGoalSchema';
 
 export function useNewGoalDialogController() {
   const inputTitleId = useId();
@@ -16,8 +17,8 @@ export function useNewGoalDialogController() {
     handleSubmit: handleSubmitHookForm,
     register,
     formState,
-  } = useForm<FormData>({
-    resolver: zodResolver(CreateGoalSchema) as Resolver<FormData>,
+  } = useForm<GoalFormData>({
+    resolver: zodResolver(CreateGoalSchema) as Resolver<GoalFormData>,
     defaultValues: {
       desiredWeeklyFrequency: 1,
     },
