@@ -1,7 +1,5 @@
 import { X } from 'lucide-react';
 
-import { useId } from 'react';
-
 import { Button } from '@/components/ui/Button';
 import { Dialog } from '@/components/ui/Dialog';
 import { Input } from '@/components/ui/Input';
@@ -12,10 +10,12 @@ import {
   RadioGroupItem,
 } from '@/components/ui/RadioGroup';
 
+import { useNewGoalDialogController } from './useNewGoalDialogController';
+
 import { weeklyFrequencyOptions } from './weeklyFrequencyOptions';
 
 export function NewGoalDialog() {
-  const inputTitleId = useId();
+  const { inputTitleId } = useNewGoalDialogController();
 
   return (
     <Dialog.Portal>
