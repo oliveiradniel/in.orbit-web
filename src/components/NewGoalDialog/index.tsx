@@ -17,7 +17,7 @@ import { useNewGoalDialogController } from './useNewGoalDialogController';
 import { weeklyFrequencyOptions } from './weeklyFrequencyOptions';
 
 export function NewGoalDialog() {
-  const { inputTitleId, control, register, handleSubmit } =
+  const { inputTitleId, control, formErrors, register, handleSubmit } =
     useNewGoalDialogController();
 
   return (
@@ -62,6 +62,7 @@ export function NewGoalDialog() {
                   id={inputTitleId}
                   autoFocus
                   placeholder="Praticar exercícios, meditar, etc..."
+                  error={formErrors.title?.message}
                 />
               </div>
               <div className="flex flex-col gap-2">

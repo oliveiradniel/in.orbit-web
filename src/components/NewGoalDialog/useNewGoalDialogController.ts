@@ -15,6 +15,7 @@ export function useNewGoalDialogController() {
     control,
     handleSubmit: handleSubmitHookForm,
     register,
+    formState,
   } = useForm<FormData>({
     resolver: zodResolver(CreateGoalSchema) as Resolver<FormData>,
     defaultValues: {
@@ -29,6 +30,7 @@ export function useNewGoalDialogController() {
   return {
     inputTitleId,
     control,
+    formErrors: formState.errors,
     register,
     handleSubmit,
   };
