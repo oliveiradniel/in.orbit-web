@@ -1,40 +1,29 @@
 import dayjs from 'dayjs';
-import 'dayjs/locale/pt-br';
 
 import { CheckCircle2, Plus } from 'lucide-react';
 
-import { useId } from 'react';
-import { useGetWeeklySummaryOfCompletedGoalsQuery } from '@/app/hooks/queries/useGetWeeklySummaryOfCompletedGoalsQuery';
-
 import inOrbitIcon from '@/assets/images/in-orbit-icon.svg';
 
-import { GoalButtons } from './GoalButtons';
-import { Button } from './ui/Button';
-import { Dialog } from './ui/Dialog';
-import { Progress, ProgressIndicator } from './ui/ProgressBar';
-import { Separator } from './ui/Separator';
-import { Spinner } from './ui/Spinner';
+import { GoalButtons } from '../GoalButtons';
+import { Button } from '../ui/Button';
+import { Dialog } from '../ui/Dialog';
+import { Progress, ProgressIndicator } from '../ui/ProgressBar';
+import { Separator } from '../ui/Separator';
+import { Spinner } from '../ui/Spinner';
 
-dayjs.locale('pt-BR');
+import { useSummaryController } from './useSummaryController';
 
 export function Summary() {
-  const containerSummaryId = useId();
-
-  const { weeklySummaryOfCompletedGoals, isRefetchingWeeklySummary } =
-    useGetWeeklySummaryOfCompletedGoalsQuery();
-
-  const firstDayOfWeek = dayjs().startOf('week').format('D MMMM');
-  const lastDayOfWeek = dayjs().endOf('week').format('D MMMM');
-
-  const totalGoals = weeklySummaryOfCompletedGoals?.total!;
-  const completedGoals = weeklySummaryOfCompletedGoals?.completed!;
-  const percentGoalsCompleted =
-    totalGoals > 0 ? ((completedGoals / totalGoals) * 100).toFixed(0) : 0;
-
-  const goalsPerDay = weeklySummaryOfCompletedGoals?.goalsPerDay;
-  const goalsPerDayArray = goalsPerDay
-    ? Object.entries(goalsPerDay).map(([date, goals]) => ({ date, goals }))
-    : [];
+  const {
+    containerSummaryId,
+    firstDayOfWeek,
+    lastDayOfWeek,
+    completedGoals,
+    totalGoals,
+    percentGoalsCompleted,
+    goalsPerDayArray,
+    isRefetchingWeeklySummary,
+  } = useSummaryController();
 
   return (
     <div className="mx-auto flex max-w-[480px] flex-col gap-6 px-5 py-10">
