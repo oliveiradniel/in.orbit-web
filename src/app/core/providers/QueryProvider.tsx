@@ -6,6 +6,7 @@ export function QueryProvider({ children }: { children: React.ReactNode }) {
       queries: {
         refetchOnWindowFocus: false,
         staleTime: Infinity,
+        retry: false,
       },
     },
   });
