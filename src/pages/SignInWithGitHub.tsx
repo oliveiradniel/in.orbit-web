@@ -12,10 +12,7 @@ export function SignInWithGitHub() {
         Conclua suas metas semanais, ganhe experiência e suba de nível!
       </p>
 
-      <Button
-        type="button"
-        className="bg-white text-black hover:bg-white hover:opacity-80"
-      >
+      <Button type="button" variant="githubLogin">
         <img aria-hidden="true" src={githubIcon} alt="" className="size-6" />
         Entrar com GitHub
       </Button>

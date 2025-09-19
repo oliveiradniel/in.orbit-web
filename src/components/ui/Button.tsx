@@ -11,6 +11,7 @@ const button = tv({
       primary:
         'bg-violet-500 text-violet-50 hover:bg-violet-600 ring-violet-500 data-[is-loading=true]:bg-violet-500 data-[is-loading=true]:cursor-default',
       secondary: 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 ring-zinc-900',
+      githubLogin: 'bg-white text-black hover:bg-white hover:opacity-80',
     },
 
     size: {
