@@ -1,6 +1,7 @@
+import { Slot } from '@radix-ui/react-slot';
 import { type ComponentProps, forwardRef } from 'react';
-
 import { tv, type VariantProps } from 'tailwind-variants';
+
 import { Spinner } from './Spinner';
 
 const button = tv({
@@ -27,22 +28,32 @@ const button = tv({
 });
 
 type ButtonProps = ComponentProps<'button'> &
-  VariantProps<typeof button> & { isLoading?: boolean };
+  VariantProps<typeof button> & { isLoading?: boolean; asChild?: boolean };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { className, variant, size, children, isLoading = false, ...props },
+    {
+      className,
+      variant,
+      size,
+      children,
+      asChild,
+      isLoading = false,
+      ...props
+    },
     ref
   ) => {
+    const Component = asChild ? Slot : 'button';
+
     return (
-      <button
+      <Component
         data-is-loading={isLoading}
         {...props}
         ref={ref}
         className={button({ variant, size, className })}
       >
         {isLoading ? <Spinner className="h-5 w-5 border-white" /> : children}
-      </button>
+      </Component>
     );
   }
 );
