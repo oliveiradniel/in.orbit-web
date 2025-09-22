@@ -10,6 +10,7 @@ export class HttpClient implements IHttpClient {
   constructor() {
     this.axiosInstance = axios.create({
       baseURL: env.API_URL,
+      withCredentials: true,
     });
   }
 
@@ -17,7 +18,10 @@ export class HttpClient implements IHttpClient {
     path: string,
     config?: HttpRequestConfig
   ): Promise<ResponseType> {
-    const response = await this.axiosInstance.get<ResponseType>(path, config);
+    const response = await this.axiosInstance.get<ResponseType>(path, {
+      ...config,
+      withCredentials: true,
+    });
 
     return response.data;
   }
@@ -27,11 +31,10 @@ export class HttpClient implements IHttpClient {
     body: BodyType,
     config?: HttpRequestConfig
   ): Promise<ResponseType> {
-    const response = await this.axiosInstance.post<ResponseType>(
-      path,
-      body,
-      config
-    );
+    const response = await this.axiosInstance.post<ResponseType>(path, body, {
+      ...config,
+      withCredentials: true,
+    });
 
     return response.data;
   }
