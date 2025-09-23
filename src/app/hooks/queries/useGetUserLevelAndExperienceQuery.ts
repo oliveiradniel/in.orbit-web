@@ -6,7 +6,7 @@ export function useGetUserLevelAndExperienceQuery() {
   const usersService = makeUserService();
 
   const { data, isLoading } = useQuery({
-    queryKey: ['user-level'],
+    queryKey: ['userLevel'],
     queryFn: () => usersService.getUserLevelAndExperience(),
   });
 

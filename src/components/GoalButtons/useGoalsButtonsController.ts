@@ -20,6 +20,7 @@ export function useGoalsButtonsController() {
 
     queryClient.invalidateQueries({ queryKey: ['weeklySummary'] });
     queryClient.invalidateQueries({ queryKey: ['weeklyGoals'] });
+    queryClient.invalidateQueries({ queryKey: ['userLevel'] });
   }
 
   return {

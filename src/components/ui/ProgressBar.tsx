@@ -1,8 +1,13 @@
 import * as RdxProgress from '@radix-ui/react-progress';
 
+import { cn } from '@/utils/cn';
+
 export function Progress(props: RdxProgress.ProgressProps) {
   return (
-    <RdxProgress.Progress {...props} className="h-2 rounded-full bg-zinc-900" />
+    <RdxProgress.Progress
+      {...props}
+      className={cn('h-2 rounded-full bg-zinc-900', props.className)}
+    />
   );
 }
 

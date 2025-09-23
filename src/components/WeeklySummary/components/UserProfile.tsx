@@ -4,6 +4,8 @@ import type { UserResponse } from '@/@types/UserResponse';
 
 import { queryClient } from '@/app/core/providers/queryClient';
 
+import { UserLevel } from './UserLevel';
+
 export function UserProfile() {
   const [user, setUser] = useState({} as UserResponse);
 
@@ -14,7 +16,7 @@ export function UserProfile() {
   }, []);
 
   return (
-    <div className="flex w-full rounded-xl bg-zinc-900 px-4 py-3">
+    <div className="flex w-full items-center justify-between rounded-xl bg-zinc-900 px-4 py-3">
       <div className="flex items-center gap-3">
         <img
           src={user.avatarURL}
@@ -29,6 +31,8 @@ export function UserProfile() {
           </span>
         </div>
       </div>
+
+      <UserLevel />
     </div>
   );
 }
