@@ -11,9 +11,9 @@ import { Progress, ProgressIndicator } from '../ui/ProgressBar';
 import { Separator } from '../ui/Separator';
 import { Spinner } from '../ui/Spinner';
 
-import { useSummaryController } from './useSummaryController';
+import { useWeeklySummaryController } from './useWeeklySummaryController';
 
-export function Summary() {
+export function WeeklySummary() {
   const {
     containerSummaryId,
     firstDayOfWeek,
@@ -23,7 +23,7 @@ export function Summary() {
     percentGoalsCompleted,
     goalsPerDayArray,
     isRefetchingWeeklySummary,
-  } = useSummaryController();
+  } = useWeeklySummaryController();
 
   return (
     <div className="mx-auto flex max-w-[480px] flex-col gap-6 px-5 py-10">

@@ -7,7 +7,7 @@ import { useGetWeeklySummaryOfCompletedGoalsQuery } from '@/app/hooks/queries/us
 
 dayjs.locale('pt-BR');
 
-export function useSummaryController() {
+export function useWeeklySummaryController() {
   const containerSummaryId = useId();
 
   const { weeklySummaryOfCompletedGoals, isRefetchingWeeklySummary } =
