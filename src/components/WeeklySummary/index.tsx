@@ -11,6 +11,8 @@ import { Progress, ProgressIndicator } from '../ui/ProgressBar';
 import { Separator } from '../ui/Separator';
 import { Spinner } from '../ui/Spinner';
 
+import { UserProfile } from './components/UserProfile';
+
 import { useWeeklySummaryController } from './useWeeklySummaryController';
 
 export function WeeklySummary() {
@@ -26,22 +28,30 @@ export function WeeklySummary() {
   } = useWeeklySummaryController();
 
   return (
-    <div className="mx-auto flex max-w-[480px] flex-col gap-6 px-5 py-10">
-      <header className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <img aria-hidden="true" src={inOrbitIcon} alt="" />
+    <div className="mx-auto flex max-w-[600px] flex-col gap-6 px-5 py-10">
+      <header className="flex flex-col items-center justify-between gap-6">
+        <UserProfile />
 
-          <span className="text-lg font-semibold capitalize">
-            {firstDayOfWeek} - {lastDayOfWeek}
-          </span>
+        <div className="flex w-full items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img aria-hidden="true" src={inOrbitIcon} alt="" />
+
+            <span className="text-lg font-semibold capitalize">
+              {firstDayOfWeek} - {lastDayOfWeek}
+            </span>
+          </div>
+
+          <Dialog.Trigger asChild>
+            <Button
+              type="button"
+              size="sm"
+              disabled={isRefetchingWeeklySummary}
+            >
+              <Plus className="size-4" />
+              Cadastrar meta
+            </Button>
+          </Dialog.Trigger>
         </div>
-
-        <Dialog.Trigger asChild>
-          <Button type="button" size="sm" disabled={isRefetchingWeeklySummary}>
-            <Plus className="size-4" />
-            Cadastrar meta
-          </Button>
-        </Dialog.Trigger>
       </header>
 
       <div className="flex flex-col gap-3">
