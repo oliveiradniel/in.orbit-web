@@ -1,6 +1,8 @@
+import type { GamificationInfo } from '@/@types/GamificationInfo';
 import type { UserResponse } from '@/@types/UserResponse';
 
-import type { IHttpClient } from '../interfaces/IHttpClient';
+import type { HttpRequestConfig, IHttpClient } from '../interfaces/IHttpClient';
+
 import type { IUserService } from '../interfaces/IUserService';
 
 export class UserService implements IUserService {
@@ -10,7 +12,13 @@ export class UserService implements IUserService {
     this.httpClient = httpClient;
   }
 
-  me(): Promise<UserResponse> {
-    return this.httpClient.get('/users');
+  me(config?: HttpRequestConfig): Promise<UserResponse> {
+    return this.httpClient.get('/users', config);
+  }
+
+  getUserLevelAndExperience(
+    config?: HttpRequestConfig
+  ): Promise<GamificationInfo> {
+    return this.httpClient.get('/users/gamification', config);
   }
 }
