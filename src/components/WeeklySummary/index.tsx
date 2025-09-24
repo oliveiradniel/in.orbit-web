@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { CheckCircle2, Plus } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Plus } from 'lucide-react';
 
 import inOrbitIcon from '@/assets/images/in-orbit-icon.svg';
 
@@ -25,11 +25,14 @@ export function WeeklySummary() {
     percentGoalsCompleted,
     goalsPerDayArray,
     isRefetchingWeeklySummary,
+    isNextWeekButtonDisabled,
+    handlePreviousWeek,
+    handleNextWeek,
   } = useWeeklySummaryController();
 
   return (
     <div className="mx-auto flex max-w-[600px] flex-col gap-6 px-5 py-10">
-      <header className="flex flex-col items-center justify-between gap-6">
+      <header className="flex flex-col justify-between gap-6">
         <UserProfile />
 
         <div className="flex w-full items-center justify-between">
@@ -41,17 +44,34 @@ export function WeeklySummary() {
             </span>
           </div>
 
-          <Dialog.Trigger asChild>
+          <div className="flex items-center gap-2">
             <Button
-              type="button"
-              size="sm"
-              disabled={isRefetchingWeeklySummary}
+              aria-label="Ir para a semana anterior"
+              variant="secondary"
+              size="icon"
+              onClick={handlePreviousWeek}
             >
-              <Plus className="size-4" />
-              Cadastrar meta
+              <ArrowLeft className="size-4" />
             </Button>
-          </Dialog.Trigger>
+
+            <Button
+              aria-label="Ir para a próxima semana"
+              variant="secondary"
+              size="icon"
+              disabled={isNextWeekButtonDisabled}
+              onClick={handleNextWeek}
+            >
+              <ArrowRight className="size-4" />
+            </Button>
+          </div>
         </div>
+
+        <Dialog.Trigger asChild>
+          <Button type="button" size="sm" disabled={isRefetchingWeeklySummary}>
+            <Plus className="size-4" />
+            Cadastrar meta
+          </Button>
+        </Dialog.Trigger>
       </header>
 
       <div className="flex flex-col gap-3">

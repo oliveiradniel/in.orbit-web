@@ -19,7 +19,7 @@ export function useGetWeeklySummaryOfCompletedGoalsQuery() {
   }
 
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: ['weeklySummary'],
+    queryKey: ['weeklySummary', weekStartsAt],
     queryFn: getWeeklySummaryOfCompletedGoals,
   });
 
