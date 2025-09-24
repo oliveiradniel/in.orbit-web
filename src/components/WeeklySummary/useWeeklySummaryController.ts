@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
 
+import { useSearch } from '@tanstack/react-router';
 import { useId } from 'react';
 
 import { useGetWeeklySummaryOfCompletedGoalsQuery } from '@/app/hooks/queries/useGetWeeklySummaryOfCompletedGoalsQuery';
@@ -10,11 +11,13 @@ dayjs.locale('pt-BR');
 export function useWeeklySummaryController() {
   const containerSummaryId = useId();
 
+  const { weekStartsAt } = useSearch({ from: '/' });
+
   const { weeklySummaryOfCompletedGoals, isRefetchingWeeklySummary } =
     useGetWeeklySummaryOfCompletedGoalsQuery();
 
-  const firstDayOfWeek = dayjs().startOf('week').format('D MMMM');
-  const lastDayOfWeek = dayjs().endOf('week').format('D MMMM');
+  const firstDayOfWeek = dayjs(weekStartsAt).startOf('week').format('D MMMM');
+  const lastDayOfWeek = dayjs(weekStartsAt).endOf('week').format('D MMMM');
 
   const totalGoals = weeklySummaryOfCompletedGoals?.total!;
   const completedGoals = weeklySummaryOfCompletedGoals?.completed!;
