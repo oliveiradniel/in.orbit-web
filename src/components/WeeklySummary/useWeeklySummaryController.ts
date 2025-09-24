@@ -49,7 +49,7 @@ export function useWeeklySummaryController() {
     });
   }
 
-  const isNextWeekButtonDisabled = dayjs(weekStartsAt)
+  const isTheCurrentWeek = dayjs(weekStartsAt)
     .endOf('week')
     .isAfter(new Date());
 
@@ -62,7 +62,7 @@ export function useWeeklySummaryController() {
     percentGoalsCompleted,
     goalsPerDayArray,
     isRefetchingWeeklySummary,
-    isNextWeekButtonDisabled,
+    isTheCurrentWeek,
     handlePreviousWeek,
     handleNextWeek,
   };

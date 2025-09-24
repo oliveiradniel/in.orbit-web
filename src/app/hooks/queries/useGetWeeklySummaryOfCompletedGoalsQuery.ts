@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useSearch } from '@tanstack/react-router';
 
 import { makeGoalService } from '@/app/factories/makeGoalService';
-import { delay } from '@/utils/delay';
 
 export function useGetWeeklySummaryOfCompletedGoalsQuery() {
   const { weekStartsAt } = useSearch({ from: '/' });
@@ -11,8 +10,6 @@ export function useGetWeeklySummaryOfCompletedGoalsQuery() {
   const goalService = makeGoalService();
 
   async function getWeeklySummaryOfCompletedGoals() {
-    await delay(3000);
-
     return goalService.getWeeklySummaryOfCompletedGoals({
       params: { weekStartsAt },
     });

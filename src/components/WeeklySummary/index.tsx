@@ -1,6 +1,12 @@
 import dayjs from 'dayjs';
 
-import { ArrowLeft, ArrowRight, CheckCircle2, Plus } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  Loader2,
+  Plus,
+} from 'lucide-react';
 
 import inOrbitIcon from '@/assets/images/in-orbit-icon.svg';
 
@@ -9,7 +15,6 @@ import { Button } from '../ui/Button';
 import { Dialog } from '../ui/Dialog';
 import { Progress, ProgressIndicator } from '../ui/ProgressBar';
 import { Separator } from '../ui/Separator';
-import { Spinner } from '../ui/Spinner';
 
 import { UserProfile } from './components/UserProfile';
 
@@ -25,7 +30,7 @@ export function WeeklySummary() {
     percentGoalsCompleted,
     goalsPerDayArray,
     isRefetchingWeeklySummary,
-    isNextWeekButtonDisabled,
+    isTheCurrentWeek,
     handlePreviousWeek,
     handleNextWeek,
   } = useWeeklySummaryController();
@@ -58,7 +63,7 @@ export function WeeklySummary() {
               aria-label="Ir para a próxima semana"
               variant="secondary"
               size="icon"
-              disabled={isNextWeekButtonDisabled}
+              disabled={isTheCurrentWeek}
               onClick={handleNextWeek}
             >
               <ArrowRight className="size-4" />
@@ -111,18 +116,31 @@ export function WeeklySummary() {
       >
         <h1
           id={containerSummaryId}
-          className="flex items-center gap-4 text-2xl leading-none font-medium"
+          className="flex items-end gap-4 text-2xl leading-none font-medium"
         >
           Sua semana
-          {isRefetchingWeeklySummary && <Spinner className="h-4 w-4" />}
+          {isRefetchingWeeklySummary && (
+            <Loader2 className="size-5 animate-spin text-pink-500" />
+          )}
         </h1>
+
+        {completedGoals === 0 && (
+          <div>
+            <p className="text-zinc-500">
+              Você {isTheCurrentWeek && 'ainda'} não completou nenhuma meta esta
+              semana.
+              {isTheCurrentWeek &&
+                ' Clique em qualquer uma das metas criadas acima para concluí-las!'}
+            </p>
+          </div>
+        )}
 
         {goalsPerDayArray?.map(({ date, goals }) => {
           const weekDay = dayjs(date).format('dddd');
           const formattedDate = dayjs(date).format('D[ de ] MMMM');
 
           return (
-            <section key={date} className="flex flex-col gap-4">
+            <section key={date} className="animate-fade-in flex flex-col gap-4">
               <h2 className="font-medium">
                 <span className="capitalize">{weekDay} </span>
 
