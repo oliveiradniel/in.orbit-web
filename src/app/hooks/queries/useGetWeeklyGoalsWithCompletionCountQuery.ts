@@ -9,12 +9,13 @@ export function useGetWeeklyGoalsWithCompletionCountQuery() {
     return goalService.getWeeklyGoalsWithCompletionCount();
   }
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['weeklyGoals'],
     queryFn: getWeeklyGoalsWithCompletionCount,
   });
 
   return {
     weeklyGoalsWithCompletionCount: data ?? null,
+    isLoadingGoals: isLoading,
   };
 }
