@@ -5,6 +5,7 @@ import {
   ArrowRight,
   CheckCircle2,
   Loader2,
+  Pencil,
   Plus,
 } from 'lucide-react';
 
@@ -74,15 +75,29 @@ export function WeeklySummary({ onOpenNewGoalDialog }: WeeklySummaryProps) {
           </div>
         </div>
 
-        <Button
-          type="button"
-          size="sm"
-          disabled={isRefetchingWeeklySummary}
-          onClick={onOpenNewGoalDialog}
-        >
-          <Plus className="size-4" />
-          Cadastrar meta
-        </Button>
+        <div className="flex items-stretch gap-2">
+          <Button
+            type="button"
+            size="sm"
+            disabled={isRefetchingWeeklySummary}
+            onClick={onOpenNewGoalDialog}
+            className="w-full"
+          >
+            <Plus className="size-4" />
+            Cadastrar meta
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant="secondary"
+            disabled={isRefetchingWeeklySummary}
+            onClick={() => console.log('open edit goal dialog')}
+            className="w-full"
+          >
+            <Pencil className="size-4" />
+            Editar metas
+          </Button>
+        </div>
       </header>
 
       <div className="flex flex-col gap-3">
