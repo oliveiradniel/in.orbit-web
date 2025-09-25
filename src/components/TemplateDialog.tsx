@@ -33,7 +33,6 @@ export function DialogTemplate({
                     aria-label="Fechar"
                     type="button"
                     className="cursor-pointer"
-                    onClick={onClose}
                   >
                     <X
                       aria-hidden="true"

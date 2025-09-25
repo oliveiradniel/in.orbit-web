@@ -1,7 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import { useQueryClient } from '@tanstack/react-query';
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import { type Resolver, useForm } from 'react-hook-form';
+
 import { useCreateGoalMutation } from '@/app/hooks/mutations/useCreateGoalMutation';
 import {
   CreateGoalSchema,
@@ -10,6 +12,8 @@ import {
 
 export function useNewGoalDialogController() {
   const inputTitleId = useId();
+
+  const [isNewGoalDialogOpen, setIsNewGoalDialogOpen] = useState(false);
 
   const {
     control,
@@ -37,12 +41,23 @@ export function useNewGoalDialogController() {
     reset();
   });
 
+  function handleOpenNewGoalDialog() {
+    setIsNewGoalDialogOpen(true);
+  }
+
+  function handleCloseNewGoalDialog() {
+    setIsNewGoalDialogOpen(false);
+  }
+
   return {
     inputTitleId,
     control,
     formErrors: formState.errors,
     isCreationGoal,
+    isNewGoalDialogOpen,
     register,
     handleSubmit,
+    handleOpenNewGoalDialog,
+    handleCloseNewGoalDialog,
   };
 }

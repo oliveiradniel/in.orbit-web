@@ -11,16 +11,19 @@ import {
 import inOrbitIcon from '@/assets/images/in-orbit-icon.svg';
 
 import { GoalButtons } from '../GoalButtons';
+
 import { Button } from '../ui/Button';
-import { Dialog } from '../ui/Dialog';
 import { Progress, ProgressIndicator } from '../ui/ProgressBar';
 import { Separator } from '../ui/Separator';
-
 import { UserProfile } from './components/UserProfile';
 
 import { useWeeklySummaryController } from './useWeeklySummaryController';
 
-export function WeeklySummary() {
+interface WeeklySummaryProps {
+  onOpenNewGoalDialog: () => void;
+}
+
+export function WeeklySummary({ onOpenNewGoalDialog }: WeeklySummaryProps) {
   const {
     containerSummaryId,
     firstDayOfWeek,
@@ -71,12 +74,15 @@ export function WeeklySummary() {
           </div>
         </div>
 
-        <Dialog.Trigger asChild>
-          <Button type="button" size="sm" disabled={isRefetchingWeeklySummary}>
-            <Plus className="size-4" />
-            Cadastrar meta
-          </Button>
-        </Dialog.Trigger>
+        <Button
+          type="button"
+          size="sm"
+          disabled={isRefetchingWeeklySummary}
+          onClick={onOpenNewGoalDialog}
+        >
+          <Plus className="size-4" />
+          Cadastrar meta
+        </Button>
       </header>
 
       <div className="flex flex-col gap-3">
