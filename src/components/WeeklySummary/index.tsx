@@ -22,9 +22,13 @@ import { useWeeklySummaryController } from './useWeeklySummaryController';
 
 interface WeeklySummaryProps {
   onOpenNewGoalDialog: () => void;
+  onOpenEditGoalsDialog: () => void;
 }
 
-export function WeeklySummary({ onOpenNewGoalDialog }: WeeklySummaryProps) {
+export function WeeklySummary({
+  onOpenNewGoalDialog,
+  onOpenEditGoalsDialog,
+}: WeeklySummaryProps) {
   const {
     containerSummaryId,
     firstDayOfWeek,
@@ -86,12 +90,13 @@ export function WeeklySummary({ onOpenNewGoalDialog }: WeeklySummaryProps) {
             <Plus className="size-4" />
             Cadastrar meta
           </Button>
+
           <Button
             type="button"
             size="sm"
             variant="secondary"
             disabled={isRefetchingWeeklySummary}
-            onClick={() => console.log('open edit goal dialog')}
+            onClick={onOpenEditGoalsDialog}
             className="w-full"
           >
             <Pencil className="size-4" />

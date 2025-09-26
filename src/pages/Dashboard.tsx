@@ -1,4 +1,6 @@
 import { useGetWeeklyGoalsWithCompletionCountQuery } from '@/app/hooks/queries/useGetWeeklyGoalsWithCompletionCountQuery';
+import { EditGoalsDialog } from '@/components/EditGoalsDialog';
+import { useEditGoalsDialogController } from '@/components/EditGoalsDialog/useEditGoalsDialogController';
 
 import { EmptyGoals } from '@/components/EmptyGoals';
 import { LoadingGoals } from '@/components/LoadingGoals';
@@ -18,6 +20,12 @@ export function Dashboard() {
     handleCloseNewGoalDialog,
   } = useNewGoalDialogController();
 
+  const {
+    isEditGoalsDialogOpen,
+    handleOpenEditGoalsDialog,
+    handleCloseEditGoalsDialog,
+  } = useEditGoalsDialogController();
+
   const hasGoals =
     weeklyGoalsWithCompletionCount && weeklyGoalsWithCompletionCount.length > 0;
 
@@ -28,10 +36,18 @@ export function Dashboard() {
         onClose={handleCloseNewGoalDialog}
       />
 
+      <EditGoalsDialog
+        isOpen={isEditGoalsDialogOpen}
+        onClose={handleCloseEditGoalsDialog}
+      />
+
       {isLoadingGoals && <LoadingGoals />}
 
       {!isLoadingGoals && hasGoals ? (
-        <WeeklySummary onOpenNewGoalDialog={handleOpenNewGoalDialog} />
+        <WeeklySummary
+          onOpenNewGoalDialog={handleOpenNewGoalDialog}
+          onOpenEditGoalsDialog={handleOpenEditGoalsDialog}
+        />
       ) : (
         <EmptyGoals onOpenNewGoalDialog={handleOpenNewGoalDialog} />
       )}
