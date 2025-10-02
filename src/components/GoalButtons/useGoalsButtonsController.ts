@@ -23,9 +23,29 @@ export function useGoalsButtonsController() {
     queryClient.invalidateQueries({ queryKey: ['userLevel'] });
   }
 
+  const goalsNotStarted = weeklyGoalsWithCompletionCount?.filter(
+    (goal) => goal.status === 'not started'
+  );
+  const hasGoalsNotStarted = goalsNotStarted && goalsNotStarted.length > 0;
+
+  const goalsStarted = weeklyGoalsWithCompletionCount?.filter(
+    (goal) => goal.status === 'started'
+  );
+  const hasGoalsStarted = goalsStarted && goalsStarted.length > 0;
+
+  const goalsCompleted = weeklyGoalsWithCompletionCount?.filter(
+    (goal) => goal.status === 'completed'
+  );
+  const hasGoalsCompleted = goalsCompleted && goalsCompleted.length > 0;
+
   return {
-    weeklyGoalsWithCompletionCount,
     isRefetchingWeeklySummary,
     handleCreateGoalCompleted,
+    goalsNotStarted,
+    goalsStarted,
+    goalsCompleted,
+    hasGoalsNotStarted,
+    hasGoalsStarted,
+    hasGoalsCompleted,
   };
 }
