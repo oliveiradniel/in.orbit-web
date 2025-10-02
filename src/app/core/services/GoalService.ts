@@ -22,7 +22,10 @@ export class GoalService implements IGoalService {
     return this.httpClient.get<Summary>('/goals/summary', config);
   }
 
-  create(createGoalDTO: GoalFormData): Promise<void> {
-    return this.httpClient.post('/goals', createGoalDTO);
+  create(
+    createGoalDTO: GoalFormData,
+    config?: HttpRequestConfig
+  ): Promise<void> {
+    return this.httpClient.post('/goals', createGoalDTO, config);
   }
 }

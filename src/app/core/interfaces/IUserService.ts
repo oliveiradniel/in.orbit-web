@@ -5,8 +5,8 @@ import type { UserResponse } from '@/@types/UserResponse';
 import type { HttpRequestConfig } from './IHttpClient';
 
 export interface IUserService {
-  me(config: HttpRequestConfig): Promise<UserResponse>;
+  me(config?: HttpRequestConfig): Promise<UserResponse>;
   getUserLevelAndExperience(
-    config: HttpRequestConfig
+    config?: HttpRequestConfig
   ): Promise<GamificationInfo>;
 }

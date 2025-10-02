@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 
-import { useEffect, useId, useState } from 'react';
+import { useId, useState } from 'react';
 
 import { type Resolver, useForm } from 'react-hook-form';
 

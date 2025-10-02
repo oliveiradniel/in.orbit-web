@@ -49,7 +49,9 @@ export function Dashboard() {
           onOpenEditGoalsDialog={handleOpenEditGoalsDialog}
         />
       ) : (
-        <EmptyGoals onOpenNewGoalDialog={handleOpenNewGoalDialog} />
+        !isLoadingGoals && (
+          <EmptyGoals onOpenNewGoalDialog={handleOpenNewGoalDialog} />
+        )
       )}
     </div>
   );
