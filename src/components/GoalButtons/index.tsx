@@ -56,22 +56,34 @@ export function GoalButtons() {
 
           <div className="flex flex-wrap gap-2">
             {goalsStarted?.map(
-              ({ id, title, completionCount, desiredWeeklyFrequency }) => {
+              ({
+                id,
+                title,
+                completionCount,
+                desiredWeeklyFrequency,
+                wasCompletedToday,
+              }) => {
                 const isGoalCompleted =
                   completionCount >= desiredWeeklyFrequency;
 
                 return (
                   <OutlineButton
                     key={id}
-                    disabled={isGoalCompleted || isRefetchingWeeklySummary}
+                    disabled={
+                      isGoalCompleted ||
+                      isRefetchingWeeklySummary ||
+                      wasCompletedToday
+                    }
                     onClick={() => handleCreateGoalCompleted(id)}
                     status="started"
                     className="group"
                   >
-                    <PlusIcon
-                      aria-hidden="true"
-                      className="size-4 text-yellow-300 transition-colors duration-300 ease-linear group-hover:text-yellow-500"
-                    />{' '}
+                    {!wasCompletedToday && (
+                      <PlusIcon
+                        aria-hidden="true"
+                        className="size-4 text-yellow-300 transition-colors duration-300 ease-linear group-hover:text-yellow-500"
+                      />
+                    )}
                     {title}
                   </OutlineButton>
                 );

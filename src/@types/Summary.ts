@@ -20,5 +20,6 @@ export interface GoalWithCompletionCount {
   title: string;
   desiredWeeklyFrequency: number;
   completionCount: number;
+  wasCompletedToday: boolean;
   status: GoalStatus;
 }
