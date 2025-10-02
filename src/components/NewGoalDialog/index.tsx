@@ -25,9 +25,11 @@ export function NewGoalDialog({ isOpen, onClose }: NewGoalDialogProps) {
     inputTitleId,
     control,
     formErrors,
+    requestErrorMessage,
     isCreationGoal,
     register,
     handleSubmit,
+    clearRequestErrorMessage,
   } = useNewGoalDialogController();
 
   return (
@@ -45,11 +47,17 @@ export function NewGoalDialog({ isOpen, onClose }: NewGoalDialogProps) {
           <div className="flex flex-col gap-2">
             <Label htmlFor={inputTitleId}>Qual a atividade?</Label>
             <Input
-              {...register('title')}
+              {...register('title', {
+                onChange: () => {
+                  if (requestErrorMessage) {
+                    clearRequestErrorMessage();
+                  }
+                },
+              })}
               id={inputTitleId}
               autoFocus
               placeholder="Praticar exercícios, meditar, etc..."
-              error={formErrors.title?.message}
+              error={formErrors.title?.message || requestErrorMessage}
             />
           </div>
           <div className="flex flex-col gap-2">

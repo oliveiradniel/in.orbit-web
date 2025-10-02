@@ -1,19 +1,31 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useQueryClient } from '@tanstack/react-query';
-import { useId, useState } from 'react';
+
+import { AxiosError } from 'axios';
+
+import { useEffect, useId, useState } from 'react';
+
 import { type Resolver, useForm } from 'react-hook-form';
 
 import { useCreateGoalMutation } from '@/app/hooks/mutations/useCreateGoalMutation';
+
 import {
   CreateGoalSchema,
   type GoalFormData,
 } from '@/app/schemas/CreateGoalSchema';
 
+import { errorLabels } from '@/config/constants';
+
 export function useNewGoalDialogController() {
   const inputTitleId = useId();
 
   const [isNewGoalDialogOpen, setIsNewGoalDialogOpen] = useState(false);
+
+  const [requestErrorMessage, setRequestErrorMessage] = useState<
+    string | undefined
+  >(undefined);
+  const possibleErrors = ['This title already in use.'];
 
   const {
     control,
@@ -27,6 +39,7 @@ export function useNewGoalDialogController() {
       desiredWeeklyFrequency: 1,
     },
   });
+
   const queryClient = useQueryClient();
 
   const { createGoal, isCreationGoal } = useCreateGoalMutation();
@@ -34,11 +47,21 @@ export function useNewGoalDialogController() {
   const handleSubmit = handleSubmitHookForm(async (data) => {
     if (isCreationGoal) return;
 
-    await createGoal(data);
+    try {
+      await createGoal(data);
 
-    queryClient.invalidateQueries({ queryKey: ['weeklyGoals'] });
+      queryClient.invalidateQueries({ queryKey: ['weeklyGoals'] });
 
-    reset();
+      reset();
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const errorMessage = error.response?.data?.message as string;
+
+        if (possibleErrors.includes(errorMessage)) {
+          setRequestErrorMessage(errorLabels[errorMessage]);
+        }
+      }
+    }
   });
 
   function handleOpenNewGoalDialog() {
@@ -49,15 +72,21 @@ export function useNewGoalDialogController() {
     setIsNewGoalDialogOpen(false);
   }
 
+  function clearRequestErrorMessage() {
+    setRequestErrorMessage(undefined);
+  }
+
   return {
     inputTitleId,
     control,
     formErrors: formState.errors,
+    requestErrorMessage,
     isCreationGoal,
     isNewGoalDialogOpen,
     register,
     handleSubmit,
     handleOpenNewGoalDialog,
     handleCloseNewGoalDialog,
+    clearRequestErrorMessage,
   };
 }
