@@ -13,9 +13,12 @@ export interface Summary {
   goalsPerDay: GoalPerDay;
 }
 
+export type GoalStatus = 'not started' | 'started' | 'completed';
+
 export interface GoalWithCompletionCount {
   id: string;
   title: string;
   desiredWeeklyFrequency: number;
   completionCount: number;
+  status: GoalStatus;
 }
