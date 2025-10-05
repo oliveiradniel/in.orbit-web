@@ -1,12 +1,15 @@
-import type { GoalWithCompletionCount, Summary } from '@/@types/Summary';
+import type {
+  GoalsAndTotal,
+  GoalWithCompletionCount,
+  Summary,
+} from '@/@types/Goals';
 
 import type { GoalFormData } from '@/app/schemas/CreateGoalSchema';
-import type { Goal } from '@/entities/Goal';
 
 import type { HttpRequestConfig } from './IHttpClient';
 
 export interface IGoalService {
-  getAll(config?: HttpRequestConfig): Promise<Goal[]>;
+  getAll(config?: HttpRequestConfig): Promise<GoalsAndTotal>;
   getWeeklySummaryOfCompletedGoals(
     config?: HttpRequestConfig
   ): Promise<Summary>;

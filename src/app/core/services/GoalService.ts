@@ -1,7 +1,12 @@
-import type { GoalWithCompletionCount, Summary } from '@/@types/Summary';
+import type {
+  GoalsAndTotal,
+  GoalWithCompletionCount,
+  Summary,
+} from '@/@types/Goals';
 import type { GoalFormData } from '@/app/schemas/CreateGoalSchema';
-import type { Goal } from '@/entities/Goal';
+
 import type { IGoalService } from '../interfaces/IGoalService';
+
 import type { HttpRequestConfig, IHttpClient } from '../interfaces/IHttpClient';
 
 export class GoalService implements IGoalService {
@@ -11,8 +16,8 @@ export class GoalService implements IGoalService {
     this.httpClient = httpClient;
   }
 
-  getAll(config?: HttpRequestConfig): Promise<Goal[]> {
-    return this.httpClient.get<Goal[]>('/goals/all', config);
+  getAll(config?: HttpRequestConfig): Promise<GoalsAndTotal> {
+    return this.httpClient.get<GoalsAndTotal>('/goals/all', config);
   }
 
   getWeeklyGoalsWithCompletionCount(

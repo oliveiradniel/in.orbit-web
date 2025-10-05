@@ -11,6 +11,6 @@ export function useGetAllGoalsQuery() {
   });
 
   return {
-    goals: data,
+    goalsAndTotal: data,
   };
 }

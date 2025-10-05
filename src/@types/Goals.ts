@@ -1,3 +1,5 @@
+import type { Goal } from '@/entities/Goal';
+
 type GoalPerDay = Record<
   string,
   {
@@ -22,4 +24,9 @@ export interface GoalWithCompletionCount {
   completionCount: number;
   wasCompletedToday: boolean;
   status: GoalStatus;
+}
+
+export interface GoalsAndTotal {
+  goals: Goal[];
+  total: number;
 }
