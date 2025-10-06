@@ -21,7 +21,11 @@ export function Dashboard() {
   } = useNewGoalDialogController();
 
   const {
+    goals,
+    totalNumberOfGoals,
     isEditGoalsDialogOpen,
+    isDeleteButtonDisabled,
+    toggleCheckboxGoalId,
     handleOpenEditGoalsDialog,
     handleCloseEditGoalsDialog,
   } = useEditGoalsDialogController();
@@ -39,6 +43,10 @@ export function Dashboard() {
       <EditGoalsDialog
         isOpen={isEditGoalsDialogOpen}
         onClose={handleCloseEditGoalsDialog}
+        goals={goals}
+        totalNumberOfGoals={totalNumberOfGoals}
+        isDeleteButtonDisabled={isDeleteButtonDisabled}
+        toggleCheckboxGoalId={toggleCheckboxGoalId}
       />
 
       {isLoadingGoals && <LoadingGoals />}

@@ -1,11 +1,18 @@
+import { Trash2 } from 'lucide-react';
+
 import { DialogTemplate } from '../TemplateDialog';
+import { CheckboxIndicator, CheckboxItem } from '../ui/Checkbox';
 
-interface EditGoalsDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import type { EditGoalsDialogProps } from './useEditGoalsDialogController';
 
-export function EditGoalsDialog({ isOpen, onClose }: EditGoalsDialogProps) {
+export function EditGoalsDialog({
+  isOpen,
+  onClose,
+  goals,
+  totalNumberOfGoals,
+  isDeleteButtonDisabled,
+  toggleCheckboxGoalId,
+}: EditGoalsDialogProps) {
   return (
     <DialogTemplate
       title="Edite suas metas"
@@ -13,7 +20,41 @@ export function EditGoalsDialog({ isOpen, onClose }: EditGoalsDialogProps) {
       isOpen={isOpen}
       onClose={onClose}
     >
-      ...
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <button
+            type="button"
+            disabled={isDeleteButtonDisabled}
+            onClick={() => console.log('excluir')}
+            className="group rounded-sm border border-red-400 bg-black p-2 ring-red-500/10 transition-colors duration-300 ease-linear outline-none focus-visible:border-red-500 focus-visible:ring-4 enabled:cursor-pointer enabled:hover:border-red-500 disabled:border-zinc-900"
+          >
+            <Trash2 className="size-4 text-red-400 transition-colors duration-300 ease-linear group-focus-visible:text-red-500 group-enabled:group-hover:text-red-500 group-disabled:text-zinc-500" />
+          </button>
+
+          <p className="text-sm text-zinc-400">
+            Total de metas: {totalNumberOfGoals}
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          {goals.map(({ id, title }) => (
+            <div key={`list-goals-${id}`} className="flex flex-col gap-2">
+              <div className="flex w-full gap-2">
+                <CheckboxItem
+                  id={`goal-${id}`}
+                  onCheckedChange={(isChecked) =>
+                    toggleCheckboxGoalId(isChecked, { id: id!, title })
+                  }
+                >
+                  <CheckboxIndicator />
+
+                  <span>{title}</span>
+                </CheckboxItem>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </DialogTemplate>
   );
 }

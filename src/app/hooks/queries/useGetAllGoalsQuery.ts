@@ -11,6 +11,7 @@ export function useGetAllGoalsQuery() {
   });
 
   return {
-    goalsAndTotal: data,
+    goals: data?.goals ?? [],
+    total: data?.total ?? 0,
   };
 }

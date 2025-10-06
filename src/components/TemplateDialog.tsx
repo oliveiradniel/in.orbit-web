@@ -22,7 +22,7 @@ export function DialogTemplate({
       <RdxDialog.Portal>
         <RdxDialog.Overlay />
 
-        <RdxDialog.Content className="data-[state=open]:animate-dialog-open data-[state=closed]:animate-dialog-close w-[400px] border-l border-zinc-900 bg-zinc-950">
+        <RdxDialog.Content className="data-[state=open]:animate-dialog-open data-[state=closed]:animate-dialog-close w-[400px] overflow-auto border-l border-zinc-900 bg-zinc-950">
           <div className="flex h-full flex-col gap-6">
             <header className="flex flex-col gap-3">
               <div className="flex items-center justify-between">
