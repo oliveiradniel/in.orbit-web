@@ -20,4 +20,5 @@ export interface IGoalService {
     createGoalDTO: GoalFormData,
     config?: HttpRequestConfig
   ): Promise<void>;
+  deleteMany(goalsId: string[], config?: HttpRequestConfig): Promise<void>;
 }

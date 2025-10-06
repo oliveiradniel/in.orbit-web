@@ -38,4 +38,8 @@ export class GoalService implements IGoalService {
   ): Promise<void> {
     return this.httpClient.post('/goals', createGoalDTO, config);
   }
+
+  deleteMany(goalsId: string[], config?: HttpRequestConfig): Promise<void> {
+    return this.httpClient.delete('/goals', goalsId, config);
+  }
 }
