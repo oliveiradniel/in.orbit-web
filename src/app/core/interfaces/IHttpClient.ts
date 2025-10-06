@@ -16,4 +16,9 @@ export interface IHttpClient {
     body: BodyType,
     config?: HttpRequestConfig
   ): Promise<ResponseType>;
+  delete<BodyType = unknown>(
+    path: string,
+    body: BodyType,
+    config?: HttpRequestConfig
+  ): Promise<void>;
 }

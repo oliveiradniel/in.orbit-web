@@ -38,4 +38,15 @@ export class HttpClient implements IHttpClient {
 
     return response.data;
   }
+
+  async delete<BodyType = unknown>(
+    path: string,
+    body: BodyType,
+    config?: HttpRequestConfig
+  ): Promise<void> {
+    await this.axiosInstance.delete<ResponseType>(path, {
+      ...config,
+      data: body,
+    });
+  }
 }
