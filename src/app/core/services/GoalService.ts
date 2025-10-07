@@ -40,6 +40,8 @@ export class GoalService implements IGoalService {
   }
 
   deleteMany(goalsId: string[], config?: HttpRequestConfig): Promise<void> {
-    return this.httpClient.delete('/goals', goalsId, config);
+    const body = { goalsId };
+
+    return this.httpClient.delete('/goals', body, config);
   }
 }
