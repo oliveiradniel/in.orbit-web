@@ -12,6 +12,7 @@ export function EditGoalsDialog({
   totalNumberOfGoals,
   isDeleteButtonDisabled,
   toggleCheckboxGoalId,
+  onDeleteManyGoals,
 }: EditGoalsDialogProps) {
   return (
     <DialogTemplate
@@ -25,7 +26,7 @@ export function EditGoalsDialog({
           <button
             type="button"
             disabled={isDeleteButtonDisabled}
-            onClick={() => console.log('excluir')}
+            onClick={onDeleteManyGoals}
             className="group rounded-sm border border-red-400 bg-black p-2 ring-red-500/10 transition-colors duration-300 ease-linear outline-none focus-visible:border-red-500 focus-visible:ring-4 enabled:cursor-pointer enabled:hover:border-red-500 disabled:border-zinc-900"
           >
             <Trash2 className="size-4 text-red-400 transition-colors duration-300 ease-linear group-focus-visible:text-red-500 group-enabled:group-hover:text-red-500 group-disabled:text-zinc-500" />

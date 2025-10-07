@@ -28,6 +28,7 @@ export function Dashboard() {
     toggleCheckboxGoalId,
     handleOpenEditGoalsDialog,
     handleCloseEditGoalsDialog,
+    handleDeleteManyGoals,
   } = useEditGoalsDialogController();
 
   const hasGoals =
@@ -47,6 +48,7 @@ export function Dashboard() {
         totalNumberOfGoals={totalNumberOfGoals}
         isDeleteButtonDisabled={isDeleteButtonDisabled}
         toggleCheckboxGoalId={toggleCheckboxGoalId}
+        onDeleteManyGoals={handleDeleteManyGoals}
       />
 
       {isLoadingGoals && <LoadingGoals />}
