@@ -6,6 +6,7 @@ type GoalPerDay = Record<
     id: string;
     title: string;
     completedAt: Date;
+    isDeleted: boolean;
   }[]
 >;
 

@@ -3,10 +3,12 @@ import dayjs from 'dayjs';
 import {
   ArrowLeft,
   ArrowRight,
+  Check,
   CheckCircle2,
   Loader2,
   Pencil,
   Plus,
+  X,
 } from 'lucide-react';
 
 import inOrbitIcon from '@/assets/images/in-orbit-icon.svg';
@@ -174,22 +176,49 @@ export function WeeklySummary({
               </h2>
 
               <ul aria-label="Lista de metas" className="flex flex-col gap-3">
-                {goals.map((goal) => {
-                  const time = dayjs(goal.completedAt).format('HH:mm');
+                {goals.map(({ id, completedAt, title, isDeleted }) => {
+                  const time = dayjs(completedAt).format('HH:mm');
 
                   return (
-                    <li key={goal.id} className="flex items-center gap-2">
+                    <li key={id} className="flex items-center gap-2">
                       <CheckCircle2
                         aria-hidden="true"
                         className="size-4 text-pink-500"
                       />
+
                       <span className="text-sm text-zinc-400">
                         Você completou "
-                        <span className="text-zinc-100">{goal.title}</span>" às{' '}
+                        <span className="text-zinc-100">{title}</span>" às{' '}
                         <time dateTime="" className="text-zinc-100">
                           {time}h
                         </time>
                       </span>
+
+                      {isDeleted && (
+                        <div className="relative ml-2 overflow-hidden rounded-full border border-zinc-900 px-4 py-2.5">
+                          <div className="absolute right-0 h-4 w-4 bg-pink-500/60 blur-lg" />
+                          <div className="absolute left-0 h-4 w-4 bg-violet-500/60 blur-lg" />
+
+                          <div className="flex items-center gap-2 text-zinc-500">
+                            <X className="size-4 text-red-500" />
+                            <span className="text-xs text-zinc-400">
+                              Excluída
+                            </span>
+                          </div>
+                        </div>
+                      )}
+
+                      {!isDeleted && (
+                        <div className="relative ml-2 overflow-hidden rounded-full border border-zinc-900 px-4 py-2.5">
+                          <div className="absolute right-0 h-4 w-4 bg-green-500/60 blur-lg" />
+                          <div className="absolute left-0 h-4 w-4 bg-green-500/60 blur-lg" />
+
+                          <div className="flex items-center gap-2 text-zinc-500">
+                            <Check className="size-4 text-green-500" />
+                            <span className="text-xs text-zinc-400">Ativa</span>
+                          </div>
+                        </div>
+                      )}
                     </li>
                   );
                 })}
