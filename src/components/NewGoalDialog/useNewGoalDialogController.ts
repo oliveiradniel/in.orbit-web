@@ -51,6 +51,7 @@ export function useNewGoalDialogController() {
       await createGoal(data);
 
       queryClient.invalidateQueries({ queryKey: ['weeklyGoals'] });
+      queryClient.invalidateQueries({ queryKey: ['goals'] });
 
       reset();
     } catch (error) {
