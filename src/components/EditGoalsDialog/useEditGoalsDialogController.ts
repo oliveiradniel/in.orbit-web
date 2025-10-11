@@ -6,7 +6,7 @@ import { useGetAllGoalsQuery } from '@/app/hooks/queries/useGetAllGoalsQuery';
 
 import type { Goal } from '@/entities/Goal';
 
-interface GoalData {
+export interface GoalData {
   id: string;
   title: string;
 }
