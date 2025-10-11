@@ -25,6 +25,7 @@ export function Dashboard() {
     totalNumberOfGoals,
     isEditGoalsDialogOpen,
     isDeleteButtonDisabled,
+    selectedGoalsData,
     toggleCheckboxGoalId,
     handleOpenEditGoalsDialog,
     handleCloseEditGoalsDialog,
@@ -45,6 +46,7 @@ export function Dashboard() {
         isOpen={isEditGoalsDialogOpen}
         onClose={handleCloseEditGoalsDialog}
         goals={goals}
+        selectedGoals={selectedGoalsData}
         totalNumberOfGoals={totalNumberOfGoals}
         isDeleteButtonDisabled={isDeleteButtonDisabled}
         toggleCheckboxGoalId={toggleCheckboxGoalId}

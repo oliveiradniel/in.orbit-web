@@ -15,6 +15,7 @@ export interface EditGoalsDialogProps {
   isOpen: boolean;
   onClose: () => void;
   goals: Goal[];
+  selectedGoals: GoalData[];
   totalNumberOfGoals: number;
   isDeleteButtonDisabled: boolean;
   toggleCheckboxGoalId: (isChecked: CheckedState, goalData: GoalData) => void;
