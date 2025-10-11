@@ -1,4 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
+
 import { type ComponentProps, forwardRef } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 
@@ -13,6 +14,7 @@ const button = tv({
         'bg-violet-500 text-violet-50 hover:bg-violet-600 ring-violet-500 data-[is-loading=true]:bg-violet-500 data-[is-loading=true]:cursor-default',
       secondary: 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 ring-zinc-900',
       githubLogin: 'bg-white text-black hover:bg-white hover:opacity-80',
+      danger: 'bg-red-500 hover:bg-red-400',
     },
 
     size: {

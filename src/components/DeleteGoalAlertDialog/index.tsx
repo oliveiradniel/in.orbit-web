@@ -73,7 +73,12 @@ export function DeleteGoalAlertDialog({
                   Fechar
                 </Button>
               </AlertDialog.Cancel>
-              <Button type="button" onClick={onConfirm} className="flex-1">
+              <Button
+                type="button"
+                variant="danger"
+                onClick={onConfirm}
+                className="flex-1"
+              >
                 Excluir {selectedGoals.length}
               </Button>
             </div>
