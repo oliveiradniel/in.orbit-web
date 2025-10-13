@@ -5,13 +5,14 @@ import { makeGoalService } from '@/app/factories/makeGoalService';
 export function useGetAllGoalsQuery() {
   const goalsService = makeGoalService();
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['goals'],
     queryFn: () => goalsService.getAll(),
   });
 
   return {
     goals: data?.goals ?? [],
-    total: data?.total ?? 0,
+    totalActiveGoals: data?.totalActiveGoals ?? 0,
+    isSeekingAllGoals: isLoading,
   };
 }

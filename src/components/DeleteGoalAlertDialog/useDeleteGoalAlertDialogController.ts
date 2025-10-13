@@ -11,6 +11,7 @@ export function useDeleteGoalAlertDialogController() {
   function handleCloseEditGoalsDialog() {
     setisDeleteGoalAlertDialogOpen(false);
   }
+
   return {
     isDeleteGoalAlertDialogOpen,
     handleOpenEditGoalsDialog,

@@ -31,7 +31,7 @@ export function DeleteGoalAlertDialog({
             <header className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <AlertDialog.Title className="text-red-400">
-                  Excluir metas?
+                  Excluir meta(s)?
                 </AlertDialog.Title>
 
                 <AlertDialog.Cancel asChild>
@@ -70,7 +70,7 @@ export function DeleteGoalAlertDialog({
                   variant="secondary"
                   className="flex-1"
                 >
-                  Fechar
+                  Cancelar
                 </Button>
               </AlertDialog.Cancel>
               <Button
@@ -79,7 +79,7 @@ export function DeleteGoalAlertDialog({
                 onClick={onConfirm}
                 className="flex-1"
               >
-                Excluir {selectedGoals.length}
+                Excluir ({selectedGoals.length})
               </Button>
             </div>
           </div>

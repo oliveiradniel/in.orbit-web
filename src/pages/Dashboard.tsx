@@ -1,5 +1,8 @@
-import { useGetWeeklyGoalsWithCompletionCountQuery } from '@/app/hooks/queries/useGetWeeklyGoalsWithCompletionCountQuery';
+import { GoalContext } from '@/app/contexts/GoalContext';
+import { GoalProvider } from '@/app/contexts/GoalContext/GoalProvider';
+
 import { EditGoalsDialog } from '@/components/EditGoalsDialog';
+
 import { useEditGoalsDialogController } from '@/components/EditGoalsDialog/useEditGoalsDialogController';
 
 import { EmptyGoals } from '@/components/EmptyGoals';
@@ -11,9 +14,6 @@ import { useNewGoalDialogController } from '@/components/NewGoalDialog/useNewGoa
 import { WeeklySummary } from '@/components/WeeklySummary';
 
 export function Dashboard() {
-  const { weeklyGoalsWithCompletionCount, isLoadingGoals } =
-    useGetWeeklyGoalsWithCompletionCountQuery();
-
   const {
     isNewGoalDialogOpen,
     handleOpenNewGoalDialog,
@@ -21,8 +21,6 @@ export function Dashboard() {
   } = useNewGoalDialogController();
 
   const {
-    goals,
-    totalNumberOfGoals,
     isEditGoalsDialogOpen,
     isDeleteButtonDisabled,
     selectedGoalsData,
@@ -32,39 +30,39 @@ export function Dashboard() {
     handleDeleteManyGoals,
   } = useEditGoalsDialogController();
 
-  const hasGoals =
-    weeklyGoalsWithCompletionCount && weeklyGoalsWithCompletionCount.length > 0;
-
   return (
-    <div>
-      <NewGoalDialog
-        isOpen={isNewGoalDialogOpen}
-        onClose={handleCloseNewGoalDialog}
-      />
+    <GoalProvider>
+      <GoalContext.Consumer>
+        {({ haveAnyGoal, isSeekingAllGoals }) => (
+          <>
+            <NewGoalDialog
+              isOpen={isNewGoalDialogOpen}
+              onClose={handleCloseNewGoalDialog}
+            />
 
-      <EditGoalsDialog
-        isOpen={isEditGoalsDialogOpen}
-        onClose={handleCloseEditGoalsDialog}
-        goals={goals}
-        selectedGoals={selectedGoalsData}
-        totalNumberOfGoals={totalNumberOfGoals}
-        isDeleteButtonDisabled={isDeleteButtonDisabled}
-        toggleCheckboxGoalId={toggleCheckboxGoalId}
-        onDeleteManyGoals={handleDeleteManyGoals}
-      />
+            <EditGoalsDialog
+              isOpen={isEditGoalsDialogOpen}
+              onClose={handleCloseEditGoalsDialog}
+              selectedGoals={selectedGoalsData}
+              isDeleteButtonDisabled={isDeleteButtonDisabled}
+              toggleCheckboxGoalId={toggleCheckboxGoalId}
+              onDeleteManyGoals={handleDeleteManyGoals}
+            />
 
-      {isLoadingGoals && <LoadingGoals />}
+            {isSeekingAllGoals && <LoadingGoals />}
 
-      {!isLoadingGoals && hasGoals ? (
-        <WeeklySummary
-          onOpenNewGoalDialog={handleOpenNewGoalDialog}
-          onOpenEditGoalsDialog={handleOpenEditGoalsDialog}
-        />
-      ) : (
-        !isLoadingGoals && (
-          <EmptyGoals onOpenNewGoalDialog={handleOpenNewGoalDialog} />
-        )
-      )}
-    </div>
+            {!isSeekingAllGoals &&
+              (haveAnyGoal ? (
+                <WeeklySummary
+                  onOpenNewGoalDialog={handleOpenNewGoalDialog}
+                  onOpenEditGoalsDialog={handleOpenEditGoalsDialog}
+                />
+              ) : (
+                <EmptyGoals onOpenNewGoalDialog={handleOpenNewGoalDialog} />
+              ))}
+          </>
+        )}
+      </GoalContext.Consumer>
+    </GoalProvider>
   );
 }

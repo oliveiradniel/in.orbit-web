@@ -4,18 +4,22 @@ import { DeleteGoalAlertDialog } from '../DeleteGoalAlertDialog';
 import { useDeleteGoalAlertDialogController } from '../DeleteGoalAlertDialog/useDeleteGoalAlertDialogController';
 import { DialogTemplate } from '../TemplateDialog';
 import { CheckboxIndicator, CheckboxItem } from '../ui/Checkbox';
-import type { EditGoalsDialogProps } from './useEditGoalsDialogController';
+
+import {
+  type EditGoalsDialogProps,
+  useEditGoalsDialogController,
+} from './useEditGoalsDialogController';
 
 export function EditGoalsDialog({
   isOpen,
   onClose,
-  goals,
   selectedGoals,
-  totalNumberOfGoals,
   isDeleteButtonDisabled,
   toggleCheckboxGoalId,
   onDeleteManyGoals,
 }: EditGoalsDialogProps) {
+  const { goals, totalOfGoals } = useEditGoalsDialogController();
+
   const {
     isDeleteGoalAlertDialogOpen,
     handleOpenEditGoalsDialog,
@@ -54,7 +58,7 @@ export function EditGoalsDialog({
             </button>
 
             <p className="text-sm text-zinc-400">
-              Total de metas: {totalNumberOfGoals}
+              Total de metas: {totalOfGoals}
             </p>
           </div>
 

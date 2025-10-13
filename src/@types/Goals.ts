@@ -29,5 +29,5 @@ export interface GoalWithCompletionCount {
 
 export interface GoalsAndTotal {
   goals: Goal[];
-  total: number;
+  totalActiveGoals: number;
 }

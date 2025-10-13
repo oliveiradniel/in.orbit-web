@@ -1,10 +1,8 @@
 import type { CheckedState } from '@radix-ui/react-checkbox';
 
 import { useState } from 'react';
+import { useGoalContext } from '@/app/contexts/GoalContext/useGoalContext';
 import { useDeleteManyGoalMutation } from '@/app/hooks/mutations/useDeleteManyGoalMutation';
-import { useGetAllGoalsQuery } from '@/app/hooks/queries/useGetAllGoalsQuery';
-
-import type { Goal } from '@/entities/Goal';
 
 export interface GoalData {
   id: string;
@@ -14,19 +12,17 @@ export interface GoalData {
 export interface EditGoalsDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  goals: Goal[];
   selectedGoals: GoalData[];
-  totalNumberOfGoals: number;
   isDeleteButtonDisabled: boolean;
   toggleCheckboxGoalId: (isChecked: CheckedState, goalData: GoalData) => void;
   onDeleteManyGoals: () => void;
 }
 
 export function useEditGoalsDialogController() {
+  const { activeGoals, totalActiveGoals } = useGoalContext();
+
   const [isEditGoalsDialogOpen, setIsEditGoalsDialogOpen] = useState(false);
   const [selectedGoalsData, setSelectedGoalsData] = useState<GoalData[]>([]);
-
-  const { goals, total } = useGetAllGoalsQuery();
 
   const isDeleteButtonDisabled = selectedGoalsData.length === 0;
 
@@ -79,8 +75,8 @@ export function useEditGoalsDialogController() {
   }
 
   return {
-    goals,
-    totalNumberOfGoals: total,
+    goals: activeGoals,
+    totalOfGoals: totalActiveGoals,
     selectedGoalsData,
     isEditGoalsDialogOpen,
     isDeleteButtonDisabled,
