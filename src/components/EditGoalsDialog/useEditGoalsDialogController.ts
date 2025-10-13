@@ -14,10 +14,11 @@ export interface EditGoalsDialogProps {
   selectedGoals: GoalData[];
   isDeleteButtonDisabled: boolean;
   toggleCheckboxGoalId: (isChecked: CheckedState, goalData: GoalData) => void;
+  onOpenNewGoalDialog: () => void;
 }
 
 export function useEditGoalsDialogController() {
-  const { activeGoals, totalActiveGoals } = useGoalContext();
+  const { activeGoals, hasAnyActiveGoal } = useGoalContext();
 
   const [isEditGoalsDialogOpen, setIsEditGoalsDialogOpen] = useState(false);
   const [selectedGoalsData, setSelectedGoalsData] = useState<GoalData[]>([]);
@@ -66,7 +67,7 @@ export function useEditGoalsDialogController() {
 
   return {
     goals: activeGoals,
-    totalOfGoals: totalActiveGoals,
+    hasAnyActiveGoal,
     selectedGoalsData,
     isEditGoalsDialogOpen,
     isDeleteButtonDisabled,

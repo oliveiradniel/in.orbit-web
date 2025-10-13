@@ -44,6 +44,7 @@ export function Dashboard() {
               selectedGoals={selectedGoalsData}
               isDeleteButtonDisabled={isDeleteButtonDisabled}
               toggleCheckboxGoalId={toggleCheckboxGoalId}
+              onOpenNewGoalDialog={handleOpenNewGoalDialog}
             />
 
             {isSeekingAllGoals && <LoadingGoals />}
