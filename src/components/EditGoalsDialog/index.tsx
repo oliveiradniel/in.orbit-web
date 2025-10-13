@@ -16,7 +16,6 @@ export function EditGoalsDialog({
   selectedGoals,
   isDeleteButtonDisabled,
   toggleCheckboxGoalId,
-  onDeleteManyGoals,
 }: EditGoalsDialogProps) {
   const { goals, totalOfGoals } = useEditGoalsDialogController();
 
@@ -26,18 +25,12 @@ export function EditGoalsDialog({
     handleCloseEditGoalsDialog,
   } = useDeleteGoalAlertDialogController();
 
-  function handleDelete() {
-    onDeleteManyGoals();
-    onClose();
-  }
-
   return (
     <>
       <DeleteGoalAlertDialog
         isOpen={isDeleteGoalAlertDialogOpen}
         selectedGoals={selectedGoals}
         onClose={handleCloseEditGoalsDialog}
-        onConfirm={handleDelete}
       />
 
       <DialogTemplate

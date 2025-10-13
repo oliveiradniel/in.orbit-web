@@ -1,6 +1,5 @@
 import { GoalContext } from '@/app/contexts/GoalContext';
 import { GoalProvider } from '@/app/contexts/GoalContext/GoalProvider';
-
 import { EditGoalsDialog } from '@/components/EditGoalsDialog';
 
 import { useEditGoalsDialogController } from '@/components/EditGoalsDialog/useEditGoalsDialogController';
@@ -27,7 +26,6 @@ export function Dashboard() {
     toggleCheckboxGoalId,
     handleOpenEditGoalsDialog,
     handleCloseEditGoalsDialog,
-    handleDeleteManyGoals,
   } = useEditGoalsDialogController();
 
   return (
@@ -46,7 +44,6 @@ export function Dashboard() {
               selectedGoals={selectedGoalsData}
               isDeleteButtonDisabled={isDeleteButtonDisabled}
               toggleCheckboxGoalId={toggleCheckboxGoalId}
-              onDeleteManyGoals={handleDeleteManyGoals}
             />
 
             {isSeekingAllGoals && <LoadingGoals />}

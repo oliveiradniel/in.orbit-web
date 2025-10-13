@@ -5,19 +5,22 @@ import type { GoalData } from '../EditGoalsDialog/useEditGoalsDialogController';
 import { AlertDialog } from '../ui/AlertDialog';
 import { Button } from '../ui/Button';
 
+import { useDeleteGoalAlertDialogController } from './useDeleteGoalAlertDialogController';
+
 interface DeleteGoalAlertDialogProps {
   isOpen: boolean;
   selectedGoals: GoalData[];
   onClose: () => void;
-  onConfirm: () => void;
 }
 
 export function DeleteGoalAlertDialog({
   isOpen,
   selectedGoals,
   onClose,
-  onConfirm,
 }: DeleteGoalAlertDialogProps) {
+  const { handleDeleteManyGoals, isDeletingGoals } =
+    useDeleteGoalAlertDialogController(selectedGoals, onClose);
+
   return (
     <AlertDialog.Root
       open={isOpen}
@@ -76,7 +79,8 @@ export function DeleteGoalAlertDialog({
               <Button
                 type="button"
                 variant="danger"
-                onClick={onConfirm}
+                isLoading={isDeletingGoals}
+                onClick={handleDeleteManyGoals}
                 className="flex-1"
               >
                 Excluir ({selectedGoals.length})
