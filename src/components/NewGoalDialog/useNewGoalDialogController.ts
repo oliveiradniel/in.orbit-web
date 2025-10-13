@@ -2,6 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import { useSearch } from '@tanstack/react-router';
+
 import { AxiosError } from 'axios';
 
 import { useId, useState } from 'react';
@@ -18,6 +20,8 @@ import {
 import { errorLabels } from '@/config/constants';
 
 export function useNewGoalDialogController() {
+  const { weekStartsAt } = useSearch({ from: '/' });
+
   const inputTitleId = useId();
 
   const [isNewGoalDialogOpen, setIsNewGoalDialogOpen] = useState(false);
@@ -51,6 +55,9 @@ export function useNewGoalDialogController() {
       await createGoal(data);
 
       queryClient.invalidateQueries({ queryKey: ['weeklyGoals'] });
+      queryClient.invalidateQueries({
+        queryKey: ['weeklySummary', weekStartsAt],
+      });
       queryClient.invalidateQueries({ queryKey: ['goals'] });
 
       reset();
