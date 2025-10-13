@@ -31,7 +31,7 @@ export function Dashboard() {
   return (
     <GoalProvider>
       <GoalContext.Consumer>
-        {({ haveAnyGoal, isSeekingAllGoals }) => (
+        {({ hasAnyGoal, hasAnyActiveGoal, isSeekingAllGoals }) => (
           <>
             <NewGoalDialog
               isOpen={isNewGoalDialogOpen}
@@ -49,8 +49,9 @@ export function Dashboard() {
             {isSeekingAllGoals && <LoadingGoals />}
 
             {!isSeekingAllGoals &&
-              (haveAnyGoal ? (
+              (hasAnyGoal ? (
                 <WeeklySummary
+                  hasAnyActiveGoal={hasAnyActiveGoal}
                   onOpenNewGoalDialog={handleOpenNewGoalDialog}
                   onOpenEditGoalsDialog={handleOpenEditGoalsDialog}
                 />

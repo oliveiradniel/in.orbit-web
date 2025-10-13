@@ -21,10 +21,14 @@ export function useWeeklySummaryController() {
   const firstDayOfWeek = dayjs(weekStartsAt).startOf('week').format('D MMMM');
   const lastDayOfWeek = dayjs(weekStartsAt).endOf('week').format('D MMMM');
 
-  const totalGoals = weeklySummaryOfCompletedGoals?.total!;
+  const weeklyFrequencyOfAllGoals = weeklySummaryOfCompletedGoals?.total!;
+
   const completedGoals = weeklySummaryOfCompletedGoals?.completed!;
+
   const percentGoalsCompleted =
-    totalGoals > 0 ? ((completedGoals / totalGoals) * 100).toFixed(0) : 0;
+    weeklyFrequencyOfAllGoals > 0
+      ? ((completedGoals / weeklyFrequencyOfAllGoals) * 100).toFixed(0)
+      : 0;
 
   const goalsPerDay = weeklySummaryOfCompletedGoals?.goalsPerDay;
   const goalsPerDayArray = goalsPerDay
@@ -58,7 +62,7 @@ export function useWeeklySummaryController() {
     firstDayOfWeek,
     lastDayOfWeek,
     completedGoals,
-    totalGoals,
+    weeklyFrequencyOfAllGoals,
     percentGoalsCompleted,
     goalsPerDayArray,
     isRefetchingWeeklySummary,

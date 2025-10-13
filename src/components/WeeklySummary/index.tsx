@@ -23,11 +23,13 @@ import { UserProfile } from './components/UserProfile';
 import { useWeeklySummaryController } from './useWeeklySummaryController';
 
 interface WeeklySummaryProps {
+  hasAnyActiveGoal: boolean;
   onOpenNewGoalDialog: () => void;
   onOpenEditGoalsDialog: () => void;
 }
 
 export function WeeklySummary({
+  hasAnyActiveGoal,
   onOpenNewGoalDialog,
   onOpenEditGoalsDialog,
 }: WeeklySummaryProps) {
@@ -36,7 +38,7 @@ export function WeeklySummary({
     firstDayOfWeek,
     lastDayOfWeek,
     completedGoals,
-    totalGoals,
+    weeklyFrequencyOfAllGoals,
     percentGoalsCompleted,
     goalsPerDayArray,
     isRefetchingWeeklySummary,
@@ -97,7 +99,7 @@ export function WeeklySummary({
             type="button"
             size="sm"
             variant="secondary"
-            disabled={isRefetchingWeeklySummary}
+            disabled={isRefetchingWeeklySummary || !hasAnyActiveGoal}
             onClick={onOpenEditGoalsDialog}
             className="w-full"
           >
@@ -112,9 +114,9 @@ export function WeeklySummary({
           aria-label="Progresso semanal das metas"
           aria-valuenow={completedGoals}
           aria-valuemin={0}
-          aria-valuemax={totalGoals}
+          aria-valuemax={weeklyFrequencyOfAllGoals}
           value={completedGoals}
-          max={totalGoals}
+          max={weeklyFrequencyOfAllGoals}
         >
           <ProgressIndicator
             style={{
@@ -127,8 +129,8 @@ export function WeeklySummary({
           <span>
             Você completou{' '}
             <span className="text-zinc-100">{completedGoals}</span> de{' '}
-            <span className="text-zinc-100">{totalGoals}</span> metas nessa
-            semana.
+            <span className="text-zinc-100">{weeklyFrequencyOfAllGoals}</span>{' '}
+            metas nessa semana.
           </span>
           <span>{percentGoalsCompleted}%</span>
         </div>

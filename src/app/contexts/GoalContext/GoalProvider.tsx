@@ -11,16 +11,18 @@ export function GoalProvider({ children }: GoalProviderProps) {
   const activeGoals = goals.filter((goal) => goal.isDeleted === false);
   const inactiveGoals = goals.filter((goal) => goal.isDeleted === true);
 
-  const haveAnyGoal = goals.length > 0;
+  const hasAnyGoal = goals.length > 0;
+  const hasAnyActiveGoal = activeGoals.length > 0;
 
   return (
     <GoalContext.Provider
       value={{
         goals,
+        totalActiveGoals,
         activeGoals,
         inactiveGoals,
-        haveAnyGoal,
-        totalActiveGoals,
+        hasAnyGoal,
+        hasAnyActiveGoal,
         isSeekingAllGoals,
       }}
     >

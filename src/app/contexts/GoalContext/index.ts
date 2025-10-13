@@ -6,7 +6,8 @@ interface GoalContextValue {
   totalActiveGoals: number;
   activeGoals: Goal[];
   inactiveGoals: Goal[];
-  haveAnyGoal: boolean;
+  hasAnyGoal: boolean;
+  hasAnyActiveGoal: boolean;
   isSeekingAllGoals: boolean;
 }
 
