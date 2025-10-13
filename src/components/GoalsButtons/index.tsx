@@ -4,7 +4,7 @@ import { OutlineButton } from '../ui/OutlineButton';
 
 import { useGoalsButtonsController } from './useGoalsButtonsController';
 
-export function GoalButtons() {
+export function GoalsButtons() {
   const {
     isRefetchingWeeklySummary,
     handleCreateGoalCompleted,

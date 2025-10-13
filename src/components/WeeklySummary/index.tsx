@@ -13,7 +13,7 @@ import {
 
 import inOrbitIcon from '@/assets/images/in-orbit-icon.svg';
 
-import { GoalButtons } from '../GoalButtons';
+import { GoalsButtons } from '../GoalsButtons';
 
 import { Button } from '../ui/Button';
 import { Progress, ProgressIndicator } from '../ui/ProgressBar';
@@ -138,7 +138,7 @@ export function WeeklySummary({
 
       <Separator />
 
-      <GoalButtons />
+      {hasAnyActiveGoal && <GoalsButtons />}
 
       <main
         aria-labelledby={containerSummaryId}
