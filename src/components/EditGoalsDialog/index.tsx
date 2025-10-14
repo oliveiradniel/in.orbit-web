@@ -35,6 +35,7 @@ export function EditGoalsDialog({
       />
 
       <DialogTemplate
+        hasAction={false}
         title="Edite suas metas"
         description="Edite o título ou exclua algumas de suas metas"
         isOpen={isOpen}

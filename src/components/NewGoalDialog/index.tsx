@@ -1,7 +1,5 @@
 import { Controller } from 'react-hook-form';
 
-import { Button } from '@/components/ui/Button';
-import { Dialog } from '@/components/ui/Dialog';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import {
@@ -34,15 +32,15 @@ export function NewGoalDialog({ isOpen, onClose }: NewGoalDialogProps) {
 
   return (
     <DialogTemplate
+      hasAction
+      isSubmitting={isCreationGoal}
       isOpen={isOpen}
       onClose={onClose}
+      onSubmit={handleSubmit}
       title="Cadastrar meta"
       description="Adicione atividades que te fazem bem e que você quer continuar praticando toda semana."
     >
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-1 flex-col justify-between"
-      >
+      <form onSubmit={handleSubmit} className="flex flex-1 flex-col">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <Label htmlFor={inputTitleId}>Qual a atividade?</Label>
@@ -84,22 +82,6 @@ export function NewGoalDialog({ isOpen, onClose }: NewGoalDialogProps) {
               )}
             />
           </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Dialog.Close asChild>
-            <Button
-              aria-label="Fechar"
-              type="button"
-              variant="secondary"
-              className="flex-1"
-            >
-              Fechar
-            </Button>
-          </Dialog.Close>
-          <Button type="submit" isLoading={isCreationGoal} className="flex-1">
-            Salvar
-          </Button>
         </div>
       </form>
     </DialogTemplate>

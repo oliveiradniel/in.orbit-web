@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-
+import { Button } from './ui/Button';
 import { Dialog as RdxDialog } from './ui/Dialog';
 
 interface DialogTemplateProps {
@@ -7,7 +7,10 @@ interface DialogTemplateProps {
   title: string;
   description: string;
   isOpen: boolean;
-  onClose?(): void;
+  hasAction: boolean;
+  isSubmitting?: boolean;
+  onSubmit?: () => void;
+  onClose?: () => void;
 }
 
 export function DialogTemplate({
@@ -15,6 +18,9 @@ export function DialogTemplate({
   title,
   description,
   isOpen,
+  hasAction,
+  isSubmitting,
+  onSubmit,
   onClose,
 }: DialogTemplateProps) {
   return (
@@ -45,7 +51,31 @@ export function DialogTemplate({
               <RdxDialog.Description>{description}</RdxDialog.Description>
             </header>
 
-            {children}
+            <form onSubmit={onSubmit} className="flex flex-1 flex-col">
+              <div className="flex-1">{children}</div>
+
+              <div className="flex items-center gap-3">
+                <RdxDialog.Close asChild>
+                  <Button
+                    aria-label="Fechar"
+                    type="button"
+                    variant="secondary"
+                    className="flex-1"
+                  >
+                    Fechar
+                  </Button>
+                </RdxDialog.Close>
+                {hasAction && (
+                  <Button
+                    type={hasAction ? 'submit' : 'button'}
+                    isLoading={isSubmitting}
+                    className="flex-1"
+                  >
+                    Salvar
+                  </Button>
+                )}
+              </div>
+            </form>
           </div>
         </RdxDialog.Content>
       </RdxDialog.Portal>
