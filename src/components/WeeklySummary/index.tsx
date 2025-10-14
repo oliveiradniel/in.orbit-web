@@ -1,5 +1,8 @@
 import dayjs from 'dayjs';
 
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
 import {
   ArrowLeft,
   ArrowRight,
@@ -21,6 +24,9 @@ import { Separator } from '../ui/Separator';
 import { UserProfile } from './components/UserProfile';
 
 import { useWeeklySummaryController } from './useWeeklySummaryController';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface WeeklySummaryProps {
   hasAnyActiveGoal: boolean;
@@ -179,7 +185,10 @@ export function WeeklySummary({
 
               <ul aria-label="Lista de metas" className="flex flex-col gap-3">
                 {goals.map(({ id, completedAt, title, isDeleted }) => {
-                  const time = dayjs(completedAt).format('HH:mm');
+                  const time = dayjs
+                    .utc(completedAt)
+                    .tz('America/Sao_Paulo')
+                    .format('HH:mm');
 
                   return (
                     <li key={id} className="flex items-center gap-2">
