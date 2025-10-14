@@ -42,7 +42,7 @@ export function EditGoalsDialog({
         onClose={onClose}
       >
         {hasAnyActiveGoal && (
-          <div className="flex flex-col gap-4">
+          <div className="flex h-full flex-col gap-4">
             <div className="flex items-center justify-between">
               <button
                 type="button"
@@ -58,7 +58,7 @@ export function EditGoalsDialog({
               </p>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <ul className="flex-1 space-y-2 overflow-y-auto">
               {goals.map(({ id, title }) => (
                 <div key={`list-goals-${id}`} className="flex flex-col gap-2">
                   <div className="flex w-full gap-2">
@@ -75,7 +75,7 @@ export function EditGoalsDialog({
                   </div>
                 </div>
               ))}
-            </div>
+            </ul>
           </div>
         )}
 

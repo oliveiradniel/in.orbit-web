@@ -28,8 +28,8 @@ export function DialogTemplate({
       <RdxDialog.Portal>
         <RdxDialog.Overlay />
 
-        <RdxDialog.Content className="data-[state=open]:animate-dialog-open data-[state=closed]:animate-dialog-close w-[400px] overflow-auto border-l border-zinc-900 bg-zinc-950">
-          <div className="flex h-full flex-col gap-6">
+        <RdxDialog.Content className="data-[state=open]:animate-dialog-open data-[state=closed]:animate-dialog-close flex h-screen w-[400px] flex-col gap-6 border-l border-zinc-900 bg-zinc-950">
+          <form onSubmit={onSubmit} className="flex h-full flex-col gap-4">
             <header className="flex flex-col gap-3">
               <div className="flex items-center justify-between">
                 <RdxDialog.Title>{title}</RdxDialog.Title>
@@ -51,32 +51,30 @@ export function DialogTemplate({
               <RdxDialog.Description>{description}</RdxDialog.Description>
             </header>
 
-            <form onSubmit={onSubmit} className="flex flex-1 flex-col">
-              <div className="flex-1">{children}</div>
+            <div className="flex-1 overflow-y-auto">{children}</div>
 
-              <div className="flex items-center gap-3">
-                <RdxDialog.Close asChild>
-                  <Button
-                    aria-label="Fechar"
-                    type="button"
-                    variant="secondary"
-                    className="flex-1"
-                  >
-                    Fechar
-                  </Button>
-                </RdxDialog.Close>
-                {hasAction && (
-                  <Button
-                    type={hasAction ? 'submit' : 'button'}
-                    isLoading={isSubmitting}
-                    className="flex-1"
-                  >
-                    Salvar
-                  </Button>
-                )}
-              </div>
-            </form>
-          </div>
+            <div className="flex items-center gap-3">
+              <RdxDialog.Close asChild>
+                <Button
+                  aria-label="Fechar"
+                  type="button"
+                  variant="secondary"
+                  className="flex-1"
+                >
+                  Fechar
+                </Button>
+              </RdxDialog.Close>
+              {hasAction && (
+                <Button
+                  type={hasAction ? 'submit' : 'button'}
+                  isLoading={isSubmitting}
+                  className="flex-1"
+                >
+                  Salvar
+                </Button>
+              )}
+            </div>
+          </form>
         </RdxDialog.Content>
       </RdxDialog.Portal>
     </RdxDialog.Root>

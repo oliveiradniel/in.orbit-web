@@ -40,50 +40,48 @@ export function NewGoalDialog({ isOpen, onClose }: NewGoalDialogProps) {
       title="Cadastrar meta"
       description="Adicione atividades que te fazem bem e que você quer continuar praticando toda semana."
     >
-      <form onSubmit={handleSubmit} className="flex flex-1 flex-col">
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={inputTitleId}>Qual a atividade?</Label>
-            <Input
-              {...register('title', {
-                onChange: () => {
-                  if (requestErrorMessage) {
-                    clearRequestErrorMessage();
-                  }
-                },
-              })}
-              id={inputTitleId}
-              autoFocus
-              placeholder="Praticar exercícios, meditar, etc..."
-              error={formErrors.title?.message || requestErrorMessage}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Quantas vezes na semana?</Label>
-            <Controller
-              control={control}
-              name="desiredWeeklyFrequency"
-              render={({ field: { value, onChange } }) => (
-                <RadioGroup
-                  aria-label="Deseja praticar a atividade quantas vezes na semana?"
-                  value={String(value)}
-                  onValueChange={onChange}
-                >
-                  {weeklyFrequencyOptions.map(({ value, label, icon }) => (
-                    <RadioGroupItem key={value} value={value}>
-                      <RadioGroupIndicator />
-                      <span className="text-sm leading-none font-medium text-zinc-300">
-                        {label}
-                      </span>
-                      <span className="text-lg leading-none">{icon}</span>
-                    </RadioGroupItem>
-                  ))}
-                </RadioGroup>
-              )}
-            />
-          </div>
+      <div className="flex flex-1 flex-col gap-6">
+        <div className="flex flex-col gap-2">
+          <Label htmlFor={inputTitleId}>Qual a atividade?</Label>
+          <Input
+            {...register('title', {
+              onChange: () => {
+                if (requestErrorMessage) {
+                  clearRequestErrorMessage();
+                }
+              },
+            })}
+            id={inputTitleId}
+            autoFocus
+            placeholder="Praticar exercícios, meditar, etc..."
+            error={formErrors.title?.message || requestErrorMessage}
+          />
         </div>
-      </form>
+        <div className="flex flex-col gap-2">
+          <Label>Quantas vezes na semana?</Label>
+          <Controller
+            control={control}
+            name="desiredWeeklyFrequency"
+            render={({ field: { value, onChange } }) => (
+              <RadioGroup
+                aria-label="Deseja praticar a atividade quantas vezes na semana?"
+                value={String(value)}
+                onValueChange={onChange}
+              >
+                {weeklyFrequencyOptions.map(({ value, label, icon }) => (
+                  <RadioGroupItem key={value} value={value}>
+                    <RadioGroupIndicator />
+                    <span className="text-sm leading-none font-medium text-zinc-300">
+                      {label}
+                    </span>
+                    <span className="text-lg leading-none">{icon}</span>
+                  </RadioGroupItem>
+                ))}
+              </RadioGroup>
+            )}
+          />
+        </div>
+      </div>
     </DialogTemplate>
   );
 }
