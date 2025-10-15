@@ -72,7 +72,7 @@ export function EditGoalsDialog({
                     >
                       <CheckboxIndicator />
 
-                      <span>{title}</span>
+                      <span className="text-end">{title}</span>
                     </CheckboxItem>
                   </div>
                 </div>
