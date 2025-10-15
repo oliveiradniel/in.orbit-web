@@ -26,3 +26,22 @@
     }
   }
 }
+
+/* styles.css */
+.scrollbar-custom::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: #000; /* track preto */
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: #8b5cf6; /* violeta */
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background-color: #c084fc; /* violeta claro */
+}

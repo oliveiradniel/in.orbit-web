@@ -18,7 +18,7 @@ export interface EditGoalsDialogProps {
 }
 
 export function useEditGoalsDialogController() {
-  const { activeGoals, hasAnyActiveGoal } = useGoalContext();
+  const { activeGoals, hasAnyActiveGoal, totalActiveGoals } = useGoalContext();
 
   const [isEditGoalsDialogOpen, setIsEditGoalsDialogOpen] = useState(false);
   const [selectedGoalsData, setSelectedGoalsData] = useState<GoalData[]>([]);
@@ -67,6 +67,7 @@ export function useEditGoalsDialogController() {
 
   return {
     goals: activeGoals,
+    totalActiveGoals,
     hasAnyActiveGoal,
     selectedGoalsData,
     isEditGoalsDialogOpen,

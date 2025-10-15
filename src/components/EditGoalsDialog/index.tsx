@@ -18,7 +18,8 @@ export function EditGoalsDialog({
   toggleCheckboxGoalId,
   onOpenNewGoalDialog,
 }: EditGoalsDialogProps) {
-  const { goals, hasAnyActiveGoal } = useEditGoalsDialogController();
+  const { goals, totalActiveGoals, hasAnyActiveGoal } =
+    useEditGoalsDialogController();
 
   const {
     isDeleteGoalAlertDialogOpen,
@@ -54,11 +55,12 @@ export function EditGoalsDialog({
               </button>
 
               <p className="text-sm text-zinc-400">
-                Total de metas: {hasAnyActiveGoal}
+                Total de metas:{' '}
+                <span className="font-bold">{totalActiveGoals}</span>
               </p>
             </div>
 
-            <ul className="flex-1 space-y-2 overflow-y-auto">
+            <ul className="scrollbar-custom flex-1 space-y-2 overflow-y-auto transition-all duration-300 ease-linear">
               {goals.map(({ id, title }) => (
                 <div key={`list-goals-${id}`} className="flex flex-col gap-2">
                   <div className="flex w-full gap-2">
