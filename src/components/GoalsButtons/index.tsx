@@ -41,7 +41,12 @@ export function GoalsButtons() {
                       aria-hidden="true"
                       className="size-4 text-red-400 transition-colors duration-300 ease-linear group-hover:text-red-500"
                     />{' '}
-                    {title}
+                    <p>
+                      {title}{' '}
+                      <span className="ml-2 text-xs font-semibold text-red-400">
+                        {completionCount}/{desiredWeeklyFrequency}
+                      </span>
+                    </p>
                   </OutlineButton>
                 );
               }
@@ -84,7 +89,12 @@ export function GoalsButtons() {
                         className="size-4 text-yellow-300 transition-colors duration-300 ease-linear group-hover:text-yellow-500"
                       />
                     )}
-                    {title}
+                    <p>
+                      {title}{' '}
+                      <span className="ml-2 text-xs font-semibold text-yellow-400">
+                        {completionCount}/{desiredWeeklyFrequency}
+                      </span>
+                    </p>
                   </OutlineButton>
                 );
               }
@@ -109,7 +119,12 @@ export function GoalsButtons() {
                     disabled={isGoalCompleted || isRefetchingWeeklySummary}
                     status="completed"
                   >
-                    {title}
+                    <p>
+                      {title}{' '}
+                      <span className="ml-2 text-xs font-semibold text-green-500">
+                        {completionCount}/{desiredWeeklyFrequency}
+                      </span>
+                    </p>
                   </OutlineButton>
                 );
               }
