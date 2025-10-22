@@ -16,4 +16,8 @@ export class OAuthService implements IOAuthService {
   ): Promise<OAuthGitHubResponse> {
     return this.httpClient.post('/oauth/github', { code }, config);
   }
+
+  logout(config?: HttpRequestConfig): Promise<void> {
+    return this.httpClient.post('/oauth/logout', null, config);
+  }
 }

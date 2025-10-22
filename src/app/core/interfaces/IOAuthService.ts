@@ -7,4 +7,5 @@ export interface IOAuthService {
     code: string,
     config?: HttpRequestConfig
   ): Promise<OAuthGitHubResponse>;
+  logout(config?: HttpRequestConfig): Promise<void>;
 }
