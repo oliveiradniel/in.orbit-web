@@ -1,9 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 
 import { queryClient } from '@/app/core/providers/queryClient';
-
 import { makeUserService } from '@/app/factories/makeUserService';
-
 import { SignInWithGitHub } from '@/pages/SignInWithGitHub';
 
 function Login() {
@@ -14,6 +12,11 @@ export const Route = createFileRoute('/login')({
   component: Login,
 
   beforeLoad: async () => {
+    if (sessionStorage.getItem('userLeft')) {
+      sessionStorage.removeItem('userLeft');
+      return true;
+    }
+
     const usersService = makeUserService();
 
     try {
