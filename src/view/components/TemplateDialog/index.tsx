@@ -1,6 +1,7 @@
 import { X } from 'lucide-react';
-import { Button } from './ui/Button';
-import { Dialog as RdxDialog } from './ui/Dialog';
+
+import { Button } from '../ui/Button';
+import { Dialog as RdxDialog } from '../ui/Dialog';
 
 interface DialogTemplateProps {
   children: React.ReactNode;

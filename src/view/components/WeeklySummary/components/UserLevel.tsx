@@ -1,6 +1,6 @@
 import { useGetUserLevelAndExperienceQuery } from '@/app/hooks/queries/useGetUserLevelAndExperienceQuery';
 
-import { Progress, ProgressIndicator } from '@/components/ui/ProgressBar';
+import { Progress, ProgressIndicator } from '@/view/components/ui/ProgressBar';
 
 export function UserLevel() {
   const { userLevel } = useGetUserLevelAndExperienceQuery();

@@ -1,4 +1,5 @@
 import { LogOut, Trash2 } from 'lucide-react';
+
 import { DeleteAccountDialog } from '../DeleteAccountDialog';
 import { useDeleteAccountDialogController } from '../DeleteAccountDialog/useDeleteAccountDialogController';
 import { DialogTemplate } from '../TemplateDialog';

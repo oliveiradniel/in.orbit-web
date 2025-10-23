@@ -1,12 +1,12 @@
 import { Controller } from 'react-hook-form';
 
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/Label';
+import { Input } from '@/view/components/ui/Input';
+import { Label } from '@/view/components/ui/Label';
 import {
   RadioGroup,
   RadioGroupIndicator,
   RadioGroupItem,
-} from '@/components/ui/RadioGroup';
+} from '@/view/components/ui/RadioGroup';
 import { DialogTemplate } from '../TemplateDialog';
 
 import { useNewGoalDialogController } from './useNewGoalDialogController';

@@ -6,9 +6,11 @@ import type { UserResponse } from '@/@types/UserResponse';
 
 import { queryClient } from '@/app/core/providers/queryClient';
 
-import { ProfileDialog } from '@/components/ProfileDialog';
-import { useProfileDialogController } from '@/components/ProfileDialog/useProfileDialogController';
-import { Button } from '@/components/ui/Button';
+import { ProfileDialog } from '@/view/components/ProfileDialog';
+
+import { useProfileDialogController } from '@/view/components/ProfileDialog/useProfileDialogController';
+
+import { Button } from '@/view/components/ui/Button';
 import { UserLevel } from './UserLevel';
 
 export function UserProfile() {

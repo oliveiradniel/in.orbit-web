@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { router } from '@/App';
 
-import { SignInWithGitHubCallback } from '@/pages/SignInWithGitHubCallback';
+import { SignInWithGitHubCallback } from '@/view/pages/SignInWithGitHubCallback';
 
 interface AuthGitHubSearch {
   code: string | undefined;

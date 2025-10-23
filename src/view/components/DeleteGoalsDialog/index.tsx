@@ -1,7 +1,9 @@
 import { Plus, Trash2 } from 'lucide-react';
 
 import { DeleteGoalAlertDialog } from '../DeleteGoalAlertDialog';
+
 import { useDeleteGoalAlertDialogController } from '../DeleteGoalAlertDialog/useDeleteGoalAlertDialogController';
+
 import { DialogTemplate } from '../TemplateDialog';
 import { Button } from '../ui/Button';
 import { CheckboxIndicator, CheckboxItem } from '../ui/Checkbox';

@@ -5,7 +5,7 @@ import { queryClient } from '@/app/core/providers/queryClient';
 import { makeUserService } from '@/app/factories/makeUserService';
 
 import { DashboardSearchSchema } from '@/app/schemas/DashboardSearchSchema';
-import { Dashboard } from '@/pages/Dashboard';
+import { Dashboard } from '@/view/pages/Dashboard';
 
 function Index() {
   return <Dashboard />;

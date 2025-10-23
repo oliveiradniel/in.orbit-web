@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router';
 import githubIcon from '@/assets/icons/github.svg';
 import logo from '@/assets/images/logo-in-orbit.svg';
 
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/view/components/ui/Button';
 
 import { env } from '@/config/env';
 

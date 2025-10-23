@@ -8,7 +8,7 @@ import { useLogoutMutation } from '@/app/hooks/mutations/useLogoutMutation';
 import letsStart from '@/assets/images/lets-start-illustration.svg';
 import logo from '@/assets/images/logo-in-orbit.svg';
 
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/view/components/ui/Button';
 
 interface EmptyGoalsProps {
   onOpenNewGoalDialog: () => void;

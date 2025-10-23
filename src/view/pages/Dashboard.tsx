@@ -1,16 +1,17 @@
 import { GoalContext } from '@/app/contexts/GoalContext';
 import { GoalProvider } from '@/app/contexts/GoalContext/GoalProvider';
-import { DeleteGoalsDialog } from '@/components/DeleteGoalsDialog';
 
-import { useDeleteGoalsDialogController } from '@/components/DeleteGoalsDialog/useDeleteGoalsDialogController';
+import { DeleteGoalsDialog } from '@/view/components/DeleteGoalsDialog';
 
-import { EmptyGoals } from '@/components/EmptyGoals';
-import { LoadingGoals } from '@/components/LoadingGoals';
-import { NewGoalDialog } from '@/components/NewGoalDialog';
+import { useDeleteGoalsDialogController } from '@/view/components/DeleteGoalsDialog/useDeleteGoalsDialogController';
 
-import { useNewGoalDialogController } from '@/components/NewGoalDialog/useNewGoalDialogController';
+import { EmptyGoals } from '@/view/components/EmptyGoals';
+import { LoadingGoals } from '@/view/components/LoadingGoals';
+import { NewGoalDialog } from '@/view/components/NewGoalDialog';
 
-import { WeeklySummary } from '@/components/WeeklySummary';
+import { useNewGoalDialogController } from '@/view/components/NewGoalDialog/useNewGoalDialogController';
+
+import { WeeklySummary } from '@/view/components/WeeklySummary';
 
 export function Dashboard() {
   const {

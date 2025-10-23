@@ -2,7 +2,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 
 import { queryClient } from '@/app/core/providers/queryClient';
 import { makeUserService } from '@/app/factories/makeUserService';
-import { SignInWithGitHub } from '@/pages/SignInWithGitHub';
+import { SignInWithGitHub } from '@/view/pages/SignInWithGitHub';
 
 function Login() {
   return <SignInWithGitHub />;
