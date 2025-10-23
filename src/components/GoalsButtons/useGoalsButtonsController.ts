@@ -1,11 +1,15 @@
 import { useQueryClient } from '@tanstack/react-query';
-
+import { useSearch } from '@tanstack/react-router';
 import { useCreateGoalCompletedMutation } from '@/app/hooks/mutations/useCreateGoalCompletedMutation';
 import { useGetWeeklyGoalsWithCompletionCountQuery } from '@/app/hooks/queries/useGetWeeklyGoalsWithCompletionCountQuery';
 import { useGetWeeklySummaryOfCompletedGoalsQuery } from '@/app/hooks/queries/useGetWeeklySummaryOfCompletedGoalsQuery';
 
+import { invalidateQueries } from '@/utils/invalidateQueries';
+
 export function useGoalsButtonsController() {
   const queryClient = useQueryClient();
+
+  const { weekStartsAt } = useSearch({ from: '/' });
 
   const { weeklyGoalsWithCompletionCount } =
     useGetWeeklyGoalsWithCompletionCountQuery();
@@ -18,11 +22,14 @@ export function useGoalsButtonsController() {
   async function handleCreateGoalCompleted(goalId: string) {
     await createGoalCompleted(goalId);
 
-    queryClient.invalidateQueries({ queryKey: ['weeklySummary'] });
-    queryClient.invalidateQueries({ queryKey: ['weeklyGoals'] });
-    queryClient.invalidateQueries({ queryKey: ['userLevel'] });
-    queryClient.invalidateQueries({
-      queryKey: ['totalQuantityOfGoalsCompleted'],
+    invalidateQueries({
+      queryClient,
+      keys: [
+        ['weeklySummary', weekStartsAt],
+        ['weeklyGoals'],
+        ['userLevel'],
+        ['totalQuantityOfGoalsCompleted'],
+      ],
     });
   }
 

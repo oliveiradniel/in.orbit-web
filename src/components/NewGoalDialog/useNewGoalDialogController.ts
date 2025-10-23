@@ -19,6 +19,8 @@ import {
 
 import { errorLabels } from '@/config/constants';
 
+import { invalidateQueries } from '@/utils/invalidateQueries';
+
 export function useNewGoalDialogController() {
   const { weekStartsAt } = useSearch({ from: '/' });
 
@@ -54,13 +56,14 @@ export function useNewGoalDialogController() {
     try {
       await createGoal(data);
 
-      queryClient.invalidateQueries({ queryKey: ['weeklyGoals'] });
-      queryClient.invalidateQueries({
-        queryKey: ['weeklySummary', weekStartsAt],
-      });
-      queryClient.invalidateQueries({ queryKey: ['goals'] });
-      queryClient.invalidateQueries({
-        queryKey: ['totalQuantityOfGoalsCompleted'],
+      invalidateQueries({
+        queryClient,
+        keys: [
+          ['weeklyGoals'],
+          ['weeklySummary', weekStartsAt],
+          ['goals'],
+          ['totalQuantityOfGoalsCompleted'],
+        ],
       });
 
       reset();

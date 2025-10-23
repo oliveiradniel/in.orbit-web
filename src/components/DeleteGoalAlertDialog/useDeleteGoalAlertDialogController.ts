@@ -3,6 +3,8 @@ import { useSearch } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useDeleteManyGoalMutation } from '@/app/hooks/mutations/useDeleteManyGoalMutation';
 
+import { invalidateQueries } from '@/utils/invalidateQueries';
+
 import type { GoalData } from '../EditGoalsDialog/useEditGoalsDialogController';
 
 export function useDeleteGoalAlertDialogController(
@@ -34,13 +36,14 @@ export function useDeleteGoalAlertDialogController(
     try {
       await deleteManyGoals(idGoalsToBeDeleted);
 
-      queryClient.invalidateQueries({
-        queryKey: ['weeklySummary', weekStartsAt],
-      });
-      queryClient.invalidateQueries({ queryKey: ['goals'] });
-      queryClient.invalidateQueries({ queryKey: ['weeklyGoals'] });
-      queryClient.invalidateQueries({
-        queryKey: ['totalQuantityOfGoalsCompleted'],
+      invalidateQueries({
+        queryClient,
+        keys: [
+          ['weeklySummary', weekStartsAt],
+          ['goals'],
+          ['weeklyGoals'],
+          ['totalQuantityOfGoalsCompleted'],
+        ],
       });
     } catch (error) {
       console.log('error', error);
