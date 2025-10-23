@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @import '../components/NewGoalDialog/styles.css';
-@import '../components/DeleteGoalAlertDialog/styles.css';
+@import '../components/TemplateAlertDialog/styles.css';
 
 /* biome-ignore lint/suspicious/noUnknownAtRules: off */
 @theme {
