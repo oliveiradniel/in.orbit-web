@@ -21,4 +21,8 @@ export class UserService implements IUserService {
   ): Promise<GamificationInfo> {
     return this.httpClient.get('/users/gamification', config);
   }
+
+  deleteAccount(config?: HttpRequestConfig): Promise<void> {
+    return this.httpClient.delete('/users', config);
+  }
 }

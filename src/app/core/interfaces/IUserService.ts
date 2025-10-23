@@ -9,4 +9,5 @@ export interface IUserService {
   getUserLevelAndExperience(
     config?: HttpRequestConfig
   ): Promise<GamificationInfo>;
+  deleteAccount(config?: HttpRequestConfig): Promise<void>;
 }
