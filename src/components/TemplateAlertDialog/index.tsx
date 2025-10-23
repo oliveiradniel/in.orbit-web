@@ -65,12 +65,14 @@ export function TemplateAlertDialog({
                   aria-label="Fechar"
                   type="button"
                   variant="secondary"
+                  disabled={isSubmitting}
                   className="flex-1"
                 >
                   Cancelar
                 </Button>
               </AlertDialog.Cancel>
               <Button
+                aria-disabled={isSubmitting}
                 type="button"
                 variant="danger"
                 isLoading={isSubmitting}
