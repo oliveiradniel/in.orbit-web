@@ -47,7 +47,7 @@ export function useProfileDialogController() {
 
     setUserLevelAndExperience(userLevel);
     setGoalsAndTotal(goals);
-  });
+  }, [queryClient]);
 
   return {
     isProfileDialogOpen,
