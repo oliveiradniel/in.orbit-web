@@ -13,8 +13,13 @@ export function ProfileDialog({
   isOpen,
   onClose,
 }: ProfileDialogProps) {
-  const { userLevelAndExperience, goalsAndTotal, goalsCompletedCount } =
-    useProfileDialogController();
+  const {
+    userLevelAndExperience,
+    goalsAndTotal,
+    goalsCompletedCount,
+    handleLogout,
+    isLogouting,
+  } = useProfileDialogController();
 
   return (
     <DialogTemplate
@@ -78,12 +83,24 @@ export function ProfileDialog({
         </div>
 
         <div className="flex w-full flex-col gap-2">
-          <Button type="button" variant="danger" className="w-full">
-            <Trash2 />
+          <Button
+            type="button"
+            variant="danger"
+            disabled={isLogouting}
+            className="w-full"
+          >
+            <Trash2 className="size-4" />
             Excluir conta
           </Button>
-          <Button type="button" variant="secondary" className="w-full">
-            <LogOut />
+          <Button
+            type="button"
+            variant="secondary"
+            disabled={isLogouting}
+            isLoading={isLogouting}
+            className="w-full"
+            onClick={handleLogout}
+          >
+            <LogOut className="size-4" />
             Sair
           </Button>
         </div>

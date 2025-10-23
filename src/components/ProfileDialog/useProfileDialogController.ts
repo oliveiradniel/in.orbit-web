@@ -1,10 +1,10 @@
 import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
-
 import type { GamificationInfo } from '@/@types/GamificationInfo';
 import type { GoalsAndTotal } from '@/@types/Goals';
 import type { UserResponse } from '@/@types/UserResponse';
-
+import { useLogoutMutation } from '@/app/hooks/mutations/useLogoutMutation';
 import { useGetTotalQuantityOfGoalsCompletedQuery } from '@/app/hooks/queries/useGetTotalQuantityOfGoalsCompletedQuery';
 
 export interface GoalData {
@@ -30,6 +30,9 @@ export function useProfileDialogController() {
   }
 
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const { logout, isLogouting } = useLogoutMutation();
 
   const { goalsCompletedCount } = useGetTotalQuantityOfGoalsCompletedQuery();
 
@@ -37,6 +40,14 @@ export function useProfileDialogController() {
     {} as GamificationInfo
   );
   const [goalsAndTotal, setGoalsAndTotal] = useState({} as GoalsAndTotal);
+
+  async function handleLogout() {
+    await logout();
+    queryClient.clear();
+
+    sessionStorage.setItem('userLeft', JSON.stringify(true));
+    navigate({ to: '/login' });
+  }
 
   useEffect(() => {
     const userLevel = queryClient.getQueryData([
@@ -46,7 +57,7 @@ export function useProfileDialogController() {
     const goals = queryClient.getQueryData(['goals']) as GoalsAndTotal;
 
     setUserLevelAndExperience(userLevel);
-    setGoalsAndTotal(goals);
+    setGoalsAndTotal(goals ? goals : { goals: [], totalActiveGoals: 0 });
   }, [queryClient]);
 
   return {
@@ -56,5 +67,7 @@ export function useProfileDialogController() {
     goalsCompletedCount,
     handleOpenProfileDialog,
     handleCloseProfileDialog,
+    handleLogout,
+    isLogouting,
   };
 }
