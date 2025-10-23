@@ -12,11 +12,11 @@ export function useDeleteAccountDialogController() {
 
   const { deleteAccount, isDeleting } = useDeleteAccountMutation();
 
-  function handleOpenEditGoalsDialog() {
+  function handleOpenDeleteAccountDialog() {
     setisDeleteAccountDialogOpen(true);
   }
 
-  function handleCloseEditGoalsDialog() {
+  function handleCloseDeleteAccountDialog() {
     setisDeleteAccountDialogOpen(false);
   }
 
@@ -33,8 +33,8 @@ export function useDeleteAccountDialogController() {
   return {
     isDeleteAccountDialogOpen,
     isDeleting,
-    handleOpenEditGoalsDialog,
-    handleCloseEditGoalsDialog,
+    handleOpenDeleteAccountDialog,
+    handleCloseDeleteAccountDialog,
     handleDeleteAccount,
   };
 }

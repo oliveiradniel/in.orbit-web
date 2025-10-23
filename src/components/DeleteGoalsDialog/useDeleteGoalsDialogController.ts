@@ -8,7 +8,7 @@ export interface GoalData {
   title: string;
 }
 
-export interface EditGoalsDialogProps {
+export interface DeleteGoalsDialogProps {
   isOpen: boolean;
   onClose: () => void;
   selectedGoals: GoalData[];
@@ -17,21 +17,21 @@ export interface EditGoalsDialogProps {
   onOpenNewGoalDialog: () => void;
 }
 
-export function useEditGoalsDialogController() {
+export function useDeleteGoalsDialogController() {
   const { activeGoals, hasAnyActiveGoal, totalActiveGoals } = useGoalContext();
 
-  const [isEditGoalsDialogOpen, setIsEditGoalsDialogOpen] = useState(false);
+  const [isDeleteGoalsDialogOpen, setIsDeleteGoalsDialogOpen] = useState(false);
   const [selectedGoalsData, setSelectedGoalsData] = useState<GoalData[]>([]);
 
   const isDeleteButtonDisabled = selectedGoalsData.length === 0;
 
-  function handleOpenEditGoalsDialog() {
-    setIsEditGoalsDialogOpen(true);
+  function handleOpenDeleteGoalsDialog() {
+    setIsDeleteGoalsDialogOpen(true);
     setSelectedGoalsData([]);
   }
 
-  function handleCloseEditGoalsDialog() {
-    setIsEditGoalsDialogOpen(false);
+  function handleCloseDeleteGoalsDialog() {
+    setIsDeleteGoalsDialogOpen(false);
     setSelectedGoalsData([]);
   }
 
@@ -70,10 +70,10 @@ export function useEditGoalsDialogController() {
     totalActiveGoals,
     hasAnyActiveGoal,
     selectedGoalsData,
-    isEditGoalsDialogOpen,
+    isDeleteGoalsDialogOpen,
     isDeleteButtonDisabled,
-    handleOpenEditGoalsDialog,
-    handleCloseEditGoalsDialog,
+    handleOpenDeleteGoalsDialog,
+    handleCloseDeleteGoalsDialog,
     toggleCheckboxGoalId,
   };
 }

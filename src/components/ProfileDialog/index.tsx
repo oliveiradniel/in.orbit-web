@@ -24,15 +24,15 @@ export function ProfileDialog({
 
   const {
     isDeleteAccountDialogOpen,
-    handleOpenEditGoalsDialog,
-    handleCloseEditGoalsDialog,
+    handleOpenDeleteAccountDialog,
+    handleCloseDeleteAccountDialog,
   } = useDeleteAccountDialogController();
 
   return (
     <>
       <DeleteAccountDialog
         isOpen={isDeleteAccountDialogOpen}
-        onClose={handleCloseEditGoalsDialog}
+        onClose={handleCloseDeleteAccountDialog}
       />
 
       <DialogTemplate
@@ -103,7 +103,7 @@ export function ProfileDialog({
               variant="danger"
               disabled={isLogouting}
               className="w-full"
-              onClick={handleOpenEditGoalsDialog}
+              onClick={handleOpenDeleteAccountDialog}
             >
               <Trash2 className="size-4" />
               Excluir conta

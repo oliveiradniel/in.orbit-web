@@ -1,4 +1,4 @@
-import type { GoalData } from '../EditGoalsDialog/useEditGoalsDialogController';
+import type { GoalData } from '../DeleteGoalsDialog/useDeleteGoalsDialogController';
 
 import { TemplateAlertDialog } from '../TemplateAlertDialog';
 

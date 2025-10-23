@@ -5,7 +5,7 @@ import { useDeleteManyGoalMutation } from '@/app/hooks/mutations/useDeleteManyGo
 
 import { invalidateQueries } from '@/utils/invalidateQueries';
 
-import type { GoalData } from '../EditGoalsDialog/useEditGoalsDialogController';
+import type { GoalData } from '../DeleteGoalsDialog/useDeleteGoalsDialogController';
 
 export function useDeleteGoalAlertDialogController(
   selectedGoals?: GoalData[],
@@ -20,11 +20,11 @@ export function useDeleteGoalAlertDialogController(
 
   const { deleteManyGoals, isDeletingGoals } = useDeleteManyGoalMutation();
 
-  function handleOpenEditGoalsDialog() {
+  function handleOpenDeleteGoalAlert() {
     setisDeleteGoalAlertDialogOpen(true);
   }
 
-  function handleCloseEditGoalsDialog() {
+  function handleCloseDeleteGoalAlert() {
     setisDeleteGoalAlertDialogOpen(false);
   }
 
@@ -54,8 +54,8 @@ export function useDeleteGoalAlertDialogController(
 
   return {
     isDeleteGoalAlertDialogOpen,
-    handleOpenEditGoalsDialog,
-    handleCloseEditGoalsDialog,
+    handleOpenDeleteGoalAlert,
+    handleCloseDeleteGoalAlert,
     handleDeleteManyGoals,
     isDeletingGoals,
   };

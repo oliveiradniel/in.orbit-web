@@ -5,26 +5,27 @@ import { useDeleteGoalAlertDialogController } from '../DeleteGoalAlertDialog/use
 import { DialogTemplate } from '../TemplateDialog';
 import { Button } from '../ui/Button';
 import { CheckboxIndicator, CheckboxItem } from '../ui/Checkbox';
-import {
-  type EditGoalsDialogProps,
-  useEditGoalsDialogController,
-} from './useEditGoalsDialogController';
 
-export function EditGoalsDialog({
+import {
+  type DeleteGoalsDialogProps,
+  useDeleteGoalsDialogController,
+} from './useDeleteGoalsDialogController';
+
+export function DeleteGoalsDialog({
   isOpen,
   onClose,
   selectedGoals,
   isDeleteButtonDisabled,
   toggleCheckboxGoalId,
   onOpenNewGoalDialog,
-}: EditGoalsDialogProps) {
+}: DeleteGoalsDialogProps) {
   const { goals, totalActiveGoals, hasAnyActiveGoal } =
-    useEditGoalsDialogController();
+    useDeleteGoalsDialogController();
 
   const {
     isDeleteGoalAlertDialogOpen,
-    handleOpenEditGoalsDialog,
-    handleCloseEditGoalsDialog,
+    handleOpenDeleteGoalAlert,
+    handleCloseDeleteGoalAlert,
   } = useDeleteGoalAlertDialogController();
 
   return (
@@ -32,13 +33,13 @@ export function EditGoalsDialog({
       <DeleteGoalAlertDialog
         isOpen={isDeleteGoalAlertDialogOpen}
         selectedGoals={selectedGoals}
-        onClose={handleCloseEditGoalsDialog}
+        onClose={handleCloseDeleteGoalAlert}
       />
 
       <DialogTemplate
         hasAction={false}
-        title="Edite suas metas"
-        description="Edite o título ou exclua algumas de suas metas"
+        title="Gerencie suas metas"
+        description="Exclua metas que não fazem mais sentido pra você"
         isOpen={isOpen}
         onClose={onClose}
       >
@@ -48,7 +49,7 @@ export function EditGoalsDialog({
               <button
                 type="button"
                 disabled={isDeleteButtonDisabled}
-                onClick={handleOpenEditGoalsDialog}
+                onClick={handleOpenDeleteGoalAlert}
                 className="group rounded-sm border border-red-400 bg-black p-2 ring-red-500/10 transition-colors duration-300 ease-linear outline-none focus-visible:border-red-500 focus-visible:ring-4 enabled:cursor-pointer enabled:hover:border-red-500 disabled:border-zinc-900"
               >
                 <Trash2 className="size-4 text-red-400 transition-colors duration-300 ease-linear group-focus-visible:text-red-500 group-enabled:group-hover:text-red-500 group-disabled:text-zinc-500" />
@@ -84,7 +85,7 @@ export function EditGoalsDialog({
         {!hasAnyActiveGoal && (
           <div className="space-y-4">
             <p className="text-zinc-400">
-              Não há nenhuma meta ativa, cadastre uma nova para poder editar.
+              Não há nenhuma meta ativa, cadastre uma nova para poder gerenciar.
             </p>
             <Button
               type="button"

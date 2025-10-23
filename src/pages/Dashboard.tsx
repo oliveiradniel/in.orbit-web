@@ -1,8 +1,8 @@
 import { GoalContext } from '@/app/contexts/GoalContext';
 import { GoalProvider } from '@/app/contexts/GoalContext/GoalProvider';
-import { EditGoalsDialog } from '@/components/EditGoalsDialog';
+import { DeleteGoalsDialog } from '@/components/DeleteGoalsDialog';
 
-import { useEditGoalsDialogController } from '@/components/EditGoalsDialog/useEditGoalsDialogController';
+import { useDeleteGoalsDialogController } from '@/components/DeleteGoalsDialog/useDeleteGoalsDialogController';
 
 import { EmptyGoals } from '@/components/EmptyGoals';
 import { LoadingGoals } from '@/components/LoadingGoals';
@@ -20,13 +20,13 @@ export function Dashboard() {
   } = useNewGoalDialogController();
 
   const {
-    isEditGoalsDialogOpen,
+    isDeleteGoalsDialogOpen,
     isDeleteButtonDisabled,
     selectedGoalsData,
     toggleCheckboxGoalId,
-    handleOpenEditGoalsDialog,
-    handleCloseEditGoalsDialog,
-  } = useEditGoalsDialogController();
+    handleOpenDeleteGoalsDialog,
+    handleCloseDeleteGoalsDialog,
+  } = useDeleteGoalsDialogController();
 
   return (
     <GoalProvider>
@@ -38,9 +38,9 @@ export function Dashboard() {
               onClose={handleCloseNewGoalDialog}
             />
 
-            <EditGoalsDialog
-              isOpen={isEditGoalsDialogOpen}
-              onClose={handleCloseEditGoalsDialog}
+            <DeleteGoalsDialog
+              isOpen={isDeleteGoalsDialogOpen}
+              onClose={handleCloseDeleteGoalsDialog}
               selectedGoals={selectedGoalsData}
               isDeleteButtonDisabled={isDeleteButtonDisabled}
               toggleCheckboxGoalId={toggleCheckboxGoalId}
@@ -54,7 +54,7 @@ export function Dashboard() {
                 <WeeklySummary
                   hasAnyActiveGoal={hasAnyActiveGoal}
                   onOpenNewGoalDialog={handleOpenNewGoalDialog}
-                  onOpenEditGoalsDialog={handleOpenEditGoalsDialog}
+                  onOpenDeleteGoalsDialog={handleOpenDeleteGoalsDialog}
                 />
               ) : (
                 <EmptyGoals onOpenNewGoalDialog={handleOpenNewGoalDialog} />

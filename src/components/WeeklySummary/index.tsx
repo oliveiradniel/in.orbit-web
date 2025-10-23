@@ -31,13 +31,13 @@ dayjs.extend(timezone);
 interface WeeklySummaryProps {
   hasAnyActiveGoal: boolean;
   onOpenNewGoalDialog: () => void;
-  onOpenEditGoalsDialog: () => void;
+  onOpenDeleteGoalsDialog: () => void;
 }
 
 export function WeeklySummary({
   hasAnyActiveGoal,
   onOpenNewGoalDialog,
-  onOpenEditGoalsDialog,
+  onOpenDeleteGoalsDialog,
 }: WeeklySummaryProps) {
   const {
     containerSummaryId,
@@ -106,11 +106,11 @@ export function WeeklySummary({
             size="sm"
             variant="secondary"
             disabled={isRefetchingWeeklySummary || !hasAnyActiveGoal}
-            onClick={onOpenEditGoalsDialog}
+            onClick={onOpenDeleteGoalsDialog}
             className="w-full"
           >
             <Pencil className="size-4" />
-            Editar metas
+            Gerenciar metas
           </Button>
         </div>
       </header>
