@@ -15,7 +15,8 @@ export function ProfileDialog({
 }: ProfileDialogProps) {
   const {
     userLevelAndExperience,
-    goalsAndTotal,
+    goals,
+    totalActiveGoals,
     goalsCompletedCount,
     handleLogout,
     isLogouting,
@@ -54,9 +55,11 @@ export function ProfileDialog({
               <p className="text-sm text-zinc-500">{userData.email}</p>
 
               <div className="mt-6 flex gap-4 rounded-2xl border border-violet-500/40 px-4 py-2 text-zinc-500">
-                <p>Level {userLevelAndExperience?.level}</p>
+                <p>Level {userLevelAndExperience?.level ?? 1}</p>
                 <p className="font-light text-violet-500/60">|</p>
-                <p>Experiência {userLevelAndExperience?.experiencePoints}</p>
+                <p>
+                  Experiência {userLevelAndExperience?.experiencePoints ?? 0}
+                </p>
               </div>
             </div>
 
@@ -75,7 +78,7 @@ export function ProfileDialog({
               <div className="flex gap-4">
                 <div className="flex flex-col items-center gap-2">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-zinc-500">
-                    <p>{goalsAndTotal.goals?.length}</p>
+                    <p>{goals?.length}</p>
                   </div>
                   <p className="max-w-[100px] text-center text-xs text-zinc-400">
                     Total de metas cadastradas
@@ -84,7 +87,7 @@ export function ProfileDialog({
 
                 <div className="flex flex-col items-center gap-2">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-zinc-500">
-                    <p>{goalsAndTotal.totalActiveGoals}</p>
+                    <p>{totalActiveGoals}</p>
                   </div>
                   <p className="max-w-[100px] text-center text-xs text-zinc-400">
                     Total de metas ativas

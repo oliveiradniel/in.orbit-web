@@ -21,6 +21,9 @@ export function useGoalsButtonsController() {
     queryClient.invalidateQueries({ queryKey: ['weeklySummary'] });
     queryClient.invalidateQueries({ queryKey: ['weeklyGoals'] });
     queryClient.invalidateQueries({ queryKey: ['userLevel'] });
+    queryClient.invalidateQueries({
+      queryKey: ['totalQuantityOfGoalsCompleted'],
+    });
   }
 
   const goalsNotStarted = weeklyGoalsWithCompletionCount?.filter(

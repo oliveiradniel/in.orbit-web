@@ -1,4 +1,5 @@
 import { TemplateAlertDialog } from '../TemplateAlertDialog';
+
 import { useDeleteAccountDialogController } from './useDeleteAccountDialogController';
 
 interface DeleteAccountDialogProps {

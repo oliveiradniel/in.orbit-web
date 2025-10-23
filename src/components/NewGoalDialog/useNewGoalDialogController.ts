@@ -59,6 +59,9 @@ export function useNewGoalDialogController() {
         queryKey: ['weeklySummary', weekStartsAt],
       });
       queryClient.invalidateQueries({ queryKey: ['goals'] });
+      queryClient.invalidateQueries({
+        queryKey: ['totalQuantityOfGoalsCompleted'],
+      });
 
       reset();
     } catch (error) {

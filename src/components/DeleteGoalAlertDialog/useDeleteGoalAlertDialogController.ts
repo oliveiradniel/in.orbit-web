@@ -39,6 +39,9 @@ export function useDeleteGoalAlertDialogController(
       });
       queryClient.invalidateQueries({ queryKey: ['goals'] });
       queryClient.invalidateQueries({ queryKey: ['weeklyGoals'] });
+      queryClient.invalidateQueries({
+        queryKey: ['totalQuantityOfGoalsCompleted'],
+      });
     } catch (error) {
       console.log('error', error);
     } finally {
