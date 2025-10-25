@@ -34,17 +34,17 @@ export function useGoalsButtonsController() {
   }
 
   const goalsNotStarted = weeklyGoalsWithCompletionCount?.filter(
-    (goal) => goal.status === 'not started'
+    (goal) => goal.status === 'not started' && goal.isDeleted === false
   );
   const hasGoalsNotStarted = goalsNotStarted && goalsNotStarted.length > 0;
 
   const goalsStarted = weeklyGoalsWithCompletionCount?.filter(
-    (goal) => goal.status === 'started'
+    (goal) => goal.status === 'started' && goal.isDeleted === false
   );
   const hasGoalsStarted = goalsStarted && goalsStarted.length > 0;
 
   const goalsCompleted = weeklyGoalsWithCompletionCount?.filter(
-    (goal) => goal.status === 'completed'
+    (goal) => goal.status === 'completed' && goal.isDeleted === false
   );
   const hasGoalsCompleted = goalsCompleted && goalsCompleted.length > 0;
 
