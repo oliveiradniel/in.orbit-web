@@ -29,7 +29,7 @@ export function useDeleteGoalAlertDialogController(
   }
 
   async function handleDeleteManyGoals() {
-    if (!selectedGoals) return;
+    if (!selectedGoals || isDeletingGoals) return;
 
     const idGoalsToBeDeleted = selectedGoals.map((goal) => goal.id);
 
