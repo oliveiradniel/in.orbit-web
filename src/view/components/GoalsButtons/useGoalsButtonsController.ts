@@ -1,12 +1,14 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useSearch } from '@tanstack/react-router';
+
+import type { TypeFilter } from '@/app/contexts/GoalContext/GoalProvider';
+
 import { useCreateGoalCompletedMutation } from '@/app/hooks/mutations/useCreateGoalCompletedMutation';
 import { useGetWeeklyGoalsWithCompletionCountQuery } from '@/app/hooks/queries/useGetWeeklyGoalsWithCompletionCountQuery';
 import { useGetWeeklySummaryOfCompletedGoalsQuery } from '@/app/hooks/queries/useGetWeeklySummaryOfCompletedGoalsQuery';
-
 import { invalidateQueries } from '@/utils/invalidateQueries';
 
-export function useGoalsButtonsController() {
+export function useGoalsButtonsController(typeFilter: TypeFilter) {
   const queryClient = useQueryClient();
 
   const { weekStartsAt } = useSearch({ from: '/' });
@@ -33,6 +35,10 @@ export function useGoalsButtonsController() {
     });
   }
 
+  const goalsDeleted = weeklyGoalsWithCompletionCount?.filter(
+    (goal) => goal.isDeleted
+  );
+
   const goalsNotStarted = weeklyGoalsWithCompletionCount?.filter(
     (goal) => goal.status === 'not started' && goal.isDeleted === false
   );
@@ -48,14 +54,43 @@ export function useGoalsButtonsController() {
   );
   const hasGoalsCompleted = goalsCompleted && goalsCompleted.length > 0;
 
+  const shouldShowAllGoals = typeFilter === 'all-goals';
+  const shouldShowActiveGoals = typeFilter === 'active-goals';
+
+  const shouldShowUnstartedGoals =
+    (shouldShowAllGoals ||
+      shouldShowActiveGoals ||
+      typeFilter === 'not-started-goals') &&
+    hasGoalsNotStarted;
+
+  const shouldShowStartedGoals =
+    (shouldShowAllGoals ||
+      shouldShowActiveGoals ||
+      typeFilter === 'started-goals') &&
+    hasGoalsStarted;
+
+  const shouldShowCompletedGoals =
+    (shouldShowAllGoals ||
+      shouldShowActiveGoals ||
+      typeFilter === 'completed-goals') &&
+    hasGoalsCompleted;
+
+  const shouldShowInactiveGoals = typeFilter === 'all-goals' && goalsDeleted;
+
   return {
     isRefetchingWeeklySummary,
     handleCreateGoalCompleted,
+    goalsDeleted,
     goalsNotStarted,
     goalsStarted,
     goalsCompleted,
     hasGoalsNotStarted,
     hasGoalsStarted,
     hasGoalsCompleted,
+    shouldShowActiveGoals,
+    shouldShowUnstartedGoals,
+    shouldShowStartedGoals,
+    shouldShowCompletedGoals,
+    shouldShowInactiveGoals,
   };
 }

@@ -1,32 +1,48 @@
 import { PlusIcon } from 'lucide-react';
 
+import { useGoalContext } from '@/app/contexts/GoalContext/useGoalContext';
+
+import { SelectGoalsFilter } from '../SelectGoalsFilter';
 import { OutlineButton } from '../ui/OutlineButton';
 
 import { useGoalsButtonsController } from './useGoalsButtonsController';
 
 export function GoalsButtons() {
+  const { selectedTypeFilter } = useGoalContext();
+
   const {
     isRefetchingWeeklySummary,
     handleCreateGoalCompleted,
+    goalsDeleted,
     goalsNotStarted,
     goalsStarted,
     goalsCompleted,
-    hasGoalsNotStarted,
-    hasGoalsStarted,
-    hasGoalsCompleted,
-  } = useGoalsButtonsController();
+    shouldShowUnstartedGoals,
+    shouldShowStartedGoals,
+    shouldShowCompletedGoals,
+    shouldShowInactiveGoals,
+  } = useGoalsButtonsController(selectedTypeFilter.typeFilter);
 
   return (
     <div className="space-y-6">
-      <p className="text-xl font-medium">Metas</p>
+      <div className="flex items-center justify-between gap-4">
+        <p className="text-xl font-medium">{selectedTypeFilter.label}</p>
+        <SelectGoalsFilter />
+      </div>
 
-      {hasGoalsNotStarted && (
+      {shouldShowUnstartedGoals && (
         <div className="flex flex-col gap-3">
           <p className="text-xs text-zinc-400">Não iniciadas</p>
 
           <div className="flex flex-wrap gap-2">
             {goalsNotStarted?.map(
-              ({ id, title, completionCount, desiredWeeklyFrequency }) => {
+              ({
+                id,
+                title,
+                completionCount,
+                desiredWeeklyFrequency,
+                isDeleted,
+              }) => {
                 const isGoalCompleted =
                   completionCount >= desiredWeeklyFrequency;
 
@@ -35,12 +51,15 @@ export function GoalsButtons() {
                     key={id}
                     disabled={isGoalCompleted || isRefetchingWeeklySummary}
                     onClick={() => handleCreateGoalCompleted(id)}
+                    status="notStarted"
                     className="group"
                   >
-                    <PlusIcon
-                      aria-hidden="true"
-                      className="size-4 text-red-400 transition-colors duration-300 ease-linear group-hover:text-red-500"
-                    />{' '}
+                    {!isDeleted && (
+                      <PlusIcon
+                        aria-hidden="true"
+                        className="size-4 text-red-400 transition-colors duration-300 ease-linear group-hover:text-red-500"
+                      />
+                    )}
                     <p>
                       {title}{' '}
                       <span className="ml-2 text-xs font-semibold text-red-400">
@@ -55,7 +74,7 @@ export function GoalsButtons() {
         </div>
       )}
 
-      {hasGoalsStarted && (
+      {shouldShowStartedGoals && (
         <div className="flex flex-col gap-3">
           <p className="text-xs text-zinc-400">Iniciadas</p>
 
@@ -103,9 +122,9 @@ export function GoalsButtons() {
         </div>
       )}
 
-      {hasGoalsCompleted && (
+      {shouldShowCompletedGoals && (
         <div className="flex flex-col gap-3">
-          <p className="text-xs text-zinc-400">Completadas</p>
+          <p className="text-xs text-zinc-400">Concluídas</p>
 
           <div className="flex flex-wrap gap-2">
             {goalsCompleted?.map(
@@ -122,6 +141,35 @@ export function GoalsButtons() {
                     <p>
                       {title}{' '}
                       <span className="ml-2 text-xs font-semibold text-green-500">
+                        {completionCount}/{desiredWeeklyFrequency}
+                      </span>
+                    </p>
+                  </OutlineButton>
+                );
+              }
+            )}
+          </div>
+        </div>
+      )}
+
+      {shouldShowInactiveGoals && (
+        <div className="flex flex-col gap-3">
+          <p className="text-xs text-zinc-400">Excluídas</p>
+
+          <div className="flex flex-wrap gap-2">
+            {goalsDeleted?.map(
+              ({ id, title, completionCount, desiredWeeklyFrequency }) => {
+                const isGoalCompleted =
+                  completionCount >= desiredWeeklyFrequency;
+
+                return (
+                  <OutlineButton
+                    key={id}
+                    disabled={isGoalCompleted || isRefetchingWeeklySummary}
+                  >
+                    <p>
+                      {title}{' '}
+                      <span className="ml-2 text-xs font-semibold text-zinc-600">
                         {completionCount}/{desiredWeeklyFrequency}
                       </span>
                     </p>
