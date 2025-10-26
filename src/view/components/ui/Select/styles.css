@@ -1,0 +1,27 @@
+/* biome-ignore lint/suspicious/noUnknownAtRules: off */
+@theme {
+  --animate-select-open: select-open 0.3s ease-out;
+  --animate-select-close: select-close 0.3s ease-in;
+
+  @keyframes select-open {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes select-close {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
+}

@@ -2,6 +2,7 @@
 
 @import '../view/components/TemplateDialog/styles.css';
 @import '../view/components/TemplateAlertDialog/styles.css';
+@import '../view/components/ui/Select/styles.css';
 
 /* biome-ignore lint/suspicious/noUnknownAtRules: off */
 @theme {
