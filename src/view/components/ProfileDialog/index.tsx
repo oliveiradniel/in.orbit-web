@@ -40,6 +40,7 @@ export function ProfileDialog({
         hasAction={false}
         title="Configurações"
         description="Veja informações sobre seu perfil"
+        toHide={['title', 'description']}
         isOpen={isOpen}
         onClose={onClose}
       >
@@ -47,27 +48,29 @@ export function ProfileDialog({
           <img
             src={userData.avatarURL}
             alt={`Foto de perfil do usuário ${userData.name}`}
-            className="h-26 w-26 rounded-full"
+            className="h-22 w-22 rounded-full"
           />
 
           <div className="flex-1 space-y-10">
             <div className="flex flex-col items-center">
-              <p className="text-2xl text-violet-500">{userData.name}</p>
-              <p className="text-sm text-zinc-500">{userData.email}</p>
+              <p className="text-xl text-violet-500">{userData.name}</p>
+              <p className="text-xs text-zinc-500">{userData.email}</p>
 
               <div className="mt-6 flex gap-4 rounded-2xl border border-violet-500/40 px-4 py-2 text-zinc-500">
-                <p>Level {userLevelAndExperience?.level ?? 1}</p>
+                <p className="text-sm">
+                  Level: {userLevelAndExperience?.level ?? 1}
+                </p>
                 <p className="font-light text-violet-500/60">|</p>
-                <p>
-                  Experiência {userLevelAndExperience?.experiencePoints ?? 0}
+                <p className="text-sm">
+                  Experiência: {userLevelAndExperience?.experiencePoints ?? 0}
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col items-center justify-center gap-4">
               <div className="flex flex-col items-center gap-2">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-purple-500">
-                  <span className="text-center text-lg font-bold text-zinc-400">
+                <div className="flex h-18 w-18 items-center justify-center rounded-full border-4 border-purple-500">
+                  <span className="text-center text-lg font-semibold text-zinc-400">
                     {goalsCompletedCount}
                   </span>
                 </div>
@@ -78,7 +81,7 @@ export function ProfileDialog({
 
               <div className="flex gap-4">
                 <div className="flex flex-col items-center gap-2">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-zinc-500">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-zinc-500">
                     <p>{goals?.length}</p>
                   </div>
                   <p className="max-w-[100px] text-center text-xs text-zinc-400">
@@ -87,7 +90,7 @@ export function ProfileDialog({
                 </div>
 
                 <div className="flex flex-col items-center gap-2">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-zinc-500">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-zinc-500">
                     <p>{totalActiveGoals}</p>
                   </div>
                   <p className="max-w-[100px] text-center text-xs text-zinc-400">
