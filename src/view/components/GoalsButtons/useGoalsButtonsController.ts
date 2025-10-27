@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useSearch } from '@tanstack/react-router';
 
 import type { TypeFilter } from '@/app/contexts/GoalContext/GoalProvider';
-
+import { useGoalContext } from '@/app/contexts/GoalContext/useGoalContext';
 import { useCreateGoalCompletedMutation } from '@/app/hooks/mutations/useCreateGoalCompletedMutation';
 import { useGetWeeklyGoalsWithCompletionCountQuery } from '@/app/hooks/queries/useGetWeeklyGoalsWithCompletionCountQuery';
 import { useGetWeeklySummaryOfCompletedGoalsQuery } from '@/app/hooks/queries/useGetWeeklySummaryOfCompletedGoalsQuery';
@@ -35,6 +35,10 @@ export function useGoalsButtonsController(typeFilter: TypeFilter) {
     });
   }
 
+  const { selectedGoalStatusFilter } = useGoalContext();
+
+  const status = selectedGoalStatusFilter.status;
+
   const goalsDeleted = weeklyGoalsWithCompletionCount?.filter(
     (goal) => goal.isDeleted
   );
@@ -55,31 +59,28 @@ export function useGoalsButtonsController(typeFilter: TypeFilter) {
   const hasGoalsCompleted = goalsCompleted && goalsCompleted.length > 0;
 
   const shouldShowAllGoals = typeFilter === 'all-goals';
-  const shouldShowActiveGoals = typeFilter === 'active-goals';
+  const shouldShowActiveGoals = status === 'active';
+  const shouldShowInactiveGoals = status === 'inactive';
 
   const shouldShowUnstartedGoals =
-    (shouldShowAllGoals ||
-      shouldShowActiveGoals ||
-      typeFilter === 'not-started-goals') &&
-    hasGoalsNotStarted;
+    (shouldShowAllGoals || typeFilter === 'not-started-goals') &&
+    hasGoalsNotStarted &&
+    shouldShowActiveGoals;
 
   const shouldShowStartedGoals =
-    (shouldShowAllGoals ||
-      shouldShowActiveGoals ||
-      typeFilter === 'started-goals') &&
-    hasGoalsStarted;
+    (shouldShowAllGoals || typeFilter === 'started-goals') &&
+    hasGoalsStarted &&
+    shouldShowActiveGoals;
 
   const shouldShowCompletedGoals =
-    (shouldShowAllGoals ||
-      shouldShowActiveGoals ||
-      typeFilter === 'completed-goals') &&
-    hasGoalsCompleted;
-
-  const shouldShowInactiveGoals = typeFilter === 'all-goals' && goalsDeleted;
+    (shouldShowAllGoals || typeFilter === 'completed-goals') &&
+    hasGoalsCompleted &&
+    shouldShowActiveGoals;
 
   return {
     isRefetchingWeeklySummary,
     handleCreateGoalCompleted,
+    status,
     goalsDeleted,
     goalsNotStarted,
     goalsStarted,

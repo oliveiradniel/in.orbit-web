@@ -3,8 +3,8 @@ import { PlusIcon } from 'lucide-react';
 import { useGoalContext } from '@/app/contexts/GoalContext/useGoalContext';
 
 import { SelectGoalsFilter } from '../SelectGoalsFilter';
+import { SelectGoalsStatusFilter } from '../SelectGoalsStatusFilter';
 import { OutlineButton } from '../ui/OutlineButton';
-
 import { useGoalsButtonsController } from './useGoalsButtonsController';
 
 export function GoalsButtons() {
@@ -13,6 +13,7 @@ export function GoalsButtons() {
   const {
     isRefetchingWeeklySummary,
     handleCreateGoalCompleted,
+    status,
     goalsDeleted,
     goalsNotStarted,
     goalsStarted,
@@ -27,7 +28,11 @@ export function GoalsButtons() {
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-4">
         <p className="text-xl font-medium">{selectedTypeFilter.label}</p>
-        <SelectGoalsFilter />
+
+        <div className="flex gap-2">
+          <SelectGoalsStatusFilter />
+          <SelectGoalsFilter disabled={status === 'inactive'} />
+        </div>
       </div>
 
       {shouldShowUnstartedGoals && (

@@ -10,11 +10,19 @@ export type TypeFilter =
   | 'started-goals'
   | 'completed-goals';
 
+export type GoalStatusData = {
+  id: string;
+  status: GoalStatusFilter;
+  label: string;
+};
+
 export type FilterOptionsData = {
   id: string;
   typeFilter: TypeFilter;
   label: string;
 };
+
+export type GoalStatusFilter = 'active' | 'inactive';
 
 interface GoalProviderProps {
   children: React.ReactNode;
@@ -29,16 +37,24 @@ export function GoalProvider({ children }: GoalProviderProps) {
   const hasAnyGoal = goals.length > 0;
   const hasAnyActiveGoal = activeGoals.length > 0;
 
+  const goalStatusData: GoalStatusData[] = [
+    {
+      id: useId(),
+      status: 'active',
+      label: 'Metas ativas',
+    },
+    {
+      id: useId(),
+      status: 'inactive',
+      label: 'Metas inativas',
+    },
+  ];
+
   const filterOptionsData: FilterOptionsData[] = [
     {
       id: useId(),
       typeFilter: 'all-goals',
       label: 'Todas as metas',
-    },
-    {
-      id: useId(),
-      typeFilter: 'active-goals',
-      label: 'Metas ativas',
     },
     {
       id: useId(),
@@ -57,9 +73,19 @@ export function GoalProvider({ children }: GoalProviderProps) {
     },
   ];
 
-  const [selectedTypeFilter, setSelectedTypeFilter] = useState(
-    filterOptionsData[0]
-  );
+  const [selectedGoalStatusFilter, setSelectedGoalStatusFilter] =
+    useState<GoalStatusData>(goalStatusData[0]);
+
+  function handleSelectGoalStatusFilter(status: GoalStatusFilter) {
+    const option =
+      goalStatusData.find((statusData) => statusData.status === status) ??
+      goalStatusData[0];
+
+    setSelectedGoalStatusFilter(option);
+  }
+
+  const [selectedTypeFilter, setSelectedTypeFilter] =
+    useState<FilterOptionsData>(filterOptionsData[0]);
 
   function handleSelectTypeFilter(typeFilter: TypeFilter) {
     const option =
@@ -80,8 +106,11 @@ export function GoalProvider({ children }: GoalProviderProps) {
         hasAnyGoal,
         hasAnyActiveGoal,
         isSeekingAllGoals,
+        goalStatusData,
         filterOptionsData,
+        selectedGoalStatusFilter,
         selectedTypeFilter,
+        handleSelectGoalStatusFilter,
         handleSelectTypeFilter,
       }}
     >

@@ -6,6 +6,10 @@ import { type ComponentProps, useId, useState } from 'react';
 
 import { cn } from '@/utils/cn';
 
+type RootProps = RdxPopover.PopoverProps & {
+  disabled?: boolean;
+};
+
 type ContentProps = RdxPopover.PopoverContentProps & {
   ariaLabel: string;
   listId?: string;
@@ -21,11 +25,17 @@ type ItemProps = ComponentProps<'button'> & {
   onSelect: (value: string) => void;
 };
 
-function Root({ children }: RdxPopover.PopoverProps) {
+function Root({ children, disabled = false }: RootProps) {
   const [open, setOpen] = useState(false);
 
+  function handleOpen(open: boolean) {
+    if (disabled) return;
+
+    setOpen(open);
+  }
+
   return (
-    <RdxPopover.Popover open={open} onOpenChange={(open) => setOpen(open)}>
+    <RdxPopover.Popover open={open} onOpenChange={handleOpen}>
       {children}
     </RdxPopover.Popover>
   );
@@ -34,6 +44,7 @@ function Root({ children }: RdxPopover.PopoverProps) {
 function Trigger({
   children,
   className,
+  disabled,
   ...props
 }: RdxPopover.PopoverTriggerProps) {
   // biome-ignore lint/suspicious/noExplicitAny: Radix automatically adds the "data-state" attribute at runtime, but it's not typed in the component props.
@@ -49,10 +60,12 @@ function Trigger({
       aria-autocomplete="none"
       aria-activedescendant={undefined}
       tabIndex={0}
+      disabled={disabled}
       className={cn(
-        'flex w-[180px] cursor-pointer items-center justify-around gap-2 rounded-lg border border-zinc-900 bg-zinc-900 px-4 py-2 text-xs text-zinc-400 ring-violet-500 ring-offset-2 ring-offset-black transition-all duration-300 ease-linear outline-none hover:bg-zinc-800 focus-visible:ring-2 data-[state=open]:cursor-default data-[state=open]:!bg-zinc-900',
+        'flex items-center justify-around gap-2 rounded-lg border border-zinc-900 bg-zinc-900 px-4 py-2 text-xs text-zinc-400 ring-violet-500 ring-offset-2 ring-offset-black transition-all duration-300 ease-linear outline-none focus-visible:ring-2 enabled:cursor-pointer enabled:hover:bg-zinc-800 disabled:opacity-50 data-[state=open]:cursor-default data-[state=open]:!bg-zinc-900',
         className
       )}
+      {...props}
     >
       {children}
     </RdxPopover.Trigger>
@@ -80,7 +93,7 @@ function Content({ children, className, ariaLabel, listId }: ContentProps) {
 
 function Viewport({ children }: ViewportProps) {
   return (
-    <ul className="mt-1 flex w-[200px] flex-col gap-1 rounded-lg bg-zinc-900 p-1">
+    <ul className="mt-1 flex flex-col gap-1 rounded-lg bg-zinc-900 p-1">
       {children}
     </ul>
   );

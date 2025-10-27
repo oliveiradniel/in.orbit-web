@@ -4,26 +4,29 @@ import { useGoalContext } from '@/app/contexts/GoalContext/useGoalContext';
 
 import { Select } from '@/view/components/ui/Select';
 
-export function SelectGoalsFilter({ disabled }: { disabled: boolean }) {
-  const { filterOptionsData, selectedTypeFilter, handleSelectTypeFilter } =
-    useGoalContext();
+export function SelectGoalsStatusFilter() {
+  const {
+    goalStatusData,
+    selectedGoalStatusFilter,
+    handleSelectGoalStatusFilter,
+  } = useGoalContext();
 
   return (
     <Select.Root>
-      <Select.Trigger disabled={disabled}>
-        <span>{selectedTypeFilter.label}</span>
+      <Select.Trigger>
+        <span>{selectedGoalStatusFilter.label}</span>
         <Filter className="size-4" />
       </Select.Trigger>
 
       <Select.Content ariaLabel="Lista de filtros para as metas">
         <Select.Viewport>
-          {filterOptionsData.map((option) => (
+          {goalStatusData.map((option) => (
             <Select.Item
               key={option.id}
-              value={option.typeFilter}
+              value={option.status}
               text={option.label}
-              selectedValue={selectedTypeFilter.typeFilter}
-              onSelect={() => handleSelectTypeFilter(option.typeFilter)}
+              selectedValue={selectedGoalStatusFilter.status}
+              onSelect={() => handleSelectGoalStatusFilter(option.status)}
             />
           ))}
         </Select.Viewport>
