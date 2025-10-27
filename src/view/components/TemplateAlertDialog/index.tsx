@@ -75,6 +75,7 @@ export function TemplateAlertDialog({
                 aria-disabled={isSubmitting}
                 type="button"
                 variant="danger"
+                disabled={isSubmitting}
                 isLoading={isSubmitting}
                 onClick={onSubmit}
                 className="flex-1"

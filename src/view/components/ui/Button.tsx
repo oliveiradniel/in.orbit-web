@@ -6,15 +6,16 @@ import { tv, type VariantProps } from 'tailwind-variants';
 import { Spinner } from './Spinner';
 
 const button = tv({
-  base: 'flex items-center justify-center gap-2 rounded-lg text-sm font-medium tracking-tight outline-none ring-offset-2 ring-offset-black focus-visible:ring-2 transition-colors ease-linear duration-300 cursor-pointer disabled:bg-zinc-900 disabled:cursor-default transition-all duration-300 ease-linear',
+  base: 'flex items-center justify-center gap-2 rounded-lg text-sm font-medium tracking-tight outline-none ring-offset-2 ring-offset-black focus-visible:ring-2 transition-colors ease-linear duration-300 enabled:cursor-pointer transition-all duration-300 ease-linear disabled:opacity-50',
 
   variants: {
     variant: {
       primary:
-        'bg-violet-500 text-violet-50 hover:bg-violet-600 ring-violet-500 data-[is-loading=true]:bg-violet-500 data-[is-loading=true]:cursor-default',
-      secondary: 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 ring-zinc-900',
-      githubLogin: 'bg-white text-black hover:bg-white hover:opacity-80',
-      danger: 'bg-red-900 hover:bg-red-800',
+        'bg-violet-500 text-violet-50 enabled:hover:bg-violet-600 ring-violet-500 data-[is-loading=true]:bg-violet-500 data-[is-loading=true]:cursor-default disabled:bg-zinc-900',
+      secondary:
+        'bg-zinc-900 text-zinc-400 enabled:hover:bg-zinc-800 ring-zinc-900',
+      githubLogin: 'bg-white text-black enabled:hover:bg-white/80',
+      danger: 'bg-red-900 enabled:hover:bg-red-800',
     },
 
     size: {
