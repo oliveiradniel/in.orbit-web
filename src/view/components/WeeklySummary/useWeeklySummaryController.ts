@@ -8,6 +8,8 @@ import { router } from '@/App';
 
 import { useGetWeeklySummaryOfCompletedGoalsQuery } from '@/app/hooks/queries/useGetWeeklySummaryOfCompletedGoalsQuery';
 
+import { isInCurrentWeek } from '@/utils/isInCurrentWeek';
+
 dayjs.locale('pt-BR');
 
 export function useWeeklySummaryController() {
@@ -53,9 +55,7 @@ export function useWeeklySummaryController() {
     });
   }
 
-  const isTheCurrentWeek = dayjs(weekStartsAt)
-    .endOf('week')
-    .isAfter(new Date());
+  const isTheCurrentWeek = isInCurrentWeek(weekStartsAt);
 
   return {
     containerSummaryId,
