@@ -22,6 +22,7 @@ type ViewportProps = {
 type ItemProps = ComponentProps<'button'> & {
   text: string;
   selectedValue: string;
+  disabled?: boolean;
   onSelect: (value: string) => void;
 };
 
@@ -104,6 +105,7 @@ function Item({
   value,
   text,
   selectedValue,
+  disabled = false,
   onSelect,
   ...props
 }: ItemProps) {
@@ -116,11 +118,12 @@ function Item({
         aria-selected={isSelected}
         tabIndex={-1}
         type="button"
-        disabled={isSelected}
+        disabled={isSelected || disabled}
         onClick={onSelect}
         className={cn(
           'flex w-full items-center justify-between gap-2 rounded-lg px-4 py-2 text-zinc-400 transition-colors duration-300 ease-linear enabled:cursor-pointer enabled:hover:bg-zinc-800',
           isSelected && 'bg-zinc-800/40',
+          disabled && 'opacity-50',
           className
         )}
         {...props}

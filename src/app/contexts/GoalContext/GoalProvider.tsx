@@ -1,5 +1,6 @@
 import { useId, useState } from 'react';
 import { useGetAllGoalsQuery } from '@/app/hooks/queries/useGetAllGoalsQuery';
+import { useGetWeeklyGoalsWithCompletionCountQuery } from '@/app/hooks/queries/useGetWeeklyGoalsWithCompletionCountQuery';
 
 import { GoalContext } from '.';
 
@@ -14,12 +15,14 @@ export type GoalStatusData = {
   id: string;
   status: GoalStatusFilter;
   label: string;
+  disabled: boolean;
 };
 
 export type FilterOptionsData = {
   id: string;
   typeFilter: TypeFilter;
   label: string;
+  disabled: boolean;
 };
 
 export type GoalStatusFilter = 'active' | 'inactive';
@@ -30,6 +33,28 @@ interface GoalProviderProps {
 
 export function GoalProvider({ children }: GoalProviderProps) {
   const { goals, totalActiveGoals, isSeekingAllGoals } = useGetAllGoalsQuery();
+
+  const { weeklyGoalsWithCompletionCount } =
+    useGetWeeklyGoalsWithCompletionCountQuery();
+
+  const isNotStartedGoalsDisabled =
+    weeklyGoalsWithCompletionCount?.filter(
+      (goal) => goal.status === 'not started' && goal.isDeleted === false
+    ).length === 0;
+
+  const isStartedGoalsDisabled =
+    weeklyGoalsWithCompletionCount?.filter(
+      (goal) => goal.status === 'started' && goal.isDeleted === false
+    ).length === 0;
+
+  const isCompletedGoalsDisabled =
+    weeklyGoalsWithCompletionCount?.filter(
+      (goal) => goal.status === 'completed' && goal.isDeleted === false
+    ).length === 0;
+
+  const isInactiveGoalsDisabled =
+    weeklyGoalsWithCompletionCount?.filter((goal) => goal.isDeleted === true)
+      .length === 0;
 
   const activeGoals = goals.filter((goal) => goal.isDeleted === false);
   const inactiveGoals = goals.filter((goal) => goal.isDeleted === true);
@@ -42,11 +67,13 @@ export function GoalProvider({ children }: GoalProviderProps) {
       id: useId(),
       status: 'active',
       label: 'Metas ativas',
+      disabled: false,
     },
     {
       id: useId(),
       status: 'inactive',
       label: 'Metas inativas',
+      disabled: isInactiveGoalsDisabled,
     },
   ];
 
@@ -55,21 +82,25 @@ export function GoalProvider({ children }: GoalProviderProps) {
       id: useId(),
       typeFilter: 'all-goals',
       label: 'Todas as metas',
+      disabled: false,
     },
     {
       id: useId(),
       typeFilter: 'not-started-goals',
       label: 'Metas não iniciadas',
+      disabled: isNotStartedGoalsDisabled,
     },
     {
       id: useId(),
       typeFilter: 'started-goals',
       label: 'Metas iniciadas',
+      disabled: isStartedGoalsDisabled,
     },
     {
       id: useId(),
       typeFilter: 'completed-goals',
       label: 'Metas concluídas',
+      disabled: isCompletedGoalsDisabled,
     },
   ];
 

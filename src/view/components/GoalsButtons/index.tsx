@@ -14,11 +14,11 @@ export function GoalsButtons() {
     isRefetchingWeeklySummary,
     handleCreateGoalCompleted,
     status,
-    goalsDeleted,
+    goalsInactive,
     goalsNotStarted,
     goalsStarted,
     goalsCompleted,
-    shouldShowUnstartedGoals,
+    shouldShowNotStartedGoals,
     shouldShowStartedGoals,
     shouldShowCompletedGoals,
     shouldShowInactiveGoals,
@@ -35,7 +35,7 @@ export function GoalsButtons() {
         </div>
       </div>
 
-      {shouldShowUnstartedGoals && (
+      {shouldShowNotStartedGoals && (
         <div className="flex flex-col gap-3">
           <p className="text-xs text-zinc-400">Não iniciadas</p>
 
@@ -159,10 +159,10 @@ export function GoalsButtons() {
 
       {shouldShowInactiveGoals && (
         <div className="flex flex-col gap-3">
-          <p className="text-xs text-zinc-400">Excluídas</p>
+          <p className="text-xs text-zinc-400">Inativas</p>
 
           <div className="flex flex-wrap gap-2">
-            {goalsDeleted?.map(
+            {goalsInactive?.map(
               ({ id, title, completionCount, desiredWeeklyFrequency }) => {
                 const isGoalCompleted =
                   completionCount >= desiredWeeklyFrequency;
@@ -172,12 +172,7 @@ export function GoalsButtons() {
                     key={id}
                     disabled={isGoalCompleted || isRefetchingWeeklySummary}
                   >
-                    <p>
-                      {title}{' '}
-                      <span className="ml-2 text-xs font-semibold text-zinc-600">
-                        {completionCount}/{desiredWeeklyFrequency}
-                      </span>
-                    </p>
+                    <p>{title}</p>
                   </OutlineButton>
                 );
               }

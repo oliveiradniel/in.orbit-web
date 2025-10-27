@@ -39,7 +39,7 @@ export function useGoalsButtonsController(typeFilter: TypeFilter) {
 
   const status = selectedGoalStatusFilter.status;
 
-  const goalsDeleted = weeklyGoalsWithCompletionCount?.filter(
+  const goalsInactive = weeklyGoalsWithCompletionCount?.filter(
     (goal) => goal.isDeleted
   );
 
@@ -62,26 +62,26 @@ export function useGoalsButtonsController(typeFilter: TypeFilter) {
   const shouldShowActiveGoals = status === 'active';
   const shouldShowInactiveGoals = status === 'inactive';
 
-  const shouldShowUnstartedGoals =
+  const shouldShowNotStartedGoals =
     (shouldShowAllGoals || typeFilter === 'not-started-goals') &&
-    hasGoalsNotStarted &&
-    shouldShowActiveGoals;
+    shouldShowActiveGoals &&
+    hasGoalsNotStarted;
 
   const shouldShowStartedGoals =
     (shouldShowAllGoals || typeFilter === 'started-goals') &&
-    hasGoalsStarted &&
-    shouldShowActiveGoals;
+    shouldShowActiveGoals &&
+    hasGoalsStarted;
 
   const shouldShowCompletedGoals =
     (shouldShowAllGoals || typeFilter === 'completed-goals') &&
-    hasGoalsCompleted &&
-    shouldShowActiveGoals;
+    shouldShowActiveGoals &&
+    hasGoalsCompleted;
 
   return {
     isRefetchingWeeklySummary,
     handleCreateGoalCompleted,
     status,
-    goalsDeleted,
+    goalsInactive,
     goalsNotStarted,
     goalsStarted,
     goalsCompleted,
@@ -89,7 +89,7 @@ export function useGoalsButtonsController(typeFilter: TypeFilter) {
     hasGoalsStarted,
     hasGoalsCompleted,
     shouldShowActiveGoals,
-    shouldShowUnstartedGoals,
+    shouldShowNotStartedGoals,
     shouldShowStartedGoals,
     shouldShowCompletedGoals,
     shouldShowInactiveGoals,

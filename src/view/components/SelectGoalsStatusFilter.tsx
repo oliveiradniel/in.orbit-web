@@ -25,6 +25,7 @@ export function SelectGoalsStatusFilter() {
               key={option.id}
               value={option.status}
               text={option.label}
+              disabled={option.disabled}
               selectedValue={selectedGoalStatusFilter.status}
               onSelect={() => handleSelectGoalStatusFilter(option.status)}
             />

@@ -23,6 +23,7 @@ export function SelectGoalsFilter({ disabled }: { disabled: boolean }) {
               value={option.typeFilter}
               text={option.label}
               selectedValue={selectedTypeFilter.typeFilter}
+              disabled={option.disabled}
               onSelect={() => handleSelectTypeFilter(option.typeFilter)}
             />
           ))}
