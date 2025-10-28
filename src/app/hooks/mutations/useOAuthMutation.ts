@@ -5,6 +5,8 @@ import { router } from '@/App';
 import { makeOAuthService } from '@/app/factories/makeOAuthService';
 import { makeUserService } from '@/app/factories/makeUserService';
 
+import { toast } from '@/view/components/ui/Toast';
+
 export function useOAuthMutation() {
   const queryClient = useQueryClient();
 
@@ -21,11 +23,15 @@ export function useOAuthMutation() {
         queryClient.setQueryData(['activeUser'], user);
 
         router.navigate({ to: '/', replace: true });
-
-        return user;
       },
-      onError: (error) => {
-        console.error('Error when authenticating', error);
+      onError: () => {
+        router.navigate({ to: '/login', replace: true });
+
+        toast({
+          description:
+            'Não foi possível realizar login com GitHub. Tente novamente mais tarde.',
+          type: 'error',
+        });
       },
     });
 
