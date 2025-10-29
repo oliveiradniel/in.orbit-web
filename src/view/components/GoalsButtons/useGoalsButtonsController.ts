@@ -13,8 +13,12 @@ export function useGoalsButtonsController(typeFilter: TypeFilter) {
 
   const { weekStartsAt } = useSearch({ from: '/' });
 
-  const { weeklyGoalsWithCompletionCount } =
-    useGetWeeklyGoalsWithCompletionCountQuery();
+  const {
+    weeklyGoalsWithCompletionCount,
+    isLoadingWeeklyGoals,
+    hasErrorWeeklyGoals,
+    refetchWeeklyGoals,
+  } = useGetWeeklyGoalsWithCompletionCountQuery();
 
   const { isRefetchingWeeklySummary } =
     useGetWeeklySummaryOfCompletedGoalsQuery();
@@ -79,19 +83,19 @@ export function useGoalsButtonsController(typeFilter: TypeFilter) {
 
   return {
     isRefetchingWeeklySummary,
-    handleCreateGoalCompleted,
     status,
     goalsInactive,
     goalsNotStarted,
     goalsStarted,
     goalsCompleted,
-    hasGoalsNotStarted,
-    hasGoalsStarted,
-    hasGoalsCompleted,
     shouldShowActiveGoals,
     shouldShowNotStartedGoals,
     shouldShowStartedGoals,
     shouldShowCompletedGoals,
     shouldShowInactiveGoals,
+    isLoadingWeeklyGoals,
+    hasErrorWeeklyGoals,
+    handleCreateGoalCompleted,
+    refetchWeeklyGoals,
   };
 }

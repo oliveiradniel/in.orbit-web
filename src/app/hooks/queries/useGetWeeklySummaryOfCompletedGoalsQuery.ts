@@ -9,7 +9,7 @@ export function useGetWeeklySummaryOfCompletedGoalsQuery() {
 
   const goalService = makeGoalService();
 
-  async function getWeeklySummaryOfCompletedGoals() {
+  function getWeeklySummaryOfCompletedGoals() {
     return goalService.getWeeklySummaryOfCompletedGoals({
       params: { weekStartsAt },
     });

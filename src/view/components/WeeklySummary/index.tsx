@@ -155,7 +155,7 @@ export function WeeklySummary({
         {hasErrorWeeklySummary && (
           <div className="space-y-4">
             <p className="text-zinc-400">
-              Não foi possível buscar seu resumo semanal de metas.
+              Não foi possível buscar o resumo semanal de metas.
             </p>
 
             <Button

@@ -4,7 +4,7 @@ import { useGoalContext } from '@/app/contexts/GoalContext/useGoalContext';
 
 import { Select } from '@/view/components/ui/Select';
 
-export function SelectGoalsStatusFilter() {
+export function SelectGoalsStatusFilter({ disabled }: { disabled: boolean }) {
   const {
     goalStatusData,
     selectedGoalStatusFilter,
@@ -13,7 +13,7 @@ export function SelectGoalsStatusFilter() {
 
   return (
     <Select.Root>
-      <Select.Trigger>
+      <Select.Trigger disabled={disabled}>
         <span>{selectedGoalStatusFilter.label}</span>
         <Filter className="size-4" />
       </Select.Trigger>
