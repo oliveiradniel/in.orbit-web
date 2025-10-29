@@ -49,8 +49,10 @@ export function WeeklySummary({
     goalsPerDayArray,
     isRefetchingWeeklySummary,
     isTheCurrentWeek,
+    hasErrorWeeklySummary,
     handlePreviousWeek,
     handleNextWeek,
+    refetchWeeklySummary,
   } = useWeeklySummaryController();
 
   return (
@@ -150,93 +152,124 @@ export function WeeklySummary({
         aria-labelledby={containerSummaryId}
         className="flex flex-col gap-6"
       >
-        <h1
-          id={containerSummaryId}
-          className="flex items-end gap-4 text-2xl leading-none font-medium"
-        >
-          Sua semana
-          {isRefetchingWeeklySummary && (
-            <Loader2 className="size-5 animate-spin text-pink-500" />
-          )}
-        </h1>
-
-        {completedGoals === 0 && (
-          <div>
-            <p className="text-zinc-500">
-              Você {isTheCurrentWeek && 'ainda'} não completou nenhuma meta esta
-              semana.
-              {isTheCurrentWeek &&
-                ' Clique em qualquer uma das metas criadas acima para concluí-las!'}
+        {hasErrorWeeklySummary && (
+          <div className="space-y-4">
+            <p className="text-zinc-400">
+              Não foi possível buscar seu resumo semanal de metas.
             </p>
+
+            <Button
+              aria-live="polite"
+              type="button"
+              variant="danger"
+              onClick={() => refetchWeeklySummary()}
+            >
+              Tentar novamente.
+            </Button>
           </div>
         )}
 
-        {goalsPerDayArray?.map(({ date, goals }) => {
-          const weekDay = dayjs(date).format('dddd');
-          const formattedDate = dayjs(date).format('D[ de ] MMMM');
+        {!hasErrorWeeklySummary && (
+          <>
+            <h1
+              id={containerSummaryId}
+              className="flex items-end gap-4 text-2xl leading-none font-medium"
+            >
+              Sua semana
+              {isRefetchingWeeklySummary && (
+                <Loader2 className="size-5 animate-spin text-pink-500" />
+              )}
+            </h1>
 
-          return (
-            <section key={date} className="animate-fade-in flex flex-col gap-4">
-              <h2 className="font-medium">
-                <span className="capitalize">{weekDay} </span>
+            {completedGoals === 0 && (
+              <div>
+                <p className="text-zinc-500">
+                  Você {isTheCurrentWeek && 'ainda'} não completou nenhuma meta
+                  esta semana.
+                  {isTheCurrentWeek &&
+                    ' Clique em qualquer uma das metas criadas acima para concluí-las!'}
+                </p>
+              </div>
+            )}
 
-                <span className="text-sm text-zinc-400">({formattedDate})</span>
-              </h2>
+            {goalsPerDayArray?.map(({ date, goals }) => {
+              const weekDay = dayjs(date).format('dddd');
+              const formattedDate = dayjs(date).format('D[ de ] MMMM');
 
-              <ul aria-label="Lista de metas" className="flex flex-col gap-3">
-                {goals.map(({ id, completedAt, title, isDeleted }) => {
-                  const time = dayjs
-                    .utc(completedAt)
-                    .tz('America/Sao_Paulo')
-                    .format('HH:mm');
+              return (
+                <section
+                  key={date}
+                  className="animate-fade-in flex flex-col gap-4"
+                >
+                  <h2 className="font-medium">
+                    <span className="capitalize">{weekDay} </span>
 
-                  return (
-                    <li key={id} className="flex items-center gap-2">
-                      <CheckCircle2
-                        aria-hidden="true"
-                        className="size-4 text-pink-500"
-                      />
+                    <span className="text-sm text-zinc-400">
+                      ({formattedDate})
+                    </span>
+                  </h2>
 
-                      <span className="text-sm text-zinc-400">
-                        Você completou "
-                        <span className="text-zinc-100">{title}</span>" às{' '}
-                        <time dateTime="" className="text-zinc-100">
-                          {time}h
-                        </time>
-                      </span>
+                  <ul
+                    aria-label="Lista de metas"
+                    className="flex flex-col gap-3"
+                  >
+                    {goals.map(({ id, completedAt, title, isDeleted }) => {
+                      const time = dayjs
+                        .utc(completedAt)
+                        .tz('America/Sao_Paulo')
+                        .format('HH:mm');
 
-                      {isDeleted && (
-                        <div className="relative ml-2 overflow-hidden rounded-full border border-zinc-900 px-4 py-2.5">
-                          <div className="absolute right-0 h-4 w-4 bg-pink-500/60 blur-lg" />
-                          <div className="absolute left-0 h-4 w-4 bg-violet-500/60 blur-lg" />
+                      return (
+                        <li key={id} className="flex items-center gap-2">
+                          <CheckCircle2
+                            aria-hidden="true"
+                            className="size-4 text-pink-500"
+                          />
 
-                          <div className="flex items-center gap-2 text-zinc-500">
-                            <X className="size-4 text-red-500" />
-                            <span className="text-xs text-zinc-400">
-                              Excluída
-                            </span>
-                          </div>
-                        </div>
-                      )}
+                          <span className="text-sm text-zinc-400">
+                            Você completou "
+                            <span className="text-zinc-100">{title}</span>" às{' '}
+                            <time dateTime="" className="text-zinc-100">
+                              {time}h
+                            </time>
+                          </span>
 
-                      {!isDeleted && (
-                        <div className="relative ml-2 overflow-hidden rounded-full border border-zinc-900 px-4 py-2.5">
-                          <div className="absolute right-0 h-4 w-4 bg-green-500/60 blur-lg" />
-                          <div className="absolute left-0 h-4 w-4 bg-green-500/60 blur-lg" />
+                          {isDeleted && (
+                            <div className="relative ml-2 overflow-hidden rounded-full border border-zinc-900 px-4 py-2.5">
+                              <div className="absolute right-0 h-4 w-4 bg-pink-500/60 blur-lg" />
+                              <div className="absolute left-0 h-4 w-4 bg-violet-500/60 blur-lg" />
 
-                          <div className="flex items-center gap-2 text-zinc-500">
-                            <Check className="size-4 text-green-500" />
-                            <span className="text-xs text-zinc-400">Ativa</span>
-                          </div>
-                        </div>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-          );
-        })}
+                              <div className="flex items-center gap-2 text-zinc-500">
+                                <X className="size-4 text-red-500" />
+                                <span className="text-xs text-zinc-400">
+                                  Excluída
+                                </span>
+                              </div>
+                            </div>
+                          )}
+
+                          {!isDeleted && (
+                            <div className="relative ml-2 overflow-hidden rounded-full border border-zinc-900 px-4 py-2.5">
+                              <div className="absolute right-0 h-4 w-4 bg-green-500/60 blur-lg" />
+                              <div className="absolute left-0 h-4 w-4 bg-green-500/60 blur-lg" />
+
+                              <div className="flex items-center gap-2 text-zinc-500">
+                                <Check className="size-4 text-green-500" />
+                                <span className="text-xs text-zinc-400">
+                                  Ativa
+                                </span>
+                              </div>
+                            </div>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </section>
+              );
+            })}
+          </>
+        )}
       </main>
     </div>
   );

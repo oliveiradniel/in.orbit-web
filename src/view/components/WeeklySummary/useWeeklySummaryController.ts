@@ -17,8 +17,12 @@ export function useWeeklySummaryController() {
 
   const { weekStartsAt } = useSearch({ from: '/' });
 
-  const { weeklySummaryOfCompletedGoals, isRefetchingWeeklySummary } =
-    useGetWeeklySummaryOfCompletedGoalsQuery();
+  const {
+    weeklySummaryOfCompletedGoals,
+    isRefetchingWeeklySummary,
+    hasErrorWeeklySummary,
+    refetchWeeklySummary,
+  } = useGetWeeklySummaryOfCompletedGoalsQuery();
 
   const firstDayOfWeek = dayjs(weekStartsAt).startOf('week').format('D MMMM');
   const lastDayOfWeek = dayjs(weekStartsAt).endOf('week').format('D MMMM');
@@ -67,7 +71,9 @@ export function useWeeklySummaryController() {
     goalsPerDayArray,
     isRefetchingWeeklySummary,
     isTheCurrentWeek,
+    hasErrorWeeklySummary,
     handlePreviousWeek,
     handleNextWeek,
+    refetchWeeklySummary,
   };
 }

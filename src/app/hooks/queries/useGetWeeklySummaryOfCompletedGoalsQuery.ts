@@ -15,7 +15,7 @@ export function useGetWeeklySummaryOfCompletedGoalsQuery() {
     });
   }
 
-  const { data, isLoading, isFetching } = useQuery({
+  const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: ['weeklySummary', weekStartsAt],
     queryFn: getWeeklySummaryOfCompletedGoals,
   });
@@ -24,5 +24,7 @@ export function useGetWeeklySummaryOfCompletedGoalsQuery() {
     weeklySummaryOfCompletedGoals: data ?? null,
     isLoadingWeeklySummary: isLoading,
     isRefetchingWeeklySummary: isFetching,
+    hasErrorWeeklySummary: isError,
+    refetchWeeklySummary: refetch,
   };
 }
