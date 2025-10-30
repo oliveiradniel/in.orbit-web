@@ -1,16 +1,11 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useDeleteAccountMutation } from '@/app/hooks/mutations/useDeleteAccountMutation';
 
 export function useDeleteAccountDialogController() {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-
   const [isDeleteAccountDialogOpen, setisDeleteAccountDialogOpen] =
     useState(false);
 
-  const { deleteAccount, isDeleting } = useDeleteAccountMutation();
+  const { deleteAccount, isDeletingAccount } = useDeleteAccountMutation();
 
   function handleOpenDeleteAccountDialog() {
     setisDeleteAccountDialogOpen(true);
@@ -20,19 +15,15 @@ export function useDeleteAccountDialogController() {
     setisDeleteAccountDialogOpen(false);
   }
 
-  async function handleDeleteAccount() {
-    if (isDeleting) return;
+  function handleDeleteAccount() {
+    if (isDeletingAccount) return;
 
-    await deleteAccount();
-    queryClient.clear();
-
-    sessionStorage.setItem('userLeft', JSON.stringify(true));
-    navigate({ to: '/login' });
+    deleteAccount();
   }
 
   return {
     isDeleteAccountDialogOpen,
-    isDeleting,
+    isDeletingAccount,
     handleOpenDeleteAccountDialog,
     handleCloseDeleteAccountDialog,
     handleDeleteAccount,
