@@ -21,6 +21,8 @@ import { errorLabels } from '@/config/constants';
 
 import { invalidateQueries } from '@/utils/invalidateQueries';
 
+import { toast } from '../ui/Toast';
+
 export function useNewGoalDialogController() {
   const { weekStartsAt } = useSearch({ from: '/' });
 
@@ -73,8 +75,15 @@ export function useNewGoalDialogController() {
 
         if (possibleErrors.includes(errorMessage)) {
           setRequestErrorMessage(errorLabels[errorMessage]);
+
+          return;
         }
       }
+
+      toast({
+        description: 'Não possível criar a meta. Tente novamente mais tarde',
+        type: 'error',
+      });
     }
   });
 
