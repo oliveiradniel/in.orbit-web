@@ -6,6 +6,8 @@ import { SelectGoalsFilter } from '../SelectGoalsFilter';
 import { SelectGoalsStatusFilter } from '../SelectGoalsStatusFilter';
 import { Button } from '../ui/Button';
 import { OutlineButton } from '../ui/OutlineButton';
+import { Spinner } from '../ui/Spinner';
+
 import { useGoalsButtonsController } from './useGoalsButtonsController';
 
 export function GoalsButtons() {
@@ -26,6 +28,8 @@ export function GoalsButtons() {
     hasErrorWeeklyGoals,
     handleCreateGoalCompleted,
     refetchWeeklyGoals,
+    isCreatingGoalCompleted,
+    updatingGoalId,
   } = useGoalsButtonsController(selectedTypeFilter.typeFilter);
 
   return (
@@ -88,12 +92,17 @@ export function GoalsButtons() {
                         status="notStarted"
                         className="group"
                       >
-                        {!isDeleted && (
+                        {!isDeleted && !isCreatingGoalCompleted && (
                           <PlusIcon
                             aria-hidden="true"
                             className="size-4 text-red-400 transition-colors duration-300 ease-linear group-hover:text-red-500"
                           />
                         )}
+
+                        {isCreatingGoalCompleted && id === updatingGoalId && (
+                          <Spinner className="size-4 border-red-400" />
+                        )}
+
                         <p>
                           {title}{' '}
                           <span className="ml-2 text-xs font-semibold text-red-400">
@@ -120,6 +129,7 @@ export function GoalsButtons() {
                     completionCount,
                     desiredWeeklyFrequency,
                     wasCompletedToday,
+                    isDeleted,
                   }) => {
                     const isGoalCompleted =
                       completionCount >= desiredWeeklyFrequency;
@@ -136,12 +146,19 @@ export function GoalsButtons() {
                         status="started"
                         className="group"
                       >
-                        {!wasCompletedToday && (
-                          <PlusIcon
-                            aria-hidden="true"
-                            className="size-4 text-yellow-300 transition-colors duration-300 ease-linear group-hover:text-yellow-500"
-                          />
+                        {!wasCompletedToday &&
+                          !isDeleted &&
+                          !isCreatingGoalCompleted && (
+                            <PlusIcon
+                              aria-hidden="true"
+                              className="size-4 text-yellow-300 transition-colors duration-300 ease-linear group-hover:text-yellow-500"
+                            />
+                          )}
+
+                        {isCreatingGoalCompleted && id === updatingGoalId && (
+                          <Spinner className="size-4 border-yellow-400" />
                         )}
+
                         <p>
                           {title}{' '}
                           <span className="ml-2 text-xs font-semibold text-yellow-400">

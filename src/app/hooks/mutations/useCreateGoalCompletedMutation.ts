@@ -5,11 +5,14 @@ import { makeGoalCompletedService } from '@/app/factories/makeGoalCompletedServi
 export function useCreateGoalCompletedMutation() {
   const goalCompletedService = makeGoalCompletedService();
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: (goalId: string) => {
       return goalCompletedService.create(goalId);
     },
   });
 
-  return { createGoalCompleted: mutateAsync };
+  return {
+    createGoalCompleted: mutateAsync,
+    isCreatingGoalCompleted: isPending,
+  };
 }
