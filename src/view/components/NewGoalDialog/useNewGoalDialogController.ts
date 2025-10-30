@@ -69,6 +69,10 @@ export function useNewGoalDialogController() {
       });
 
       reset();
+      toast({
+        description: 'Meta criada com sucesso.',
+        type: 'success',
+      });
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMessage = error.response?.data?.message as string;
