@@ -2,21 +2,21 @@ import type { GoalData } from '../DeleteGoalsDialog/useDeleteGoalsDialogControll
 
 import { TemplateAlertDialog } from '../TemplateAlertDialog';
 
-import { useDeleteGoalAlertDialogController } from './useDeleteGoalAlertDialogController';
+import { useDeleteGoalsAlertDialogController } from './useDeleteGoalsAlertDialogController';
 
-interface DeleteGoalAlertDialogProps {
+interface DeleteGoalsAlertDialogProps {
   isOpen: boolean;
   selectedGoals: GoalData[];
   onClose: () => void;
 }
 
-export function DeleteGoalAlertDialog({
+export function DeleteGoalsAlertDialog({
   isOpen,
   selectedGoals,
   onClose,
-}: DeleteGoalAlertDialogProps) {
+}: DeleteGoalsAlertDialogProps) {
   const { handleDeleteManyGoals, isDeletingGoals } =
-    useDeleteGoalAlertDialogController(selectedGoals, onClose);
+    useDeleteGoalsAlertDialogController(selectedGoals, onClose);
 
   return (
     <TemplateAlertDialog

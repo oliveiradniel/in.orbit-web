@@ -18,7 +18,7 @@ export interface DeleteGoalsDialogProps {
 }
 
 export function useDeleteGoalsDialogController() {
-  const { activeGoals, hasAnyActiveGoal, totalActiveGoals } = useGoalContext();
+  const { activeGoals, hasActiveGoals, totalActiveGoals } = useGoalContext();
 
   const [isDeleteGoalsDialogOpen, setIsDeleteGoalsDialogOpen] = useState(false);
   const [selectedGoalsData, setSelectedGoalsData] = useState<GoalData[]>([]);
@@ -68,7 +68,7 @@ export function useDeleteGoalsDialogController() {
   return {
     goals: activeGoals,
     totalActiveGoals,
-    hasAnyActiveGoal,
+    hasActiveGoals,
     selectedGoalsData,
     isDeleteGoalsDialogOpen,
     isDeleteButtonDisabled,

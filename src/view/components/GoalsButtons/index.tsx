@@ -28,8 +28,6 @@ export function GoalsButtons() {
     refetchWeeklyGoals,
   } = useGoalsButtonsController(selectedTypeFilter.typeFilter);
 
-  console.log(isLoadingWeeklyGoals);
-
   return (
     <div className="space-y-6">
       {hasErrorWeeklyGoals && !isLoadingWeeklyGoals && (

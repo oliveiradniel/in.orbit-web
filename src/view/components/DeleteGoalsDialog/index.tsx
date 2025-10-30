@@ -1,8 +1,8 @@
 import { Plus, Trash2 } from 'lucide-react';
 
-import { DeleteGoalAlertDialog } from '../DeleteGoalAlertDialog';
+import { DeleteGoalsAlertDialog } from '../DeleteGoalsAlertDialog';
 
-import { useDeleteGoalAlertDialogController } from '../DeleteGoalAlertDialog/useDeleteGoalAlertDialogController';
+import { useDeleteGoalsAlertDialogController } from '../DeleteGoalsAlertDialog/useDeleteGoalsAlertDialogController';
 
 import { DialogTemplate } from '../TemplateDialog';
 import { Button } from '../ui/Button';
@@ -21,19 +21,19 @@ export function DeleteGoalsDialog({
   toggleCheckboxGoalId,
   onOpenNewGoalDialog,
 }: DeleteGoalsDialogProps) {
-  const { goals, totalActiveGoals, hasAnyActiveGoal } =
+  const { goals, totalActiveGoals, hasActiveGoals } =
     useDeleteGoalsDialogController();
 
   const {
-    isDeleteGoalAlertDialogOpen,
+    isDeleteGoalsAlertDialogOpen,
     handleOpenDeleteGoalAlert,
     handleCloseDeleteGoalAlert,
-  } = useDeleteGoalAlertDialogController();
+  } = useDeleteGoalsAlertDialogController();
 
   return (
     <>
-      <DeleteGoalAlertDialog
-        isOpen={isDeleteGoalAlertDialogOpen}
+      <DeleteGoalsAlertDialog
+        isOpen={isDeleteGoalsAlertDialogOpen}
         selectedGoals={selectedGoals}
         onClose={handleCloseDeleteGoalAlert}
       />
@@ -45,7 +45,7 @@ export function DeleteGoalsDialog({
         isOpen={isOpen}
         onClose={onClose}
       >
-        {hasAnyActiveGoal && (
+        {hasActiveGoals && (
           <div className="flex h-full flex-col gap-4">
             <div className="flex items-center justify-between">
               <button
@@ -84,7 +84,7 @@ export function DeleteGoalsDialog({
           </div>
         )}
 
-        {!hasAnyActiveGoal && (
+        {!hasActiveGoals && (
           <div className="space-y-4">
             <p className="text-zinc-400">
               Não há nenhuma meta ativa, cadastre uma nova para poder gerenciar.

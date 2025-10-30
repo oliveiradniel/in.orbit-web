@@ -7,7 +7,9 @@ import { invalidateQueries } from '@/utils/invalidateQueries';
 
 import type { GoalData } from '../DeleteGoalsDialog/useDeleteGoalsDialogController';
 
-export function useDeleteGoalAlertDialogController(
+import { toast } from '../ui/Toast';
+
+export function useDeleteGoalsAlertDialogController(
   selectedGoals?: GoalData[],
   onClose?: () => void
 ) {
@@ -15,17 +17,17 @@ export function useDeleteGoalAlertDialogController(
 
   const { weekStartsAt } = useSearch({ from: '/' });
 
-  const [isDeleteGoalAlertDialogOpen, setisDeleteGoalAlertDialogOpen] =
+  const [isDeleteGoalsAlertDialogOpen, setisDeleteGoalsAlertDialogOpen] =
     useState(false);
 
   const { deleteManyGoals, isDeletingGoals } = useDeleteManyGoalMutation();
 
   function handleOpenDeleteGoalAlert() {
-    setisDeleteGoalAlertDialogOpen(true);
+    setisDeleteGoalsAlertDialogOpen(true);
   }
 
   function handleCloseDeleteGoalAlert() {
-    setisDeleteGoalAlertDialogOpen(false);
+    setisDeleteGoalsAlertDialogOpen(false);
   }
 
   async function handleDeleteManyGoals() {
@@ -45,15 +47,19 @@ export function useDeleteGoalAlertDialogController(
           ['totalQuantityOfGoalsCompleted'],
         ],
       });
-    } catch (error) {
-      console.log('error', error);
-    } finally {
+
       onClose?.();
+    } catch {
+      toast({
+        description:
+          'Não possível excluir a(s) meta(s). Tente novamente mais tarde.',
+        type: 'error',
+      });
     }
   }
 
   return {
-    isDeleteGoalAlertDialogOpen,
+    isDeleteGoalsAlertDialogOpen,
     handleOpenDeleteGoalAlert,
     handleCloseDeleteGoalAlert,
     handleDeleteManyGoals,
