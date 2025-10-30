@@ -61,7 +61,7 @@ export function Dashboard() {
                 <ErrorGoals />
               ) : hasGoals ? (
                 <WeeklySummary
-                  hasAnyActiveGoal={hasActiveGoals}
+                  hasActiveGoal={hasActiveGoals}
                   onOpenNewGoalDialog={handleOpenNewGoalDialog}
                   onOpenDeleteGoalsDialog={handleOpenDeleteGoalsDialog}
                 />

@@ -208,21 +208,13 @@ export function GoalsButtons() {
               <p className="text-xs text-zinc-400">Inativas</p>
 
               <div className="flex flex-wrap gap-2">
-                {goalsInactive?.map(
-                  ({ id, title, completionCount, desiredWeeklyFrequency }) => {
-                    const isGoalCompleted =
-                      completionCount >= desiredWeeklyFrequency;
-
-                    return (
-                      <OutlineButton
-                        key={id}
-                        disabled={isGoalCompleted || isRefetchingWeeklySummary}
-                      >
-                        <p>{title}</p>
-                      </OutlineButton>
-                    );
-                  }
-                )}
+                {goalsInactive?.map(({ id, title }) => {
+                  return (
+                    <OutlineButton key={id} disabled>
+                      <p>{title}</p>
+                    </OutlineButton>
+                  );
+                })}
               </div>
             </div>
           )}

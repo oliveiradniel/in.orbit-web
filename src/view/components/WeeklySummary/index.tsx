@@ -29,13 +29,13 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 interface WeeklySummaryProps {
-  hasAnyActiveGoal: boolean;
+  hasActiveGoal: boolean;
   onOpenNewGoalDialog: () => void;
   onOpenDeleteGoalsDialog: () => void;
 }
 
 export function WeeklySummary({
-  hasAnyActiveGoal,
+  hasActiveGoal,
   onOpenNewGoalDialog,
   onOpenDeleteGoalsDialog,
 }: WeeklySummaryProps) {
@@ -43,6 +43,7 @@ export function WeeklySummary({
     containerSummaryId,
     firstDayOfWeek,
     lastDayOfWeek,
+    totalActiveGoals,
     completedGoals,
     weeklyFrequencyOfAllGoals,
     percentGoalsCompleted,
@@ -107,7 +108,7 @@ export function WeeklySummary({
             type="button"
             size="sm"
             variant="secondary"
-            disabled={isRefetchingWeeklySummary || !hasAnyActiveGoal}
+            disabled={isRefetchingWeeklySummary || !hasActiveGoal}
             onClick={onOpenDeleteGoalsDialog}
             className="w-full"
           >
@@ -146,7 +147,7 @@ export function WeeklySummary({
 
       <Separator />
 
-      {hasAnyActiveGoal && <GoalsButtons />}
+      {hasActiveGoal && <GoalsButtons />}
 
       <main
         aria-labelledby={containerSummaryId}
@@ -169,107 +170,120 @@ export function WeeklySummary({
           </div>
         )}
 
-        {!hasErrorWeeklySummary && (
-          <>
-            <h1
-              id={containerSummaryId}
-              className="flex items-end gap-4 text-2xl leading-none font-medium"
-            >
-              Sua semana
-              {isRefetchingWeeklySummary && (
-                <Loader2 className="size-5 animate-spin text-pink-500" />
-              )}
-            </h1>
-
-            {completedGoals === 0 && (
-              <div>
-                <p className="text-zinc-500">
-                  Você {isTheCurrentWeek && 'ainda'} não completou nenhuma meta
-                  esta semana.
-                  {isTheCurrentWeek &&
-                    ' Clique em qualquer uma das metas criadas acima para concluí-las!'}
-                </p>
-              </div>
-            )}
-
-            {goalsPerDayArray?.map(({ date, goals }) => {
-              const weekDay = dayjs(date).format('dddd');
-              const formattedDate = dayjs(date).format('D[ de ] MMMM');
-
-              return (
-                <section
-                  key={date}
-                  className="animate-fade-in flex flex-col gap-4"
-                >
-                  <h2 className="font-medium">
-                    <span className="capitalize">{weekDay} </span>
-
-                    <span className="text-sm text-zinc-400">
-                      ({formattedDate})
-                    </span>
-                  </h2>
-
-                  <ul
-                    aria-label="Lista de metas"
-                    className="flex flex-col gap-3"
-                  >
-                    {goals.map(({ id, completedAt, title, isDeleted }) => {
-                      const time = dayjs
-                        .utc(completedAt)
-                        .tz('America/Sao_Paulo')
-                        .format('HH:mm');
-
-                      return (
-                        <li key={id} className="flex items-center gap-2">
-                          <CheckCircle2
-                            aria-hidden="true"
-                            className="size-4 text-pink-500"
-                          />
-
-                          <span className="text-sm text-zinc-400">
-                            Você completou "
-                            <span className="text-zinc-100">{title}</span>" às{' '}
-                            <time dateTime="" className="text-zinc-100">
-                              {time}h
-                            </time>
-                          </span>
-
-                          {isDeleted && (
-                            <div className="relative ml-2 overflow-hidden rounded-full border border-zinc-900 px-4 py-2.5">
-                              <div className="absolute right-0 h-4 w-4 bg-pink-500/60 blur-lg" />
-                              <div className="absolute left-0 h-4 w-4 bg-violet-500/60 blur-lg" />
-
-                              <div className="flex items-center gap-2 text-zinc-500">
-                                <X className="size-4 text-red-500" />
-                                <span className="text-xs text-zinc-400">
-                                  Excluída
-                                </span>
-                              </div>
-                            </div>
-                          )}
-
-                          {!isDeleted && (
-                            <div className="relative ml-2 overflow-hidden rounded-full border border-zinc-900 px-4 py-2.5">
-                              <div className="absolute right-0 h-4 w-4 bg-green-500/60 blur-lg" />
-                              <div className="absolute left-0 h-4 w-4 bg-green-500/60 blur-lg" />
-
-                              <div className="flex items-center gap-2 text-zinc-500">
-                                <Check className="size-4 text-green-500" />
-                                <span className="text-xs text-zinc-400">
-                                  Ativa
-                                </span>
-                              </div>
-                            </div>
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </section>
-              );
-            })}
-          </>
+        {totalActiveGoals === 0 && (
+          <div>
+            <p className="text-zinc-500">
+              Você ainda não cadastrou nenhuma meta, que tal cadastrar uma agora
+              mesmo?
+            </p>
+          </div>
         )}
+
+        {completedGoals === 0 && totalActiveGoals > 0 && (
+          <div>
+            <p className="text-zinc-500">
+              Você {isTheCurrentWeek && 'ainda'} não completou nenhuma meta esta
+              semana.
+              {isTheCurrentWeek &&
+                ' Clique em qualquer uma das metas criadas acima para concluí-las!'}
+            </p>
+          </div>
+        )}
+
+        {!hasErrorWeeklySummary &&
+          completedGoals > 0 &&
+          totalActiveGoals > 0 && (
+            <>
+              <h1
+                id={containerSummaryId}
+                className="flex items-end gap-4 text-2xl leading-none font-medium"
+              >
+                Sua semana
+                {isRefetchingWeeklySummary && (
+                  <Loader2 className="size-5 animate-spin text-pink-500" />
+                )}
+              </h1>
+
+              {}
+
+              {goalsPerDayArray?.map(({ date, goals }) => {
+                const weekDay = dayjs(date).format('dddd');
+                const formattedDate = dayjs(date).format('D[ de ] MMMM');
+
+                return (
+                  <section
+                    key={date}
+                    className="animate-fade-in flex flex-col gap-4"
+                  >
+                    <h2 className="font-medium">
+                      <span className="capitalize">{weekDay} </span>
+
+                      <span className="text-sm text-zinc-400">
+                        ({formattedDate})
+                      </span>
+                    </h2>
+
+                    <ul
+                      aria-label="Lista de metas"
+                      className="flex flex-col gap-3"
+                    >
+                      {goals.map(({ id, completedAt, title, isDeleted }) => {
+                        const time = dayjs
+                          .utc(completedAt)
+                          .tz('America/Sao_Paulo')
+                          .format('HH:mm');
+
+                        return (
+                          <li key={id} className="flex items-center gap-2">
+                            <CheckCircle2
+                              aria-hidden="true"
+                              className="size-4 text-pink-500"
+                            />
+
+                            <span className="text-sm text-zinc-400">
+                              Você completou "
+                              <span className="text-zinc-100">{title}</span>" às{' '}
+                              <time dateTime="" className="text-zinc-100">
+                                {time}h
+                              </time>
+                            </span>
+
+                            {isDeleted && (
+                              <div className="relative ml-2 overflow-hidden rounded-full border border-zinc-900 px-4 py-2.5">
+                                <div className="absolute right-0 h-4 w-4 bg-pink-500/60 blur-lg" />
+                                <div className="absolute left-0 h-4 w-4 bg-violet-500/60 blur-lg" />
+
+                                <div className="flex items-center gap-2 text-zinc-500">
+                                  <X className="size-4 text-red-500" />
+                                  <span className="text-xs text-zinc-400">
+                                    Excluída
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+
+                            {!isDeleted && (
+                              <div className="relative ml-2 overflow-hidden rounded-full border border-zinc-900 px-4 py-2.5">
+                                <div className="absolute right-0 h-4 w-4 bg-green-500/60 blur-lg" />
+                                <div className="absolute left-0 h-4 w-4 bg-green-500/60 blur-lg" />
+
+                                <div className="flex items-center gap-2 text-zinc-500">
+                                  <Check className="size-4 text-green-500" />
+                                  <span className="text-xs text-zinc-400">
+                                    Ativa
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </section>
+                );
+              })}
+            </>
+          )}
       </main>
     </div>
   );

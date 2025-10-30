@@ -6,6 +6,7 @@ import { useId } from 'react';
 
 import { router } from '@/App';
 
+import { useGetAllGoalsQuery } from '@/app/hooks/queries/useGetAllGoalsQuery';
 import { useGetWeeklySummaryOfCompletedGoalsQuery } from '@/app/hooks/queries/useGetWeeklySummaryOfCompletedGoalsQuery';
 
 import { isInCurrentWeek } from '@/utils/isInCurrentWeek';
@@ -23,6 +24,8 @@ export function useWeeklySummaryController() {
     hasErrorWeeklySummary,
     refetchWeeklySummary,
   } = useGetWeeklySummaryOfCompletedGoalsQuery();
+
+  const { totalActiveGoals } = useGetAllGoalsQuery();
 
   const firstDayOfWeek = dayjs(weekStartsAt).startOf('week').format('D MMMM');
   const lastDayOfWeek = dayjs(weekStartsAt).endOf('week').format('D MMMM');
@@ -66,6 +69,7 @@ export function useWeeklySummaryController() {
     firstDayOfWeek,
     lastDayOfWeek,
     completedGoals,
+    totalActiveGoals,
     weeklyFrequencyOfAllGoals,
     percentGoalsCompleted,
     goalsPerDayArray,
