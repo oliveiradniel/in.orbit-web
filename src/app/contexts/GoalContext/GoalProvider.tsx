@@ -32,7 +32,8 @@ interface GoalProviderProps {
 }
 
 export function GoalProvider({ children }: GoalProviderProps) {
-  const { goals, totalActiveGoals, isSeekingAllGoals } = useGetAllGoalsQuery();
+  const { goals, totalActiveGoals, isLoadingAllGoals, hasErrorAllGoals } =
+    useGetAllGoalsQuery();
 
   const { weeklyGoalsWithCompletionCount } =
     useGetWeeklyGoalsWithCompletionCountQuery();
@@ -59,8 +60,8 @@ export function GoalProvider({ children }: GoalProviderProps) {
   const activeGoals = goals.filter((goal) => goal.isDeleted === false);
   const inactiveGoals = goals.filter((goal) => goal.isDeleted === true);
 
-  const hasAnyGoal = goals.length > 0;
-  const hasAnyActiveGoal = activeGoals.length > 0;
+  const hasGoals = goals.length > 0;
+  const hasActiveGoals = activeGoals.length > 0;
 
   const goalStatusData: GoalStatusData[] = [
     {
@@ -126,7 +127,6 @@ export function GoalProvider({ children }: GoalProviderProps) {
 
     setSelectedTypeFilter(option);
   }
-
   return (
     <GoalContext.Provider
       value={{
@@ -134,13 +134,14 @@ export function GoalProvider({ children }: GoalProviderProps) {
         totalActiveGoals,
         activeGoals,
         inactiveGoals,
-        hasAnyGoal,
-        hasAnyActiveGoal,
-        isSeekingAllGoals,
+        hasGoals,
+        hasActiveGoals,
+        isLoadingAllGoals,
         goalStatusData,
         filterOptionsData,
         selectedGoalStatusFilter,
         selectedTypeFilter,
+        hasErrorAllGoals,
         handleSelectGoalStatusFilter,
         handleSelectTypeFilter,
       }}

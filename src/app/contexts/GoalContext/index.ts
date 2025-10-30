@@ -13,13 +13,14 @@ interface GoalContextValue {
   totalActiveGoals: number;
   activeGoals: Goal[];
   inactiveGoals: Goal[];
-  hasAnyGoal: boolean;
-  hasAnyActiveGoal: boolean;
-  isSeekingAllGoals: boolean;
+  hasGoals: boolean;
+  hasActiveGoals: boolean;
+  isLoadingAllGoals: boolean;
   goalStatusData: GoalStatusData[];
   filterOptionsData: FilterOptionsData[];
   selectedGoalStatusFilter: GoalStatusData;
   selectedTypeFilter: FilterOptionsData;
+  hasErrorAllGoals: boolean;
   handleSelectGoalStatusFilter: (status: GoalStatusFilter) => void;
   handleSelectTypeFilter: (typeFilter: TypeFilter) => void;
 }

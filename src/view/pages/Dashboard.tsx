@@ -12,6 +12,7 @@ import { NewGoalDialog } from '@/view/components/NewGoalDialog';
 import { useNewGoalDialogController } from '@/view/components/NewGoalDialog/useNewGoalDialogController';
 
 import { WeeklySummary } from '@/view/components/WeeklySummary';
+import { ErrorGoals } from '../components/ErrorGoals';
 
 export function Dashboard() {
   const {
@@ -32,7 +33,12 @@ export function Dashboard() {
   return (
     <GoalProvider>
       <GoalContext.Consumer>
-        {({ hasAnyGoal, hasAnyActiveGoal, isSeekingAllGoals }) => (
+        {({
+          hasGoals,
+          hasActiveGoals,
+          isLoadingAllGoals,
+          hasErrorAllGoals,
+        }) => (
           <>
             <NewGoalDialog
               isOpen={isNewGoalDialogOpen}
@@ -48,12 +54,14 @@ export function Dashboard() {
               onOpenNewGoalDialog={handleOpenNewGoalDialog}
             />
 
-            {isSeekingAllGoals && <LoadingGoals />}
+            {isLoadingAllGoals && <LoadingGoals />}
 
-            {!isSeekingAllGoals &&
-              (hasAnyGoal ? (
+            {!isLoadingAllGoals &&
+              (hasErrorAllGoals ? (
+                <ErrorGoals />
+              ) : hasGoals ? (
                 <WeeklySummary
-                  hasAnyActiveGoal={hasAnyActiveGoal}
+                  hasAnyActiveGoal={hasActiveGoals}
                   onOpenNewGoalDialog={handleOpenNewGoalDialog}
                   onOpenDeleteGoalsDialog={handleOpenDeleteGoalsDialog}
                 />
