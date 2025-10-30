@@ -1,9 +1,16 @@
-import { LogOut, Trash2 } from 'lucide-react';
+import { LogOut, Trash2, X } from 'lucide-react';
+
+import { useEffect } from 'react';
 
 import { DeleteAccountDialog } from '../DeleteAccountDialog';
+
 import { useDeleteAccountDialogController } from '../DeleteAccountDialog/useDeleteAccountDialogController';
+
 import { DialogTemplate } from '../TemplateDialog';
 import { Button } from '../ui/Button';
+
+import { toast } from '../ui/Toast';
+
 import {
   type ProfileDialogProps,
   useProfileDialogController,
@@ -21,6 +28,7 @@ export function ProfileDialog({
     goalsCompletedCount,
     handleLogout,
     isLogouting,
+    hasErrorGoalsCompletedCount,
   } = useProfileDialogController();
 
   const {
@@ -28,6 +36,16 @@ export function ProfileDialog({
     handleOpenDeleteAccountDialog,
     handleCloseDeleteAccountDialog,
   } = useDeleteAccountDialogController();
+
+  useEffect(() => {
+    if (hasErrorGoalsCompletedCount) {
+      toast({
+        description:
+          'Não foi possível buscar a quantidade total de metas completadas.',
+        type: 'error',
+      });
+    }
+  }, [hasErrorGoalsCompletedCount]);
 
   return (
     <>
@@ -71,7 +89,11 @@ export function ProfileDialog({
               <div className="flex flex-col items-center gap-2">
                 <div className="flex h-18 w-18 items-center justify-center rounded-full border-4 border-purple-500">
                   <span className="text-center text-lg font-semibold text-zinc-400">
-                    {goalsCompletedCount}
+                    {hasErrorGoalsCompletedCount ? (
+                      <X className="text-purple-500" />
+                    ) : (
+                      goalsCompletedCount
+                    )}
                   </span>
                 </div>
                 <p className="text-xs font-semibold text-purple-500">

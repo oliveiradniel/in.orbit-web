@@ -6,7 +6,7 @@ import type { UserResponse } from '@/@types/UserResponse';
 
 import { useLogoutMutation } from '@/app/hooks/mutations/useLogoutMutation';
 import { useGetAllGoalsQuery } from '@/app/hooks/queries/useGetAllGoalsQuery';
-import { useGetTotalQuantityOfGoalsCompletedQuery } from '@/app/hooks/queries/useGetTotalQuantityOfGoalsCompletedQuery';
+import { useGetGoalsCompletedCountQuery } from '@/app/hooks/queries/useGetGoalsCompletedCountQuery';
 import { useGetUserLevelAndExperienceQuery } from '@/app/hooks/queries/useGetUserLevelAndExperienceQuery';
 
 export interface GoalData {
@@ -36,7 +36,8 @@ export function useProfileDialogController() {
 
   const { logout, isLogouting } = useLogoutMutation();
 
-  const { goalsCompletedCount } = useGetTotalQuantityOfGoalsCompletedQuery();
+  const { goalsCompletedCount, hasErrorGoalsCompletedCount } =
+    useGetGoalsCompletedCountQuery();
   const { userLevel } = useGetUserLevelAndExperienceQuery();
   const { goals, totalActiveGoals } = useGetAllGoalsQuery();
 
@@ -58,5 +59,6 @@ export function useProfileDialogController() {
     handleCloseProfileDialog,
     handleLogout,
     isLogouting,
+    hasErrorGoalsCompletedCount,
   };
 }
