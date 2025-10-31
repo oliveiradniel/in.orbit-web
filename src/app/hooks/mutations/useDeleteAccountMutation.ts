@@ -8,10 +8,10 @@ export function useDeleteAccountMutation() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const usersService = makeUserService();
+  const userService = makeUserService();
 
   const { mutate, isPending, isError } = useMutation({
-    mutationFn: () => usersService.deleteAccount(),
+    mutationFn: () => userService.deleteAccount(),
     onSuccess: () => {
       queryClient.clear();
 

@@ -11,7 +11,7 @@ export function useOAuthMutation() {
   const queryClient = useQueryClient();
 
   const oauthService = makeOAuthService();
-  const usersService = makeUserService();
+  const userService = makeUserService();
 
   const { mutate: authenticateFromGitHub, isPending: isAuthenticating } =
     useMutation({
@@ -19,7 +19,7 @@ export function useOAuthMutation() {
         await oauthService.githubLogin(code);
       },
       onSuccess: async () => {
-        const user = await usersService.me();
+        const user = await userService.me();
         queryClient.setQueryData(['activeUser'], user);
 
         router.navigate({ to: '/', replace: true });

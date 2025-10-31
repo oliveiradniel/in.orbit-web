@@ -9,15 +9,12 @@ export function useGetWeeklySummaryOfCompletedGoalsQuery() {
 
   const goalService = makeGoalService();
 
-  function getWeeklySummaryOfCompletedGoals() {
-    return goalService.getWeeklySummaryOfCompletedGoals({
-      params: { weekStartsAt },
-    });
-  }
-
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: ['weeklySummary', weekStartsAt],
-    queryFn: getWeeklySummaryOfCompletedGoals,
+    queryFn: () =>
+      goalService.getWeeklySummaryOfCompletedGoals({
+        params: { weekStartsAt },
+      }),
   });
 
   return {

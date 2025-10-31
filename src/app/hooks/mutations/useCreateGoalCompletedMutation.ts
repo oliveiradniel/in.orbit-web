@@ -15,9 +15,7 @@ export function useCreateGoalCompletedMutation() {
   const goalCompletedService = makeGoalCompletedService();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (goalId: string) => {
-      return goalCompletedService.create(goalId);
-    },
+    mutationFn: (goalId: string) => goalCompletedService.create(goalId),
     onSuccess: () => {
       invalidateQueries({
         queryClient,

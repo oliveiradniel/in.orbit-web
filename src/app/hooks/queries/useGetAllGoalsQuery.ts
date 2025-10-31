@@ -5,11 +5,11 @@ import { makeGoalService } from '@/app/factories/makeGoalService';
 export function useGetAllGoalsQuery({
   enabled = true,
 }: { enabled?: boolean } = {}) {
-  const goalsService = makeGoalService();
+  const goalService = makeGoalService();
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['goals'],
-    queryFn: () => goalsService.getAll(),
+    queryFn: () => goalService.getAll(),
     enabled,
   });
 

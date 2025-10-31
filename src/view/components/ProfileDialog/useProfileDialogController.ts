@@ -1,5 +1,3 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 
 import type { UserResponse } from '@/@types/UserResponse';
@@ -31,9 +29,6 @@ export function useProfileDialogController() {
     setIsProfileDialogOpen(false);
   }
 
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-
   const { logout, isLogouting } = useLogoutMutation();
 
   const { goalsCompletedCount, hasErrorGoalsCompletedCount } =
@@ -41,12 +36,8 @@ export function useProfileDialogController() {
   const { userLevel } = useGetUserLevelAndExperienceQuery();
   const { goals, totalActiveGoals } = useGetAllGoalsQuery();
 
-  async function handleLogout() {
-    await logout();
-    queryClient.clear();
-
-    sessionStorage.setItem('userLeft', JSON.stringify(true));
-    navigate({ to: '/login' });
+  function handleLogout() {
+    logout();
   }
 
   return {

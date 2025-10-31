@@ -173,8 +173,8 @@ export function WeeklySummary({
         {totalActiveGoals === 0 && (
           <div>
             <p className="text-zinc-500">
-              Você ainda não cadastrou nenhuma meta, que tal cadastrar uma agora
-              mesmo?
+              Todas as metas que foram cadastradas estão inativas, que tal
+              cadastrar uma agora mesmo?
             </p>
           </div>
         )}

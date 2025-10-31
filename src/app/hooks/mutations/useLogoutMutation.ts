@@ -1,12 +1,23 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
+
 import { makeOAuthService } from '@/app/factories/makeOAuthService';
 
 export function useLogoutMutation() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
   const oauthService = makeOAuthService();
 
-  const { mutateAsync, isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: () => oauthService.logout(),
+    onSuccess: () => {
+      queryClient.clear();
+
+      sessionStorage.setItem('userLeft', JSON.stringify(true));
+      navigate({ to: '/login' });
+    },
   });
 
-  return { logout: mutateAsync, isLogouting: isPending };
+  return { logout: mutate, isLogouting: isPending };
 }

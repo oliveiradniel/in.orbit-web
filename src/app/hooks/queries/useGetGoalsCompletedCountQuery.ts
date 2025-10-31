@@ -3,11 +3,11 @@ import { useQuery } from '@tanstack/react-query';
 import { makeGoalCompletedService } from '@/app/factories/makeGoalCompletedService';
 
 export function useGetGoalsCompletedCountQuery() {
-  const goalsCompletedService = makeGoalCompletedService();
+  const goalCompletedService = makeGoalCompletedService();
 
   const { data, isError } = useQuery({
     queryKey: ['totalQuantityOfGoalsCompleted'],
-    queryFn: () => goalsCompletedService.totalQuantity(),
+    queryFn: () => goalCompletedService.totalQuantity(),
   });
 
   return {

@@ -4,14 +4,9 @@ import { makeGoalService } from '@/app/factories/makeGoalService';
 
 export function useGetWeeklyGoalsWithCompletionCountQuery() {
   const goalService = makeGoalService();
-
-  function getWeeklyGoalsWithCompletionCount() {
-    return goalService.getWeeklyGoalsWithCompletionCount();
-  }
-
   const { data, isPending, isError, refetch } = useQuery({
     queryKey: ['weeklyGoals'],
-    queryFn: getWeeklyGoalsWithCompletionCount,
+    queryFn: () => goalService.getWeeklyGoalsWithCompletionCount(),
   });
 
   return {

@@ -1,6 +1,3 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-
 import { LogOut, Plus } from 'lucide-react';
 
 import { useLogoutMutation } from '@/app/hooks/mutations/useLogoutMutation';
@@ -15,17 +12,10 @@ interface EmptyGoalsProps {
 }
 
 export function EmptyGoals({ onOpenNewGoalDialog }: EmptyGoalsProps) {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-
   const { logout, isLogouting } = useLogoutMutation();
 
-  async function handleLogout() {
-    await logout();
-    queryClient.clear();
-
-    sessionStorage.setItem('userLeft', JSON.stringify(true));
-    navigate({ to: '/login' });
+  function handleLogout() {
+    logout();
   }
 
   return (
