@@ -1,6 +1,3 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-
 import { LogOut } from 'lucide-react';
 
 import { useState } from 'react';
@@ -13,9 +10,6 @@ import logo from '@/assets/images/logo-in-orbit.svg';
 import { Button } from '@/view/components/ui/Button';
 
 export function ErrorGoals() {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-
   const [isQueryEnabled, setIsQueryEnabled] = useState(false);
 
   const { isLoadingAllGoals } = useGetAllGoalsQuery({
@@ -23,12 +17,8 @@ export function ErrorGoals() {
   });
   const { logout, isLogouting } = useLogoutMutation();
 
-  async function handleLogout() {
-    await logout();
-    queryClient.clear();
-
-    sessionStorage.setItem('userLeft', JSON.stringify(true));
-    navigate({ to: '/login' });
+  function handleLogout() {
+    logout();
   }
 
   return (

@@ -14,6 +14,7 @@ export function useLogoutMutation() {
     onSuccess: () => {
       queryClient.clear();
 
+      sessionStorage.setItem('isLoggingOut', JSON.stringify(true));
       sessionStorage.setItem('userLeft', JSON.stringify(true));
       navigate({ to: '/login' });
     },

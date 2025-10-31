@@ -57,7 +57,7 @@ export function UserProfile() {
           type="button"
           variant="secondary"
           onClick={handleOpenProfileDialog}
-          className="rounded-xl p-4"
+          className="h-full rounded-xl p-4"
         >
           <Settings />
         </Button>

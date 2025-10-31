@@ -33,7 +33,10 @@ export function ProfileDialog({
   } = DeleteAccount.useController();
 
   useEffect(() => {
-    if (hasErrorGoalsCompletedCount) {
+    const isLoggingOut = sessionStorage.getItem('isLoggingOut');
+    const isLoggingOutParsed = isLoggingOut && JSON.parse(isLoggingOut);
+
+    if (hasErrorGoalsCompletedCount && !isLoggingOutParsed) {
       toast({
         description:
           'Não foi possível buscar a quantidade total de metas completadas.',

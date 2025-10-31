@@ -12,7 +12,9 @@ export const Route = createFileRoute('/login')({
   component: Login,
 
   beforeLoad: async () => {
-    if (sessionStorage.getItem('userLeft')) {
+    const userLeft = sessionStorage.getItem('userLeft');
+
+    if (userLeft && JSON.parse(userLeft)) {
       sessionStorage.removeItem('userLeft');
       return true;
     }
