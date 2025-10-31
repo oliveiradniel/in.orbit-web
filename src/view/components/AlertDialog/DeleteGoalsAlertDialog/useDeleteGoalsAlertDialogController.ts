@@ -5,9 +5,9 @@ import { useDeleteManyGoalMutation } from '@/app/hooks/mutations/useDeleteManyGo
 
 import { invalidateQueries } from '@/utils/invalidateQueries';
 
-import type { GoalData } from '../DeleteGoalsDialog/useDeleteGoalsDialogController';
+import type { GoalData } from '@/view/components/Dialog/types';
 
-import { toast } from '../ui/Toast';
+import { toast } from '@/view/components/ui/Toast';
 
 export function useDeleteGoalsAlertDialogController(
   selectedGoals?: GoalData[],

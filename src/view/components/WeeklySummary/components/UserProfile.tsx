@@ -6,10 +6,7 @@ import type { UserResponse } from '@/@types/UserResponse';
 
 import { queryClient } from '@/app/core/providers/queryClient';
 
-import { ProfileDialog } from '@/view/components/ProfileDialog';
-
-import { useProfileDialogController } from '@/view/components/ProfileDialog/useProfileDialogController';
-
+import { Profile } from '@/view/components/Dialog/ProfileDialog';
 import { Button } from '@/view/components/ui/Button';
 import { UserLevel } from './UserLevel';
 
@@ -20,7 +17,7 @@ export function UserProfile() {
     isProfileDialogOpen,
     handleOpenProfileDialog,
     handleCloseProfileDialog,
-  } = useProfileDialogController();
+  } = Profile.useController();
 
   useEffect(() => {
     const activeUser = queryClient.getQueryData(['activeUser']) as UserResponse;
@@ -30,7 +27,7 @@ export function UserProfile() {
 
   return (
     <>
-      <ProfileDialog
+      <Profile.Dialog
         userData={user}
         isOpen={isProfileDialogOpen}
         onClose={handleCloseProfileDialog}

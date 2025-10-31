@@ -2,19 +2,14 @@ import { LogOut, Trash2, X } from 'lucide-react';
 
 import { useEffect } from 'react';
 
-import { DeleteAccountDialog } from '../DeleteAccountDialog';
+import { DeleteAccount } from '@/view/components/AlertDialog/DeleteAccountAlertDialog';
+import { Dialog } from '@/view/components/Templates/Dialog';
+import { Button } from '@/view/components/ui/Button';
+import { toast } from '@/view/components/ui/Toast';
 
-import { useDeleteAccountDialogController } from '../DeleteAccountDialog/useDeleteAccountDialogController';
+import type { ProfileDialogProps } from '../types';
 
-import { DialogTemplate } from '../TemplateDialog';
-import { Button } from '../ui/Button';
-
-import { toast } from '../ui/Toast';
-
-import {
-  type ProfileDialogProps,
-  useProfileDialogController,
-} from './useProfileDialogController';
+import { useProfileController } from './useProfileController';
 
 export function ProfileDialog({
   userData,
@@ -29,13 +24,13 @@ export function ProfileDialog({
     handleLogout,
     isLogouting,
     hasErrorGoalsCompletedCount,
-  } = useProfileDialogController();
+  } = useProfileController();
 
   const {
     isDeleteAccountDialogOpen,
     handleOpenDeleteAccountDialog,
     handleCloseDeleteAccountDialog,
-  } = useDeleteAccountDialogController();
+  } = DeleteAccount.useController();
 
   useEffect(() => {
     if (hasErrorGoalsCompletedCount) {
@@ -49,12 +44,12 @@ export function ProfileDialog({
 
   return (
     <>
-      <DeleteAccountDialog
+      <DeleteAccount.AlertDialog
         isOpen={isDeleteAccountDialogOpen}
         onClose={handleCloseDeleteAccountDialog}
       />
 
-      <DialogTemplate
+      <Dialog
         hasAction={false}
         title="Configurações"
         description="Veja informações sobre seu perfil"
@@ -147,7 +142,7 @@ export function ProfileDialog({
             </Button>
           </div>
         </div>
-      </DialogTemplate>
+      </Dialog>
     </>
   );
 }

@@ -1,12 +1,12 @@
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { X } from 'lucide-react';
 
-import { Button } from '../ui/Button';
-import { Dialog as RdxDialog } from '../ui/Dialog';
+import { Button } from '@/view/components/ui/Button';
+import { Dialog as RdxDialog } from '@/view/components/ui/Dialog';
 
 type ToHide = ('title' | 'description')[];
 
-interface DialogTemplateProps {
+interface DialogProps {
   children: React.ReactNode;
   title: string;
   description: string;
@@ -18,7 +18,7 @@ interface DialogTemplateProps {
   onClose?: () => void;
 }
 
-export function DialogTemplate({
+export function Dialog({
   children,
   title,
   description,
@@ -28,7 +28,7 @@ export function DialogTemplate({
   toHide,
   onSubmit,
   onClose,
-}: DialogTemplateProps) {
+}: DialogProps) {
   return (
     <RdxDialog.Root open={isOpen} onOpenChange={(open) => !open && onClose?.()}>
       <RdxDialog.Portal>

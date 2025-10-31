@@ -1,9 +1,9 @@
 import { X } from 'lucide-react';
 
-import { AlertDialog } from '../ui/AlertDialog';
-import { Button } from '../ui/Button';
+import { AlertDialog as RdxAlertDialog } from '@/view/components/ui/AlertDialog';
+import { Button } from '@/view/components/ui/Button';
 
-interface TemplateAlertDialogProps {
+interface AlertDialogProps {
   children?: React.ReactNode;
   title: string;
   description: string;
@@ -14,7 +14,7 @@ interface TemplateAlertDialogProps {
   isSubmitting: boolean;
 }
 
-export function TemplateAlertDialog({
+export function AlertDialog({
   children,
   title,
   description,
@@ -23,24 +23,24 @@ export function TemplateAlertDialog({
   onClose,
   onSubmit,
   isSubmitting,
-}: TemplateAlertDialogProps) {
+}: AlertDialogProps) {
   return (
-    <AlertDialog.Root
+    <RdxAlertDialog.Root
       open={isOpen}
       onOpenChange={(open) => !open && onClose?.()}
     >
-      <AlertDialog.Portal>
-        <AlertDialog.Overlay />
+      <RdxAlertDialog.Portal>
+        <RdxAlertDialog.Overlay />
 
-        <AlertDialog.Content className="data-[state=open]:animate-alert-dialog-content-open data-[state=closed]:animate-alert-dialog-content-close">
+        <RdxAlertDialog.Content className="data-[state=open]:animate-alert-dialog-open data-[state=closed]:animate-alert-dialog-close">
           <div className="flex h-full flex-col gap-6">
             <header className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <AlertDialog.Title className="text-red-400">
+                <RdxAlertDialog.Title className="text-red-400">
                   {title}
-                </AlertDialog.Title>
+                </RdxAlertDialog.Title>
 
-                <AlertDialog.Cancel asChild>
+                <RdxAlertDialog.Cancel asChild>
                   <button
                     aria-label="Fechar"
                     type="button"
@@ -51,16 +51,18 @@ export function TemplateAlertDialog({
                       className="size-5 text-zinc-600 transition-colors duration-300 ease-linear hover:text-zinc-700"
                     />
                   </button>
-                </AlertDialog.Cancel>
+                </RdxAlertDialog.Cancel>
               </div>
 
-              <AlertDialog.Description>{description}</AlertDialog.Description>
+              <RdxAlertDialog.Description>
+                {description}
+              </RdxAlertDialog.Description>
             </header>
 
             {children && children}
 
             <div className="flex items-center gap-3">
-              <AlertDialog.Cancel asChild>
+              <RdxAlertDialog.Cancel asChild>
                 <Button
                   aria-label="Fechar"
                   type="button"
@@ -70,7 +72,7 @@ export function TemplateAlertDialog({
                 >
                   Cancelar
                 </Button>
-              </AlertDialog.Cancel>
+              </RdxAlertDialog.Cancel>
               <Button
                 aria-disabled={isSubmitting}
                 type="button"
@@ -84,8 +86,8 @@ export function TemplateAlertDialog({
               </Button>
             </div>
           </div>
-        </AlertDialog.Content>
-      </AlertDialog.Portal>
-    </AlertDialog.Root>
+        </RdxAlertDialog.Content>
+      </RdxAlertDialog.Portal>
+    </RdxAlertDialog.Root>
   );
 }

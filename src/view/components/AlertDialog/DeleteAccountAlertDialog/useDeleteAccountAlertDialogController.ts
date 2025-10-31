@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDeleteAccountMutation } from '@/app/hooks/mutations/useDeleteAccountMutation';
 
-export function useDeleteAccountDialogController() {
+export function useDeleteAccountAlertDialogController() {
   const [isDeleteAccountDialogOpen, setisDeleteAccountDialogOpen] =
     useState(false);
 

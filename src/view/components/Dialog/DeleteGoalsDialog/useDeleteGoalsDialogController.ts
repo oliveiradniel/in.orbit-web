@@ -3,19 +3,7 @@ import type { CheckedState } from '@radix-ui/react-checkbox';
 import { useState } from 'react';
 import { useGoalContext } from '@/app/contexts/GoalContext/useGoalContext';
 
-export interface GoalData {
-  id: string;
-  title: string;
-}
-
-export interface DeleteGoalsDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  selectedGoals: GoalData[];
-  isDeleteButtonDisabled: boolean;
-  toggleCheckboxGoalId: (isChecked: CheckedState, goalData: GoalData) => void;
-  onOpenNewGoalDialog: () => void;
-}
+import type { GoalData } from '../types';
 
 export function useDeleteGoalsDialogController() {
   const { activeGoals, hasActiveGoals, totalActiveGoals } = useGoalContext();

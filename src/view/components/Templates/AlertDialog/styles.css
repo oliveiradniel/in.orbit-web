@@ -1,9 +1,9 @@
 /* biome-ignore lint/suspicious/noUnknownAtRules: off */
 @theme {
-  --animate-alert-dialog-content-open: alert-dialog-content-open 0.2s linear;
-  --animate-alert-dialog-content-close: alert-dialog-content-close 0.2s linear;
+  --animate-alert-dialog-open: alert-dialog-open 0.2s linear;
+  --animate-alert-dialog-close: alert-dialog-close 0.2s linear;
 
-  @keyframes alert-dialog-content-open {
+  @keyframes alert-dialog-open {
     from {
       opacity: 0;
       transform: scale(0.7);
@@ -14,7 +14,7 @@
     }
   }
 
-  @keyframes alert-dialog-content-close {
+  @keyframes alert-dialog-close {
     from {
       opacity: 1;
       transform: scale(1);

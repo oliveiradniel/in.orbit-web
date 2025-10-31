@@ -1,17 +1,14 @@
 import { Plus, Trash2 } from 'lucide-react';
 
-import { DeleteGoalsAlertDialog } from '../DeleteGoalsAlertDialog';
+import { DeleteGoals } from '@/view/components/AlertDialog/DeleteGoalsAlertDialog';
 
-import { useDeleteGoalsAlertDialogController } from '../DeleteGoalsAlertDialog/useDeleteGoalsAlertDialogController';
+import { Dialog } from '@/view/components/Templates/Dialog';
+import { Button } from '@/view/components/ui/Button';
+import { CheckboxIndicator, CheckboxItem } from '@/view/components/ui/Checkbox';
 
-import { DialogTemplate } from '../TemplateDialog';
-import { Button } from '../ui/Button';
-import { CheckboxIndicator, CheckboxItem } from '../ui/Checkbox';
+import type { DeleteGoalsDialogProps } from '../types';
 
-import {
-  type DeleteGoalsDialogProps,
-  useDeleteGoalsDialogController,
-} from './useDeleteGoalsDialogController';
+import { useDeleteGoalsDialogController } from './useDeleteGoalsDialogController';
 
 export function DeleteGoalsDialog({
   isOpen,
@@ -28,17 +25,17 @@ export function DeleteGoalsDialog({
     isDeleteGoalsAlertDialogOpen,
     handleOpenDeleteGoalAlert,
     handleCloseDeleteGoalAlert,
-  } = useDeleteGoalsAlertDialogController();
+  } = DeleteGoals.useController();
 
   return (
     <>
-      <DeleteGoalsAlertDialog
+      <DeleteGoals.AlertDialog
         isOpen={isDeleteGoalsAlertDialogOpen}
         selectedGoals={selectedGoals}
         onClose={handleCloseDeleteGoalAlert}
       />
 
-      <DialogTemplate
+      <Dialog
         hasAction={false}
         title="Gerencie suas metas"
         description="Exclua metas que não fazem mais sentido pra você"
@@ -100,7 +97,7 @@ export function DeleteGoalsDialog({
             </Button>
           </div>
         )}
-      </DialogTemplate>
+      </Dialog>
     </>
   );
 }

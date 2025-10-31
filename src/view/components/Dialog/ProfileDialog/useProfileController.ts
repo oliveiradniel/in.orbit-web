@@ -1,24 +1,11 @@
 import { useState } from 'react';
 
-import type { UserResponse } from '@/@types/UserResponse';
-
 import { useLogoutMutation } from '@/app/hooks/mutations/useLogoutMutation';
 import { useGetAllGoalsQuery } from '@/app/hooks/queries/useGetAllGoalsQuery';
 import { useGetGoalsCompletedCountQuery } from '@/app/hooks/queries/useGetGoalsCompletedCountQuery';
 import { useGetUserLevelAndExperienceQuery } from '@/app/hooks/queries/useGetUserLevelAndExperienceQuery';
 
-export interface GoalData {
-  id: string;
-  title: string;
-}
-
-export interface ProfileDialogProps {
-  userData: UserResponse;
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export function useProfileDialogController() {
+export function useProfileController() {
   const [isProfileDialogOpen, setIsProfileDialogOpen] = useState(false);
 
   function handleOpenProfileDialog() {

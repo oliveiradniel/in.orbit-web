@@ -1,13 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useQueryClient } from '@tanstack/react-query';
-
 import { useSearch } from '@tanstack/react-router';
 
 import { AxiosError } from 'axios';
 
 import { useId, useState } from 'react';
-
 import { type Resolver, useForm } from 'react-hook-form';
 
 import { useCreateGoalMutation } from '@/app/hooks/mutations/useCreateGoalMutation';
@@ -21,7 +19,7 @@ import { errorLabels } from '@/config/constants';
 
 import { invalidateQueries } from '@/utils/invalidateQueries';
 
-import { toast } from '../ui/Toast';
+import { toast } from '@/view/components/ui/Toast';
 
 export function useNewGoalDialogController() {
   const { weekStartsAt } = useSearch({ from: '/' });

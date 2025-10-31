@@ -1,16 +1,9 @@
 import { GoalContext } from '@/app/contexts/GoalContext';
 import { GoalProvider } from '@/app/contexts/GoalContext/GoalProvider';
-
-import { DeleteGoalsDialog } from '@/view/components/DeleteGoalsDialog';
-
-import { useDeleteGoalsDialogController } from '@/view/components/DeleteGoalsDialog/useDeleteGoalsDialogController';
-
+import { DeleteGoals } from '@/view/components/Dialog/DeleteGoalsDialog';
+import { NewGoal } from '@/view/components/Dialog/NewGoalDialog';
 import { EmptyGoals } from '@/view/components/EmptyGoals';
 import { LoadingGoals } from '@/view/components/LoadingGoals';
-import { NewGoalDialog } from '@/view/components/NewGoalDialog';
-
-import { useNewGoalDialogController } from '@/view/components/NewGoalDialog/useNewGoalDialogController';
-
 import { WeeklySummary } from '@/view/components/WeeklySummary';
 import { ErrorGoals } from '../components/ErrorGoals';
 
@@ -19,7 +12,7 @@ export function Dashboard() {
     isNewGoalDialogOpen,
     handleOpenNewGoalDialog,
     handleCloseNewGoalDialog,
-  } = useNewGoalDialogController();
+  } = NewGoal.useController();
 
   const {
     isDeleteGoalsDialogOpen,
@@ -28,7 +21,7 @@ export function Dashboard() {
     toggleCheckboxGoalId,
     handleOpenDeleteGoalsDialog,
     handleCloseDeleteGoalsDialog,
-  } = useDeleteGoalsDialogController();
+  } = DeleteGoals.useController();
 
   return (
     <GoalProvider>
@@ -40,12 +33,12 @@ export function Dashboard() {
           hasErrorAllGoals,
         }) => (
           <>
-            <NewGoalDialog
+            <NewGoal.Dialog
               isOpen={isNewGoalDialogOpen}
               onClose={handleCloseNewGoalDialog}
             />
 
-            <DeleteGoalsDialog
+            <DeleteGoals.Dialog
               isOpen={isDeleteGoalsDialogOpen}
               onClose={handleCloseDeleteGoalsDialog}
               selectedGoals={selectedGoalsData}

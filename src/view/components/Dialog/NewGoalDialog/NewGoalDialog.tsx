@@ -1,5 +1,6 @@
 import { Controller } from 'react-hook-form';
 
+import { Dialog } from '@/view/components/Templates/Dialog';
 import { Input } from '@/view/components/ui/Input';
 import { Label } from '@/view/components/ui/Label';
 import {
@@ -7,16 +8,11 @@ import {
   RadioGroupIndicator,
   RadioGroupItem,
 } from '@/view/components/ui/RadioGroup';
-import { DialogTemplate } from '../TemplateDialog';
+
+import type { NewGoalDialogProps } from '../types';
 
 import { useNewGoalDialogController } from './useNewGoalDialogController';
-
 import { weeklyFrequencyOptions } from './weeklyFrequencyOptions';
-
-interface NewGoalDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
 export function NewGoalDialog({ isOpen, onClose }: NewGoalDialogProps) {
   const {
@@ -31,7 +27,7 @@ export function NewGoalDialog({ isOpen, onClose }: NewGoalDialogProps) {
   } = useNewGoalDialogController();
 
   return (
-    <DialogTemplate
+    <Dialog
       hasAction
       isSubmitting={isCreationGoal}
       isOpen={isOpen}
@@ -82,6 +78,6 @@ export function NewGoalDialog({ isOpen, onClose }: NewGoalDialogProps) {
           />
         </div>
       </div>
-    </DialogTemplate>
+    </Dialog>
   );
 }

@@ -1,14 +1,8 @@
-import type { GoalData } from '../DeleteGoalsDialog/useDeleteGoalsDialogController';
+import { AlertDialog } from '@/view/components/Templates/AlertDialog';
 
-import { TemplateAlertDialog } from '../TemplateAlertDialog';
+import type { DeleteGoalsAlertDialogProps } from '../types';
 
 import { useDeleteGoalsAlertDialogController } from './useDeleteGoalsAlertDialogController';
-
-interface DeleteGoalsAlertDialogProps {
-  isOpen: boolean;
-  selectedGoals: GoalData[];
-  onClose: () => void;
-}
 
 export function DeleteGoalsAlertDialog({
   isOpen,
@@ -19,7 +13,7 @@ export function DeleteGoalsAlertDialog({
     useDeleteGoalsAlertDialogController(selectedGoals, onClose);
 
   return (
-    <TemplateAlertDialog
+    <AlertDialog
       title="Excluir meta(s)?"
       description="Essa ação não poderá ser desfeita."
       isSubmitting={isDeletingGoals}
@@ -36,6 +30,6 @@ export function DeleteGoalsAlertDialog({
           </li>
         ))}
       </ul>
-    </TemplateAlertDialog>
+    </AlertDialog>
   );
 }
