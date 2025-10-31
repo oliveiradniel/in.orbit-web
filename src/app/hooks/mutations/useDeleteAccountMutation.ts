@@ -19,13 +19,13 @@ export function useDeleteAccountMutation() {
       navigate({ to: '/login' });
 
       toast({
-        description: 'Conta excluída com sucesso.',
-        type: 'success',
+        description: 'Conta excluída com sucesso!',
+        type: 'successfulDelete',
       });
     },
     onError: () => {
       toast({
-        description: 'Não foi possível excluir sua conta.',
+        description: 'Não foi possível excluir sua conta!',
         type: 'error',
       });
     },

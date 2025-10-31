@@ -39,7 +39,7 @@ export function ProfileDialog({
     if (hasErrorGoalsCompletedCount && !isLoggingOutParsed) {
       toast({
         description:
-          'Não foi possível buscar a quantidade total de metas completadas.',
+          'Não foi possível buscar a quantidade total de metas concluídas!',
         type: 'error',
       });
     }

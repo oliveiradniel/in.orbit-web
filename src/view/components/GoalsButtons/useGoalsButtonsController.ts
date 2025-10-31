@@ -1,5 +1,3 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { useSearch } from '@tanstack/react-router';
 import { useState } from 'react';
 
 import type { TypeFilter } from '@/app/contexts/GoalContext/GoalProvider';
@@ -8,14 +6,9 @@ import { useGoalContext } from '@/app/contexts/GoalContext/useGoalContext';
 import { useCreateGoalCompletedMutation } from '@/app/hooks/mutations/useCreateGoalCompletedMutation';
 import { useGetWeeklyGoalsWithCompletionCountQuery } from '@/app/hooks/queries/useGetWeeklyGoalsWithCompletionCountQuery';
 import { useGetWeeklySummaryOfCompletedGoalsQuery } from '@/app/hooks/queries/useGetWeeklySummaryOfCompletedGoalsQuery';
-
-import { invalidateQueries } from '@/utils/invalidateQueries';
+import { useGetAllGoalsQuery } from '@/app/hooks/queries/useGetAllGoalsQuery';
 
 export function useGoalsButtonsController(typeFilter: TypeFilter) {
-  const queryClient = useQueryClient();
-
-  const { weekStartsAt } = useSearch({ from: '/' });
-
   const {
     weeklyGoalsWithCompletionCount,
     isLoadingWeeklyGoals,
@@ -29,22 +22,16 @@ export function useGoalsButtonsController(typeFilter: TypeFilter) {
   const { createGoalCompleted, isCreatingGoalCompleted } =
     useCreateGoalCompletedMutation();
 
+  const { goals } = useGetAllGoalsQuery();
+
   const [updatingGoalId, setUpdatingGoalId] = useState<string | null>(null);
 
-  async function handleCreateGoalCompleted(goalId: string) {
+  function handleCreateGoalCompleted(goalId: string) {
     setUpdatingGoalId(goalId);
 
-    await createGoalCompleted(goalId);
+    const goalTitle = goals.find((goal) => goal.id === goalId)?.title;
 
-    invalidateQueries({
-      queryClient,
-      keys: [
-        ['weeklySummary', weekStartsAt],
-        ['weeklyGoals'],
-        ['userLevel'],
-        ['totalQuantityOfGoalsCompleted'],
-      ],
-    });
+    createGoalCompleted({ goalId, goalTitle });
   }
 
   const { selectedGoalStatusFilter } = useGoalContext();

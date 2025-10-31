@@ -15,8 +15,18 @@ export function useCreateGoalCompletedMutation() {
   const goalCompletedService = makeGoalCompletedService();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (goalId: string) => goalCompletedService.create(goalId),
-    onSuccess: () => {
+    mutationFn: async ({
+      goalId,
+      goalTitle,
+    }: {
+      goalId: string;
+      goalTitle: string | undefined;
+    }) => {
+      await goalCompletedService.create(goalId);
+
+      return goalTitle;
+    },
+    onSuccess: (goalTitle) => {
       invalidateQueries({
         queryClient,
         keys: [
@@ -26,10 +36,15 @@ export function useCreateGoalCompletedMutation() {
           ['totalQuantityOfGoalsCompleted'],
         ],
       });
-    },
-    onError: () => {
+
       toast({
-        description: 'Não foi possível completar a meta.',
+        description: `A meta "${goalTitle}" foi concluída!`,
+        type: 'success',
+      });
+    },
+    onError: (goalTitle) => {
+      toast({
+        description: `Não foi possível completar a meta "${goalTitle}"!`,
         type: 'error',
       });
     },

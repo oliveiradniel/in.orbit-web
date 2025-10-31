@@ -33,7 +33,7 @@ export function ErrorGoals() {
       />
 
       <p className="max-w-80 text-center leading-relaxed text-zinc-300">
-        Não foi possível buscar suas metas. Tente novamente mais tarde.
+        Não foi possível buscar suas metas. Tente novamente.
       </p>
 
       <div className="flex items-center gap-2">

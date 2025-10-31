@@ -11,7 +11,7 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <App />
 
-      <Toaster duration={3000} position="top-left" />
+      <Toaster duration={3000} position="top-center" />
     </StrictMode>
   );
 }

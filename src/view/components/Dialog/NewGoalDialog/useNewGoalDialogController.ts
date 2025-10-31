@@ -68,7 +68,7 @@ export function useNewGoalDialogController() {
 
       reset();
       toast({
-        description: 'Meta criada com sucesso.',
+        description: `A meta "${data.title}" foi criada!`,
         type: 'success',
       });
     } catch (error) {
@@ -83,7 +83,7 @@ export function useNewGoalDialogController() {
       }
 
       toast({
-        description: 'Não possível criar a meta. Tente novamente mais tarde',
+        description: `Não foi possível criar a meta "${data.title}"!`,
         type: 'error',
       });
     }

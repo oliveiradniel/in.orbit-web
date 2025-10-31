@@ -48,11 +48,15 @@ export function useDeleteGoalsAlertDialogController(
         ],
       });
 
+      toast({
+        description: `${selectedGoals.length} meta${selectedGoals.length === 1 ? '' : 's'} ${selectedGoals.length === 1 ? 'foi excluída!' : 'foram excluídas!'}`,
+        type: 'successfulDelete',
+      });
+
       onClose?.();
     } catch {
       toast({
-        description:
-          'Não possível excluir a(s) meta(s). Tente novamente mais tarde.',
+        description: `Não possível excluir a meta${selectedGoals.length === 1 ? '' : 's'}!`,
         type: 'error',
       });
     }
