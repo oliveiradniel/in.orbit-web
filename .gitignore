@@ -27,7 +27,7 @@ dist-ssr
 *.sw?
 
 # Docker
-/docker/Dockerfile.prod
+# /docker/Dockerfile.prod
 /docker-compose.prod.yml
 
 #Nginx
