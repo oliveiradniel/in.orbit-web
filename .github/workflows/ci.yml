@@ -1,4 +1,4 @@
-name: inOrbit CI WEB
+name: inOrbit CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   ci:
-    name: Run CI for WEB
+    name: Run CI
     runs-on: ubuntu-latest
 
     steps:
