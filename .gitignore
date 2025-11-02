@@ -31,4 +31,4 @@ dist-ssr
 /docker-compose.prod.yml
 
 #Nginx
-/nginx-static.conf
+# /nginx-static.conf
