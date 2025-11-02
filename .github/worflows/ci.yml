@@ -1,0 +1,27 @@
+name: inOrbit CI WEB
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  ci:
+    name: Run CI for WEB
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'yarn'
+
+      - name: Install dependencies (frozen lockfile)
+        run: yarn install --frozen-lockfile
+
+      - name: Type checking
+        run: yarn typecheck
